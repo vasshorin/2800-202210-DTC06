@@ -1,0 +1,26 @@
+<nav class="navbar sticky-top navbar-dark bg-dark">
+
+    <!-- go back button -->
+    <button type="button" formaction="#" class="btn nav-btn text-light" id="goBackButton" onclick="goBack()">
+        <i class="bi bi-arrow-left icon-white" style="font-size: 25px;"></i>
+    </button>
+    
+    <!-- logo -->
+    <img src="../images/logo.png" alt="" style="height: 50px;">
+
+    <!-- hamburger menu -->
+    <div class="btn-group">
+        <button type="button" class="btn nav-btn text-light" data-bs-toggle="dropdown">
+            <i class="bi bi-list" style="font-size: 25px;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" style="font-size: 25px;">
+            <li><a href="#" class="dropdown-item">Profile</a></li>
+            <li><a href="#" class="dropdown-item">My Posts</a></li>
+            <li><a href="#" class="dropdown-item">Setting</a></li>
+            <li><a href="#" class="dropdown-item">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- JavaScript functions -->
+    <script src="../scripts/topNav.js"></script>
+</nav>
