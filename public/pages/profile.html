@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP2800 DTC-06 Template Page</title>
+
+    <!-- Bootstrap Library CSS JS CDN -->
+    <!-- https://github.com/twbs/bootstrap/blob/v5.0.2/LICENSE
+    The MIT License (MIT)
+
+    Copyright (c) 2011-2021 Twitter, Inc.
+    Copyright (c) 2011-2021 The Bootstrap Authors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <!-- Other libraries and styles -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/profile.js"></script>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+    <!-- HTML Layout -->
+
+    <!-- top navbar -->
+    <nav id="topNavPlaceHolder"></nav>
+
+    <!-- body of the page -->
+    <div class=" d-flex flex-column align-items-center">
+        <!-- title of the page -->
+        <h1 class="my-3">Your Profile</h1>
+
+        <!-- profile picture place holder, use js to update the image when db is connected -->
+        <div id="profilePicture" class="my-2">
+            <i class="bi bi-person-circle" style="font-size: 150px;"></i>
+        </div>
+
+        <!-- form for profile fields -->
+        <form>
+            <fieldset id="personalInfoFields">
+
+                <!-- name -->
+                <div class="form-group my-3">
+                    <label>First Name</label>
+                    <input type="text" id="firstNameInput" class="form-control" placeholder="Enter your First Name">
+                </div>
+                <div class="form-group my-3">
+                    <label>Last Name</label>
+                    <input type="text" id="lastNameInput" class="form-control" placeholder="Enter your Last Name">
+                </div>
+
+                <!-- gender -->
+                <div class="form-group my-3">
+                    <label>Gender</label>
+                    <select id="genderInput" class="form-select">
+                        <option>Select your Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="transgender">Transgender</option>
+                        <option value="preferNotToSay">Prefer not to say</option>
+                    </select>
+                </div>
+
+                <!-- age -->
+                <div class="form-group my-3">
+                    <label>Are you 16 years old or above?</label>
+                    <div class="form-check">
+                        <input type="radio" id="aboveAge" class="form-check-input" name="ageInput">
+                        <label for="aboveAge" class="form-check-label">16 or above</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="belowAge" class="form-check-input" name="ageInput">
+                        <label for="belowAge" class="form-check-label">Below 16</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="preferNotToSayAge" class="form-check-input" name="ageInput">
+                        <label for="preferNotToSayAge" class="form-check-label">Prefer not to say</label>
+                    </div>
+                </div>
+
+                <!-- E-mail -->
+                <div class="form-group my-3">
+                    <label>E-mail</label>
+                    <input type="text" id="emailInput" class="form-control" placeholder="Enter your E-mail">
+                </div>
+
+                <!-- city and province -->
+                <div class="form-group my-3">
+                    <label>City of Residence</label>
+                    <input type="text" id="cityInput" class="form-control" placeholder="Enter your City of Residence">
+                </div>
+                <div class="form-group my-3">
+                    <label>Province of Residence</label>
+                    <input type="text" id="cityInput" class="form-control"
+                        placeholder="Enter your Province of Residence">
+                </div>
+
+                <!-- language -->
+                <div class="form-group my-3">
+                    <label>Language</label>
+                    <!-- Selection list used below is from https://www.html-code-generator.com/html/drop-down/languages-name -->
+                    <select id="languageInput" class="form-select">
+                        <option selected>Select the Language that you prefer</option>
+                        <option value="english">English</option>
+                        <option value="french">French - français</option>
+                        <option value="russian">Russian - русский</option>
+                        <option value="ukrainian">Ukrainian - українська</option>
+                    </select>
+                </div>
+
+                <!-- place for uploading profile picture -->
+                <div class="form-group my-3">
+                    <label>Upload your profile picture:</label>
+                    <br>
+                    <input type="file" id="uploadButton" />
+                </div>
+            </fieldset>
+
+            <!-- edit and save buttons -->
+            <div class="my-5 d-flex justify-content-center">
+                <button type="button" class="btn bg-secondary text-light my-3 me-5">Edit</button>
+                <button type="button" class="btn bg-dark text-light my-3 ms-5">Save</button>
+        </form>
+    </div>
+
+    <!-- footer -->
+    <nav id="footerPlaceHolder"></nav>
+
+    <!-- bottom navbar -->
+    <nav id="bottomNavPlaceHolder"></nav>
+
+</body>
+
+</html>
