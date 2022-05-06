@@ -4,7 +4,7 @@
 ## About The Project
 
 
-This project will...
+This project will help the refugees that are coming to Canada.
 
 Here's why you want to check this out:
 * You should
