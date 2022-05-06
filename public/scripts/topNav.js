@@ -4,9 +4,9 @@ function goBack() {
 }
 
 // call the functions
-function setup(){
-    goBack();
-}
+// function setup(){
+//     goBack();
+// }
 
 // call the setup function when page is ready
-$(document).ready(setup);
+// $(document).ready(setup);
