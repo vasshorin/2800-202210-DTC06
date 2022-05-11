@@ -1,31 +1,61 @@
 /* Main Div is under grid display  */
-.bodyContentForSubCommunity{
+/* 2x2 */
+.mainGrid{
     display: grid;
-    flex-direction: column;
-    justify-content: center;
+    /* max-width: 50rem; */
+    justify-items: center;
     align-items: center;
     margin-top: 1rem;
+    row-gap: 1rem;
+    column-gap: 2rem;
+    grid-template-areas: "left-side right-side"
+                         ". bot-right"
+                         "bot-left .";
 }
 
-/* Child */
+/* Card holds left */
 .card{
-    border: 2px coral solid;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-/* Title change */
-.card-title{
-    text-align: center;
-}
-
-.card-img-bottom{
-    flex-basis: 100%;
+    grid-area: left-side;
+    justify-self: center;
     max-width: 100%;
 }
 
-/* To change size of individual cards */
-/* .card-body{
-    width: 100vh;
-} */
+.card-image-box{
+    border-radius: 5px;
+}
+
+/* Keep the text-box smaller */
+.card-text{
+    max-width: 500px;
+}
+
+/* Organizers */
+.top-right-side-box{
+    grid-area: right-side;
+    justify-self: start;
+    align-self: start;
+}
+
+/* bottom box class declaration */
+.bottom-left-box{
+    grid-area: bot-left;
+}
+
+.bottom-right-box{
+    grid-area: bot-right;
+    justify-self: start;
+    align-self: start;
+}
+
+
+
+
+
+@media screen and (max-width: 550px) {
+    .mainGrid{
+        grid-template-areas:"left-side"
+                            "right-side"
+                            "bot-right"
+                            "bot-left"
+    }
+}
