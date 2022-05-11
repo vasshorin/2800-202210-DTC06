@@ -1,14 +1,38 @@
 /* Form styling - baseline grid  */
-form {
+
+.mainGrid{
     display: grid;
-    padding: 2em;
+    justify-items: center !important;
+    align-items: center !important;
+    grid-template-areas: "form-allotment"
+                         "req-box";
+                        
+}
+
+form {
+    grid-area: column-start, form_allotment;
+    display: grid;
+    justify-content: center;
+    column-gap: 10px;
+    padding: 2rem;
     margin: 2rem auto 0 auto;
     max-width: 500px;
-    background-color: #fff;
+    background-color: #ffff;
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
 }
+
+#message {
+    grid-area: req-box;
+    justify-content: center;
+    background: white;
+    color: #000;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+  
 .header{
     text-align: center;
 }
@@ -19,17 +43,9 @@ form {
     justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 1em;
+    column-gap: 1rem;
 }
-.submit-btn{
-    background-color: #6c757d;
-    color: white;
-}
-/* Input border */
-input{
-    max-width: 100%;
-    border-radius: 5px;
-    border: 0.5px gray solid;
-}
+
 /* highlights the input field. */
 input:focus {
     outline: 2px solid #FFB703;
@@ -40,3 +56,56 @@ background: #FFB703;
 }
 
 
+/* Styling for sign_up css */
+
+/* Input border */
+/* Style all input fields */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #6c757d;
+  color: white;
+}
+
+
+/* The message box is shown when the user clicks on the password field */
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Validator colors */
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+  content : '✓';
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content : '✓';
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+  color: red;
+  content: '✖';
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: '✖';
+  color: red;
+}
