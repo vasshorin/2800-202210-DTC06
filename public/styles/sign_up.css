@@ -20,11 +20,15 @@ form {
     flex-wrap: wrap;
     margin-bottom: 1em;
 }
+.submit-btn{
+    background-color: #6c757d;
+    color: white;
+}
 /* Input border */
 input{
     max-width: 100%;
     border-radius: 5px;
-    border: 2px solid #8ECAE6;
+    border: 0.5px gray solid;
 }
 /* highlights the input field. */
 input:focus {
@@ -34,4 +38,5 @@ input:focus {
 form .submit-btn:hover {
 background: #FFB703;
 }
+
 
