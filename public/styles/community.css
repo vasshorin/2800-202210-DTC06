@@ -1,12 +1,26 @@
-
+/* Main Div is under grid display  */
 .bodyContent{
     display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
 
+/* Child */
 .card{
+    display: grid;
     border: 2px coral solid;
-    
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
+/* Title change */
+.card-title{
+    text-align: center;
+}
 
-
+/* To change size of individual cards */
+/* .card-body{
+    width: 100vh;
+} */

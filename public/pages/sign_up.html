@@ -16,7 +16,9 @@
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- stylesheet css -->
     <link rel="stylesheet" href="../styles/sign_up.css">
+
 </head>
 
 <body>
@@ -26,38 +28,66 @@
     <nav id="topNavPlaceHolder"></nav>
     <div class="header">
         <h1>Sign up Here</h1>
-        <span> Already have an account?</span>
+        <span> Already have an account? <a href="#">Login here</a></span>
     </div>
     <!-- body of the page -->
-    <form class="initial_form">
-        <article class="form-row-one">
-            <div class="fname-box">
-                <label for="first-name">First Name</label><br>
-                <input id="f-name" type="text" placeholder="John">
-            </div>
-            <div class="lname-box">
-                <label for="last-name">Last Name</label><br>
-                <input id="l-name" type="text" placeholder="Snow">
-            </div>
-        </article>
-        <article class="form-row-one"> 
-            <div>
-                <span for="age" type="age">Age</span><br>
-                <input id="user-email" placeholder="50">
-            </div>
-            <div class="email-box">
-                <span for="email" type="email">Email</span><br>
-                <input id="user-email" placeholder="john@snow.com">
-            </div>
-        </article>
-        <article class="form-row-one"> 
-            <div class="pw-box">
-                <span for="email" type="email">Password</span><br>
-                <input id="user-email" placeholder="Password">
-            </div>
-        </article>
-        <input class="submit-btn" type="submit" value="Submit">
-    </form>
+    <div class="mainGrid">
+        <form class="initial_form">
+            <article class="form-row-one">
+                <div class="fname-box">
+                    <label for="first-name">First Name</label><br>
+                    <input id="f-name" type="text" placeholder="John">
+                </div>
+                <div class="lname-box">
+                    <label for="last-name">Last Name</label><br>
+                    <input id="l-name" type="text" placeholder="Snow">
+                </div>
+            </article>
+            <article class="form-row-one"> 
+                <div>
+                    <span for="age" type="age">Age</span><br>
+                    <input id="user-email" placeholder="50">
+                </div>
+                <div class="email-box">
+                    <span for="email" type="email">Email</span><br>
+                    <input id="user-email" placeholder="john@snow.com">
+                </div>
+            </article>
+            <article class="message form-row-one"> 
+                <div class="username-container">
+                    <span for="usrname">Username</span><br>
+                    <input type="text" id="usrname" name="usrname" placeholder="JohnSnow1000">
+                </div>
+                <div class="password-container">              
+                    <span for="psw">Password</span><br>
+                    <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" onclick="passwordTrigger()" required placeholder="Password">
+                </div>
+            </article>
+            <article class="form-row-one">
+                <div class="location-box">
+                    <span for="email" type="email">Location</span><br>
+                    <input id="user-location" placeholder="Area">
+                </div>
+            </article>
+            <div class="form-check d-flex justify-content-center mb-5">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                <label class="form-check-label" for="form2Example3">
+                  I'm ready to give all the all my information. <need!>
+                  <br><a href="#!">Terms of service</a>
+                </label>
+              </div>
+            <input class="submit-btn" type="submit" value="Submit">
+        </form>
+    
+        <div id="messageToDisplay">
+            <h4>Password must have the following:</h4>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
+    </div>
+
 
     <!-- footer -->
     <nav id="footerPlaceHolder"></nav>
@@ -66,6 +96,7 @@
     <nav id="bottomNavPlaceHolder"></nav>
     <!-- JavaScript functions -->
     <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/sign_up.js"></script>
 </body>
 
 </html>
