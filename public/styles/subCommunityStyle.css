@@ -1,0 +1,61 @@
+/* Main Div is under grid display  */
+/* 2x2 */
+.mainGrid{
+    display: grid;
+    /* max-width: 50rem; */
+    justify-items: center;
+    align-items: center;
+    margin-top: 1rem;
+    row-gap: 1rem;
+    column-gap: 2rem;
+    grid-template-areas: "left-side right-side"
+                         ". bot-right"
+                         "bot-left .";
+}
+
+/* Card holds left */
+.card{
+    grid-area: left-side;
+    justify-self: center;
+    max-width: 100%;
+}
+
+.card-image-box{
+    border-radius: 5px;
+}
+
+/* Keep the text-box smaller */
+.card-text{
+    max-width: 500px;
+}
+
+/* Organizers */
+.top-right-side-box{
+    grid-area: right-side;
+    justify-self: start;
+    align-self: start;
+}
+
+/* bottom box class declaration */
+.bottom-left-box{
+    grid-area: bot-left;
+}
+
+.bottom-right-box{
+    grid-area: bot-right;
+    justify-self: start;
+    align-self: start;
+}
+
+
+
+
+
+@media screen and (max-width: 550px) {
+    .mainGrid{
+        grid-template-areas:"left-side"
+                            "right-side"
+                            "bot-right"
+                            "bot-left"
+    }
+}
