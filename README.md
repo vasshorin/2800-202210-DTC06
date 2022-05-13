@@ -1,43 +1,29 @@
-# Team UCAN
+# 2800-202210-DTC06
 
-## 2800-202210-DTC06
-
-# Project Pitch
-
-UCAN is the application to help Ukraine Refugees that are relocating in Canada.
-
-## Hosted URL
-
-Click [here](url) to access our application.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
 
-## Usage
+This project will help the refugees that are coming to Canada.
 
-```
-TBD for proper Usage guide
-```
+Here's why you want to check this out:
+* You should be able to find a housing!
+* You just should
+* You :smile:
 
-## Our Team
+Of course, we need to write a better readme later but this wil 
 
-[Kai Oh](https://github.com/kaioh08),
-[Vasily Shorin](https://github.com/vasshorin),
-[Felix Lieu](https://github.com/mScrub),
-[Andy Lau](https://github.com/andyhplau)
+Use the `BLANK_README.md` to get started.
 
-
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 ### Built With
 
-* CSS/HTML
-* JavaScript/JSON
-* MongoDB
-* Heroku
-* Git
-* Bootstrap
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+* things
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
