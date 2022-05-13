@@ -3,11 +3,19 @@ const app = express()
 const https = require('https')
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose')
-const testSchema = new mongoose.Schema({
-    user: String,
-    text: String
+// const testSchema = new mongoose.Schema({
+//     user: String,
+//     text: String
+// });
+// const testModel = mongoose.model("tests", testSchema);
+const housingPostTest = new mongoose.Schema({
+    title: String,
+    description: String,
+    price: Number,
+    // time: String
 });
-const testModel = mongoose.model("tests", testSchema);
+
+const housingPostModel = mongoose.model("housingPosts", housingPostTest)
 
 app.set('view engine', 'ejs')
 
@@ -20,10 +28,19 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
     useUnifiedTopology: true
 });
 
-app.listen(process.env.PORT || 5000, (err) => {
+// mongoose.connect("mongodb://localhost:27017/timelineDB",
+//     { useNewUrlParser: true, useUnifiedTopology: true });
+
+app.listen(process.env.PORT || 5003, (err) => {
     if (err)
         console.log(err)
 })
+
+// app.listen(5003, function (err) {
+//     if (err)
+//         console.log(err);
+// })
+
 
 app.use(express.static('./public'))
 
@@ -32,9 +49,11 @@ app.use(express.static('./public'))
 // Create
 app.put('/test/create', function (req, res) {
     console.log(req.body)
-    testModel.create({
-        user: req.body.user,
-        text: req.body.text
+    housingPostModel.create({
+        'title': req.body.title,
+        'description': req.body.description,
+        'price': req.body.price
+        // time: req.body.time
     }, function (err, testData) {
         if (err) {
             console.log('Error' + err)
@@ -47,7 +66,7 @@ app.put('/test/create', function (req, res) {
 
 // Read
 app.get('/test/read', function (req, res) {
-    testModel.find({}, function (err, testData) {
+    housingPostModel.find({}, function (err, testData) {
         if (err) {
             console.log("Error" + err)
         } else {
@@ -58,13 +77,13 @@ app.get('/test/read', function (req, res) {
 })
 
 // Update
-app.put('/test/update', function (req, res) {
+app.put('/test/update/:id', function (req, res) {
     console.log(req.body)
-    testModel.updateOne({
-        _id: req.body.id
+    housingPostModel.updateOne({
+        '_id': req.body.id
     }, {
         $set: {
-            text: req.body.text
+            description: req.body.description
         }
     }, function (err, testData) {
         if (err) {
@@ -77,15 +96,26 @@ app.put('/test/update', function (req, res) {
 })
 
 // Delete
-app.get('/test/delete', function (req, res) {
-    testModel.remove({
-        _id: req.body.id,
-    }, function (err, testData) {
-        if (err) {
-            console.log("Error " + err);
-        } else {
-            console.log("Data " + testData);
-        }
-        res.send("Data deleted!");
+// app.put('/test/delete/:id', function (req, res) {
+//     housingPostModel.deleteOne({
+//        _id: req.body.id
+//     }, function (err, testData) {
+//         if (err) {
+//             console.log("Error " + err);
+//         } else {
+//             console.log("Data " + testData);
+//         }
+//         res.send("Data deleted!");
+//     });
+// });
+
+app.put('/test/delete/:id', function (req, res) {
+    housingPostModel.deleteOne({
+        id: req.params.id
+    }, function (err, data) {
+        if (err) console.log(err);
+        else
+            console.log(data);
+        res.send("All good! Deleted.")
     });
-});
+})
