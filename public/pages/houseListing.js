@@ -89,7 +89,7 @@ function setup() {
     console.log("setup")
     loadEventsToMainDiv()
 
-    $("#submit").on("click", submitForm)
+    $("body").on("click", "#submit", submitForm)
     $("body").on("click", ".deleteButtons", deleteEvent)
 }
 
