@@ -1,4 +1,4 @@
-# 2800-202210-DTC06
+# TEAM UCAN
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -6,24 +6,36 @@
 
 This project will help the refugees that are coming to Canada.
 
-Here's why you want to check this out:
-* You should be able to find a housing!
-* You just should
-* You :smile:
+## Hosted URL
 
-Of course, we need to write a better readme later but this wil 
+Click [here](https://warm-cove-79874.herokuapp.com/pages/index.html) to access our application.
 
-Use the `BLANK_README.md` to get started.
+## Usage
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+```
+TBD for proper Usage guide
+```
 
+## Our Team
+
+[Kai Oh](https://github.com/kaioh08),
+[Vasily Shorin](https://github.com/vasshorin),
+[Felix Lieu](https://github.com/mScrub),
+[Andy Lau](https://github.com/andyhplau)
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* things
+* CSS/HTML
+* JavaScript/JSON
+* MongoDB
+* Heroku
+* Git
+* Bootstrap
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
