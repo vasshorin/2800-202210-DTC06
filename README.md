@@ -1,4 +1,4 @@
-# 2800-202210-DTC06
+# TEAM UCAN
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
