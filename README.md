@@ -24,12 +24,6 @@ TBD for proper Usage guide
 [Andy Lau](https://github.com/andyhplau)
 
 
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
-
-
 ### Built With
 
 * CSS/HTML
@@ -40,4 +34,8 @@ TBD for proper Usage guide
 * Bootstrap
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
