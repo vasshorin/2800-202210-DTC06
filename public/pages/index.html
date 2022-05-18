@@ -43,181 +43,186 @@
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
     <link rel="stylesheet" href="../styles/index.css">
-    
+
 </head>
 
 <body>
     <!-- HTML Layout -->
 
-    <header>
+    <!-- top navbar -->
+    <div id="topNavPlaceHolder"></div>
 
-      <input type="checkbox" name="" id="toggler">
-      <label for="toggler" class="fas fa-bars"></label>
-  
-      <a href="/public/pages/index.html" class="logo">UCAN<span>.</span></a>
-  
-      <nav class="navbar">
-          <a href="#home">home</a>
-          <a href="#about">about</a>
-          <a href="#products">postings</a>
-          <a href="#contact">contact</a>
-      </nav>
-  
-      <div class="icons">
-          <a href="/public/pages/profile.html" class="fas fa-user"></a>
-      </div>
-  
-  </header>
+    <main>
+        <section class="home" id="home">
 
-    <section class="home" id="home">
+            <div class="content">
+                <h3>With UCAN</h3>
+                <span> House sharing & Job opportunity </span>
+                <p>We can help. Let us help. You can.</p>
+                <a href="/public/pages/newHouseListing.html" class="btn">post now</a>
+            </div>
 
-      <div class="content">
-          <h3>With UCAN</h3>
-          <span> House sharing & Job opportunity </span>
-          <p>We can help. Let us help. You can.</p>
-          <a href="/public/pages/newHouseListing.html" class="btn">post now</a>
-      </div>
-      
-  </section>
-  
-  <!-- about section start -->
-  <section class="about" id="about">
-  
-      <h1 class="heading"> What <span> UCAN </span> do </h1>
-  
-      <div class="row">
-          <div class="content">
-              <h3>why choose us?</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem cumque sit nemo pariatur corporis perspiciatis aspernatur a ullam repudiandae autem asperiores quibusdam omnis commodi alias repellat illum, unde optio temporibus.</p>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ea est commodi incidunt magni quia molestias perspiciatis, unde repudiandae quidem.</p>
-              <a href="#" class="btn">learn more</a> <!--add learn more page-->
-          </div>
-      </div>
-  
-  </section>
-  
-  
-  <section class="icons-container">
-  
-      <div class="icons">
-          <a href="/public/pages/house_listings.html"><img src="/public/images/icon-1.png" alt=""></a>
-          <div class="info">
-              <h3>House Sharing</h3>
-              <span>Becasue UCAN!</span>
-          </div>
-      </div>
-  
-      <div class="icons">
-          <img src="/public/images/icon-2.png" alt="">
-          <div class="info">
-              <h3>Job opportunity</h3>
-              <span>Share if you got job opening</span>
-          </div>
-      </div>
-  
-      <div class="icons">
-          <img src="/public/images/icon-3.png" alt="">
-          <div class="info">
-              <h3>Food Bank</h3>
-              <span>Becasue UCAN!</span>
-          </div>
-      </div>
-  
-      <div class="icons">
-      <a href="/public/pages/community.html"><img src="/public/images/icon-4.png" alt=""></a>
-          <div class="info">
-              <h3>Form a community</h3>
-              <span>Make it feel like home</span>
-          </div>
-      </div>
-     
-  </section>
-  
-  
-  <section>
-      <!-- here add the dynamic cards-->
-  </section>
-  
-  
-  <section class="community" id="community">
-  
-  <h1 class="heading"> Community in <span>UCAN</span> </h1>
-  
-  <div class="box-container">
-  
-      <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam praesentium enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit, aliquam nesciunt eaque nulla dignissimos.</p>
-          <div class="user">
-              <img src="" alt="">
-              <div class="user-info">
-                  <h3>Felix ABC</h3>
-                  <span>happy happy guy(location)</span>
-              </div>
-          </div>
-          <span class="fas fa-community-right"></span>
-      </div>
-  
-      <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam praesentium enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit, aliquam nesciunt eaque nulla dignissimos.</p>
-          <div class="user">
-              <img src="" alt="">
-              <div class="user-info">
-                  <h3>Andy DEF</h3>
-                  <span>happy guy(location)</span>
-              </div>
-          </div>
-          <span class="fas fa-community-right"></span>
-      </div>
-  
-      <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam praesentium enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit, aliquam nesciunt eaque nulla dignissimos.</p>
-          <div class="user">
-              <img src="" alt="">
-              <div class="user-info">
-                  <h3>Kai GHI</h3>
-                  <span>Sad guy (location ${user.location})</span>
-              </div>
-          </div>
-          <span class="fas fa-community-right"></span>
-      </div>
-  
-      <div class="box">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam praesentium enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit, aliquam nesciunt eaque nulla dignissimos.</p>
-          <div class="user">
-              <img src="" alt="">
-              <div class="user-info">
-                  <h3>Vasily JKL</h3>
-                  <span>Serious guy (location ${user.location})</span>
-              </div>
-          </div>
-          <span class="fas fa-community-right"></span>
-      </div>
-  
-  </div>
-      
-  </section>
-  
-  <!-- review section ends -->
-  
-  
-  <!-- footer section starts  -->
-  
-  <section class="footer">
-  
-      <div class="credit"> created by <span> DTC-06 </span> | all rights reserved </div>
-  
-  </section>
-  
+        </section>
+
+        <!-- about section start -->
+        <section class="about" id="about">
+
+            <h1 class="heading"> What <span> UCAN </span> do </h1>
+
+            <div class="row">
+                <div class="content">
+                    <h3>why choose us?</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem cumque sit nemo pariatur corporis
+                        perspiciatis aspernatur a ullam repudiandae autem asperiores quibusdam omnis commodi alias
+                        repellat
+                        illum, unde optio temporibus.</p>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ea est commodi incidunt
+                        magni
+                        quia molestias perspiciatis, unde repudiandae quidem.</p>
+                    <a href="#" class="btn">learn more</a>
+                    <!--add learn more page-->
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="icons-container">
+
+            <div class="icons">
+                <a href="/public/pages/house_listings.html"><img src="/public/images/icon-1.png" alt=""></a>
+                <div class="info">
+                    <h3>House Sharing</h3>
+                    <span>Becasue UCAN!</span>
+                </div>
+            </div>
+
+            <div class="icons">
+                <img src="/public/images/icon-2.png" alt="">
+                <div class="info">
+                    <h3>Job opportunity</h3>
+                    <span>Share if you got job opening</span>
+                </div>
+            </div>
+
+            <div class="icons">
+                <img src="/public/images/icon-3.png" alt="">
+                <div class="info">
+                    <h3>Food Bank</h3>
+                    <span>Becasue UCAN!</span>
+                </div>
+            </div>
+
+            <div class="icons">
+                <a href="/public/pages/community.html"><img src="/public/images/icon-4.png" alt=""></a>
+                <div class="info">
+                    <h3>Form a community</h3>
+                    <span>Make it feel like home</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section>
+            <!-- here add the dynamic cards-->
+        </section>
+
+
+        <section class="community" id="community">
+
+            <h1 class="heading"> Community in <span>UCAN</span> </h1>
+
+            <div class="box-container">
+
+                <div class="box">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam
+                        praesentium
+                        enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit,
+                        aliquam
+                        nesciunt eaque nulla dignissimos.</p>
+                    <div class="user">
+                        <img src="" alt="">
+                        <div class="user-info">
+                            <h3>Felix ABC</h3>
+                            <span>happy happy guy(location)</span>
+                        </div>
+                    </div>
+                    <span class="fas fa-community-right"></span>
+                </div>
+
+                <div class="box">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam
+                        praesentium
+                        enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit,
+                        aliquam
+                        nesciunt eaque nulla dignissimos.</p>
+                    <div class="user">
+                        <img src="" alt="">
+                        <div class="user-info">
+                            <h3>Andy DEF</h3>
+                            <span>happy guy(location)</span>
+                        </div>
+                    </div>
+                    <span class="fas fa-community-right"></span>
+                </div>
+
+                <div class="box">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam
+                        praesentium
+                        enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit,
+                        aliquam
+                        nesciunt eaque nulla dignissimos.</p>
+                    <div class="user">
+                        <img src="" alt="">
+                        <div class="user-info">
+                            <h3>Kai GHI</h3>
+                            <span>Sad guy (location ${user.location})</span>
+                        </div>
+                    </div>
+                    <span class="fas fa-community-right"></span>
+                </div>
+
+                <div class="box">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti asperiores laboriosam
+                        praesentium
+                        enim maiores? Ad repellat voluptates alias facere repudiandae dolor accusamus enim ut odit,
+                        aliquam
+                        nesciunt eaque nulla dignissimos.</p>
+                    <div class="user">
+                        <img src="" alt="">
+                        <div class="user-info">
+                            <h3>Vasily JKL</h3>
+                            <span>Serious guy (location ${user.location})</span>
+                        </div>
+                    </div>
+                    <span class="fas fa-community-right"></span>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+    <!-- review section ends -->
+
+
+    <!-- footer section starts  -->
+
+    <div class="footer">
+
+        <!-- <div class="credit"> created by <span> DTC-06 </span> | all rights reserved </div> -->
+
+    </div>
+
 
     <!-- footer -->
-    <nav id="footerPlaceHolder"></nav>
+    <!-- <nav id="footerPlaceHolder"></nav> -->
 
     <!-- bottom navbar -->
-    <nav id="bottomNavPlaceHolder"></nav>
+    <div id="bottomNavPlaceHolder"></div>
 
-    <!-- JavaScript functions -->
-    <script src="../scripts/skeleton.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 // load skeleton to pages
 function loadSkeleton() {
   console.log($("#topNavPlaceHolder").load("../skeletons/topNav.html"));
-  console.log($("#footerPlaceHolder").load("../skeletons/footer.html"));
+  console.log($(".footer").load("../skeletons/footer.html"));
   console.log($("#bottomNavPlaceHolder").load("../skeletons/bottomNav.html"));
 }
 

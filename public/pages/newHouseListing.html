@@ -40,41 +40,38 @@
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
     <link rel="stylesheet" href="../styles/newHouseListing.css">
-    <script src="houseListing.js"></script>
+    <script src="../scripts/houseListing.js"></script>
 </head>
 
 <body>
     <!-- HTML Layout -->
 
     <!-- top navbar -->
-    <nav id="topNavPlaceHolder"></nav>
+    <div id="topNavPlaceHolder"></div>
 
     <!-- body of the page -->
     <!-- Create title and main text field and a submit button -->
-    <div id="form">
-        <form>
-            <input type="text" name="text" placeholder="Name of your post" id="postTitle">
-            <input type="text" name="text" placeholder="Enter price" id="postPrice">
-            <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your listing:" id="postBody" > </textarea>
-            <input type="submit" value="Submit" id="submit">
-            
-        </form>
-    </div>
-
     <main>
-
+        <div id="form">
+            <form>
+                <input type="text" name="text" placeholder="Name of your post" id="postTitle">
+                <input type="text" name="text" placeholder="Enter price" id="postPrice">
+                <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your listing:"
+                    id="postBody"> </textarea>
+                <input type="submit" value="Submit" id="submit">
+    
+            </form>
+        </div>
     </main>
 
-
     <!-- footer -->
-    <nav id="footerPlaceHolder"></nav>
+    <div class="footer"></div>
 
     <!-- bottom navbar -->
-    <nav id="bottomNavPlaceHolder"></nav>
+    <div id="bottomNavPlaceHolder"></div>
 
-    <!-- JavaScript functions -->
-    <script src="../scripts/skeleton.js"></script>
 </body>
 
 </html>

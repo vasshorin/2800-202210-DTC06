@@ -1,26 +1,19 @@
-<nav class="navbar sticky-top navbar-dark bg-dark">
-
-    <!-- go back button -->
-    <button type="button" formaction="#" class="btn nav-btn text-light" id="goBackButton" onclick="goBack()">
-        <i class="bi bi-arrow-left icon-white" style="font-size: 25px;"></i>
-    </button>
+<header>
+    <link rel="stylesheet" href="../styles/skeleton.css">
     
-    <!-- logo -->
-    <img src="../images/logo.png" alt="" style="height: 50px;">
-
-    <!-- hamburger menu -->
-    <div class="btn-group">
-        <button type="button" class="btn nav-btn text-light" data-bs-toggle="dropdown">
-            <i class="bi bi-list" style="font-size: 25px;"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" style="font-size: 25px;">
-            <li><a href="../pages/profile.html" class="dropdown-item" target="_self">Profile</a></li>
-            <li><a href="#" class="dropdown-item">My Posts</a></li>
-            <li><a href="#" class="dropdown-item">Setting</a></li>
-            <li><a href="#" class="dropdown-item">Logout</a></li>
-        </ul>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
+    
+    <a href="/public/pages/index.html" class="logo">UCAN<span>.</span></a>
+    
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#about">about</a>
+        <a href="#products">postings</a>
+        <a href="#contact">contact</a>
+    </nav>
+    
+    <div class="icons">
+        <a href="/public/pages/profile.html" class="fas fa-user"></a>
     </div>
-
-    <!-- JavaScript functions -->
-    <script src="../scripts/topNav.js"></script>
-</nav>
+</header>
