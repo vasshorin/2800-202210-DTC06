@@ -10,7 +10,7 @@ async function authenticateUser() {
             password: password
         },
         success: (x) => {
-            console.log(x)
+            console.log("extra" + x)
         }
     })
 }

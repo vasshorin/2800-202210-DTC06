@@ -53,7 +53,7 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
 // mongoose.connect("mongodb://localhost:27017/timelineDB",
 //     { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.listen(process.env.PORT || 5002, (err) => {
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
     if (err)
         console.log(err)
 })
@@ -81,6 +81,12 @@ app.get('/', function (req, res) {
 
 })
 
+// user ID object
+app.get('/userId', function(req,res){
+    console.log(req.session.userobj)
+    res.send(req.session.userobj)
+})
+
 // CRUD
 
 // Create
@@ -103,16 +109,55 @@ app.put('/newHousePost/create', function (req, res) {
 })
 
 // Read
+// var LoggedInUserID = db.housingPostModel.find({userId})
+
 app.get('/test/read', function (req, res) {
+    // console.log(LoggedInUserID)
+    // LoggedInUserID   
     housingPostModel.find({}, function (err, testData) {
+        // if (userId == req.session.userobj._id) {
+        //     res.send(testData)
+        // } else {
+        //     res.send("You are not logged in!")
+        //     console.log("Error" + err)
+        // }
+        var user = req.session.userId
+        // console.log(`user INSIDE TEST/READ: ${user}`)
         if (err) {
             console.log("Error" + err)
         } else {
             console.log("Data" + testData)
         }
-        res.send(testData)
+        res.send(testData + " user INSIDE SEND" + user)
     })
 })
+
+
+app.get('/test/read/users', function (req, res, next) {
+    userModel.find({}, function (err, users) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + users)
+        }
+        var user = req.session.userId
+        res.send(users + " user INSIDE SEND" + user)
+
+        // user=users.filter((userobj)=>{
+        //     return userobj.email == req.body.email
+        // })
+        // if (user[0].password==req.body.password){
+        //     req.session.authenticated = true
+        //     req.session.email = req.body.email
+        //     req.session.userId = user[0]._id
+        //     req.session.userobj = user[0]
+        //     // LoggedInUserID = req.session.userId
+        //     res.send(+ req.session.userobj + "user id: " + req.session.userId)
+        // }
+
+    })
+})
+
 
 app.post('/login/authentication', function (req, res, next) {
     userModel.find({}, function (err, users) {
@@ -130,7 +175,8 @@ app.post('/login/authentication', function (req, res, next) {
             req.session.email = req.body.email
             req.session.userId = user[0]._id
             req.session.userobj = user[0]
-            res.send("Successful Login!" + req.session.userobj)
+            // LoggedInUserID = req.session.userId
+            res.send("Successful Login!" + req.session.userobj + "user id: " + req.session.userId)
         }
 
     })
