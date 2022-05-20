@@ -66,7 +66,7 @@
 async function storeNewUser() {
     newFirstName = $('#newFirstName').val()
     newLastName = $('#newLastName').val()
-    newAge = $('newAge').val()
+    newAge = $('#newAge').val()
     newUserEmail = $('#newUserEmail').val()
     newUsername = $('#newUsername').val()
     newPassword = $('#newPassword').val()
