@@ -18,11 +18,13 @@ app.use(session({
     resave: true
 }))
 
-const housingPostTest = new mongoose.Schema({
+const housingPostSchema = new mongoose.Schema({
     title: String,
     description: String,
     price: Number,
-    // time: String
+    userId: String,
+    status: String,
+    time: String
 });
 
 const userSchema = new mongoose.Schema({
@@ -35,7 +37,7 @@ const userSchema = new mongoose.Schema({
     time: String
 })
 
-const housingPostModel = mongoose.model("housingPosts", housingPostTest)
+const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)
 
 // app.set('view engine', 'ejs')
@@ -65,21 +67,38 @@ app.listen(process.env.PORT || 5002, (err) => {
 
 app.use(express.static('./public'))
 
+// function auth(req , res, next) {
+//     if (req.session.authenticated) {
+//         console.log("authenticated");
+//         next()
+//     } else {
+//         res.redirect("/sign_up.html")
+//     }
+// }
+
+app.get('/', function (req, res) {
+    console.log("/ route got accessed!")
+    res.send(`Welcome <br> ${req.session.userobj._id}`)
+
+})
+
 // CRUD
 
 // Create
-app.put('/test/create', function (req, res) {
+app.put('/newHousePost/create', function (req, res) {
     console.log(req.body)
     housingPostModel.create({
-        'title': req.body.title,
-        'description': req.body.description,
-        'price': req.body.price
-        // time: req.body.time
-    }, function (err, testData) {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        userId: req.session.userobj._id,
+        status: req.body.status,
+        time: req.body.time
+    }, function (err, data) {
         if (err) {
             console.log('Error' + err)
         } else {
-            console.log('Data' + testData)
+            console.log('Data' + data)
         }
         res.send('Data inserted!')
     })
@@ -112,7 +131,7 @@ app.post('/login/authentication', function (req, res, next) {
             req.session.authenticated = true
             req.session.email = req.body.email
             req.session.userId = user[0]._id
-            req.session.userobj = user
+            req.session.userobj = user[0]
             res.send("Successful Login!" + req.session.userobj)
         }
 
