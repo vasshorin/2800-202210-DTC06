@@ -18,11 +18,12 @@ app.use(session({
     resave: true
 }))
 
-const housingPostTest = new mongoose.Schema({
+const housingPostSchema = new mongoose.Schema({
     title: String,
     description: String,
     price: Number,
-    // time: String
+    userId: String,
+    time: String
 });
 
 const userSchema = new mongoose.Schema({
@@ -35,7 +36,7 @@ const userSchema = new mongoose.Schema({
     time: String
 })
 
-const housingPostModel = mongoose.model("housingPosts", housingPostTest)
+const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)
 
 // app.set('view engine', 'ejs')
@@ -52,7 +53,7 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
 // mongoose.connect("mongodb://localhost:27017/timelineDB",
 //     { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.listen(process.env.PORT || 5002, (err) => {
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
     if (err)
         console.log(err)
 })
@@ -65,6 +66,20 @@ app.listen(process.env.PORT || 5002, (err) => {
 
 app.use(express.static('./public'))
 
+// function auth(req , res, next) {
+//     if (req.session.authenticated) {
+//         console.log("authenticated");
+//         next()
+//     } else {
+//         res.redirect("/sign_up.html")
+//     }
+// }
+
+// app.get('/', function (req, res) {
+//     res.send('.public/pages/index.html')
+
+// })
+
 // user ID object
 app.get('/userId', function(req,res){
     console.log(req.session.userobj)
@@ -74,34 +89,74 @@ app.get('/userId', function(req,res){
 // CRUD
 
 // Create
-app.put('/test/create', function (req, res) {
+app.put('/newHousePost/create', function (req, res) {
     console.log(req.body)
     housingPostModel.create({
-        'title': req.body.title,
-        'description': req.body.description,
-        'price': req.body.price
-        // time: req.body.time
-    }, function (err, testData) {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        userId: req.session.userobj._id,
+        time: req.body.time
+    }, function (err, data) {
         if (err) {
             console.log('Error' + err)
         } else {
-            console.log('Data' + testData)
+            console.log('Data' + data)
         }
         res.send('Data inserted!')
     })
 })
 
 // Read
+// var LoggedInUserID = db.housingPostModel.find({userId})
+
 app.get('/test/read', function (req, res) {
+    // console.log(LoggedInUserID)
+    // LoggedInUserID   
     housingPostModel.find({}, function (err, testData) {
+        // if (userId == req.session.userobj._id) {
+        //     res.send(testData)
+        // } else {
+        //     res.send("You are not logged in!")
+        //     console.log("Error" + err)
+        // }
+        var user = req.session.userId
+        // console.log(`user INSIDE TEST/READ: ${user}`)
         if (err) {
             console.log("Error" + err)
         } else {
             console.log("Data" + testData)
         }
-        res.send(testData)
+        res.send(testData + " user INSIDE SEND" + user)
     })
 })
+
+
+app.get('/test/read/users', function (req, res, next) {
+    userModel.find({}, function (err, users) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + users)
+        }
+        var user = req.session.userId
+        res.send(users + " user INSIDE SEND" + user)
+
+        // user=users.filter((userobj)=>{
+        //     return userobj.email == req.body.email
+        // })
+        // if (user[0].password==req.body.password){
+        //     req.session.authenticated = true
+        //     req.session.email = req.body.email
+        //     req.session.userId = user[0]._id
+        //     req.session.userobj = user[0]
+        //     // LoggedInUserID = req.session.userId
+        //     res.send(+ req.session.userobj + "user id: " + req.session.userId)
+        // }
+
+    })
+})
+
 
 app.post('/login/authentication', function (req, res, next) {
     userModel.find({}, function (err, users) {
@@ -118,8 +173,9 @@ app.post('/login/authentication', function (req, res, next) {
             req.session.authenticated = true
             req.session.email = req.body.email
             req.session.userId = user[0]._id
-            req.session.userobj = user
-            res.send("Successful Login!" + req.session.userobj)
+            req.session.userobj = user[0]
+            // LoggedInUserID = req.session.userId
+            res.send("Successful Login!" + req.session.userobj + "user id: " + req.session.userId)
         }
 
     })
