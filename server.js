@@ -65,6 +65,12 @@ app.listen(process.env.PORT || 5002, (err) => {
 
 app.use(express.static('./public'))
 
+// user ID object
+app.get('/userId', function(req,res){
+    console.log(req.session.userobj)
+    res.send(req.session.userobj)
+})
+
 // CRUD
 
 // Create
