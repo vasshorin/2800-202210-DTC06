@@ -75,11 +75,10 @@ app.use(express.static('./public'))
 //     }
 // }
 
-app.get('/', function (req, res) {
-    console.log("/ route got accessed!")
-    res.send(`Welcome <br> ${req.session.userobj._id}`)
+// app.get('/', function (req, res) {
+//     res.send('.public/pages/index.html')
 
-})
+// })
 
 // user ID object
 app.get('/userId', function(req,res){
