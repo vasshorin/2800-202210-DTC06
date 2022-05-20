@@ -41,31 +41,6 @@ function loadEventsToMainDiv() {
 // <p> at time <span id="time">${r[i].time}</span></p>
 {/* <h2>Price $ <span id="price>${r[i].price}</span><h2>  */}
 
-// save form
-
-function saveForm() {
-    var title = $("#postTitle").val();
-    var description = $("#postBody").val();
-    var price = $("#postPrice").val();
-    var time = new Date();
-    console.log(title, description, price, time)
-    $.ajax({
-        url: "http://localhost:5002/newHousePost/create",
-        type: "put",
-        data: {
-            title: title,
-            description: description,
-            price: price,
-            status: 'saved',
-            time: time
-        }, success: (r)=>{
-            console.log(r)
-            $("main").empty()
-            loadEventsToMainDiv()
-        }
-    })
-}
-
 // submit form
 
 function submitForm() {
@@ -81,7 +56,6 @@ function submitForm() {
             title: title,
             description: description,
             price: price,
-            status: 'published',
             time: time
         }, success: (r)=>{
             console.log(r)
@@ -119,7 +93,6 @@ function setup() {
     loadEventsToMainDiv()
 
     $("body").on("click", "#submit", submitForm)
-    $("body").on("click", "#save", saveForm)
     $("body").on("click", ".deleteButtons", deleteEvent)
 }
 

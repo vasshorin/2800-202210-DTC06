@@ -23,7 +23,6 @@ const housingPostSchema = new mongoose.Schema({
     description: String,
     price: Number,
     userId: String,
-    status: String,
     time: String
 });
 
@@ -92,7 +91,6 @@ app.put('/newHousePost/create', function (req, res) {
         description: req.body.description,
         price: req.body.price,
         userId: req.session.userobj._id,
-        status: req.body.status,
         time: req.body.time
     }, function (err, data) {
         if (err) {
