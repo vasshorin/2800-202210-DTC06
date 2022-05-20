@@ -7,21 +7,21 @@ var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
 //     return userId
 // }
 
-userId = null
+userID = null
 
 
 // Current user ID
-function getUserId(){
+function getUserId() {
     $.ajax({
         url: "http://localhost:5002/userId",
         type: "GET",
         success: loadEventsToMainDiv
     })
-        // success: (userObj)=>{
-        //     userId = userObj
-        // }
-        // })
-        // return userId
+    // success: (userObj)=>{
+    //     userId = userObj
+    // }
+    // })
+    // return userId
 }
 
 // submit form            
@@ -41,7 +41,8 @@ function submitForm() {
             description: description,
             price: price,
             time: time
-        }, success: (r)=>{
+        },
+        success: (r) => {
             console.log(r)
             $("main").empty()
             loadEventsToMainDiv()
@@ -49,56 +50,60 @@ function submitForm() {
     })
 }
 
+// Up to this point.
+function retrieveUserIDfromPosts(userObj2){
+    
+    console.log('posts'+ userObj2['userId'])
+    
+    console.log('ID is inside retriever' + userID)
+}
+
 function loadEventsToMainDiv(userObj) {
     userID = userObj._id;
     console.log("the userId: " + userObj._id);
-    var post = 1;
-    // $.ajax({
-    //     url: "http://localhost:5002/userId",
-    //     type: "GET",
-    //     success: storeUserObj
-    //     userId = userObj._id
-    //     })
-
     $.ajax({
         url: "http://localhost:5002/test/read",
         type: "get",
-        success: (r)=>{
-            // console.log(r)
-            // if (userId == r[i].userId)
-            for( i = 0 ; i < r.length; i++ ){
-                {
-                $("main").append(`
-                <div id="posts">
-                <div class="post">
-                <div class="post-header">
-                <h1>
-                    Post: <span id=title>${r[i].title}</span>
-                </h1>
-            </div>
-            <div class="post-body">
-            <p> Price $<span id=price>${r[i].price}</span></p>
-                <p>
-                    ${r[i].description}
-                </p>
-                <hr>
+        success: retrieveUserIDfromPosts
+        // success: (r) => {
+        //     // console.log(r)
+        //     // if (userId == r[i].userId)
 
-                <button class="deleteButtons" id="${r[i]["_id"]}"> Delete</button> 
-                <button class="saveButtons" id="${r[i]["_id"]}"> Save</button>
-                <button class="publishButtons" id="${r[i]["_id"]}"> Publish</button>
-            </div>
-        </div>     
-                    `)
-                    post++;  
-                    // console.log("Price: " + r[i].price)   
-                    // console.log("Id: " + r[i]["_id"])    
-            }
-        }
-           
-        }
+        // }
     })
-
 }
+
+
+// Code for display
+//  var post = 1;
+// for (i = 0; i < r.length; i++) {
+//     {
+//         $("main").append(`
+//     <div id="posts">
+//     <div class="post">
+//     <div class="post-header">
+//     <h1>
+//         Post: <span id=title>${r[i].title}</span>
+//     </h1>
+// </div>
+// <div class="post-body">
+// <p> Price $<span id=price>${r[i].price}</span></p>
+//     <p>
+//         ${r[i].description}
+//     </p>
+//     <hr>
+
+//     <button class="deleteButtons" id="${r[i]["_id"]}"> Delete</button> 
+//     <button class="saveButtons" id="${r[i]["_id"]}"> Save</button>
+//     <button class="publishButtons" id="${r[i]["_id"]}"> Publish</button>
+// </div>
+// </div>     
+//         `)
+//         post++;
+//         // console.log("Price: " + r[i].price)   
+//         // console.log("Id: " + r[i]["_id"])    
+//     }
+// }
 
 // delete post
 // function deleteEvent(){
@@ -128,4 +133,3 @@ function setup() {
 
 
 $(document).ready(setup);
-
