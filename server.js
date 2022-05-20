@@ -17,7 +17,7 @@ const housingPostTest = new mongoose.Schema({
 
 const housingPostModel = mongoose.model("housingPosts", housingPostTest)
 
-app.set('view engine', 'ejs')
+// app.set('view engine', 'ejs')
 
 app.use(bodyparser.urlencoded({
     extended: true
@@ -31,7 +31,7 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
 // mongoose.connect("mongodb://localhost:27017/timelineDB",
 //     { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.listen(process.env.PORT || 5003, (err) => {
+app.listen(process.env.PORT || 5002, (err) => {
     if (err)
         console.log(err)
 })
