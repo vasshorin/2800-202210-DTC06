@@ -9,6 +9,15 @@ const { isNumber } = require('util')
 //     text: String
 // });
 // const testModel = mongoose.model("tests", testSchema);
+
+var session = require('express-session')
+
+app.use(session({
+    secret: 'ssshhhhh',
+    saveUninitialized: true,
+    resave: true
+}))
+
 const housingPostTest = new mongoose.Schema({
     title: String,
     description: String,
@@ -85,6 +94,24 @@ app.get('/test/read', function (req, res) {
             console.log("Data" + testData)
         }
         res.send(testData)
+    })
+})
+
+app.post('/login/authentication', function (req, res, next) {
+    userModel.find({}, function (err, users) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + users)
+        }
+        if (users.filter(user => user.email == req.body.email)[0].password == req.body.password) {
+            req.session.authenticated = true
+            req.session.email = req.body.email
+            res.send("Successful Login!")
+        } else {
+            req.session.authenticated = false
+            res.send("Failed Login!")
+        }
     })
 })
 
