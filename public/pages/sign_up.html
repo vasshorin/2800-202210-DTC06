@@ -38,35 +38,36 @@
         </div>
         <!-- body of the page -->
         <div class="mainGrid">
-            <form class="initial_form">
+
+            <!-- <form class="initial_form"> -->
                 <article class="form-row-one">
                     <div class="fname-box">
                         <label for="first-name">First Name</label><br>
-                        <input id="f-name" type="text" placeholder="John">
+                        <input id="newFirstName" type="text" placeholder="John">
                     </div>
                     <div class="lname-box">
                         <label for="last-name">Last Name</label><br>
-                        <input id="l-name" type="text" placeholder="Snow">
+                        <input id="newLastName" type="text" placeholder="Snow">
                     </div>
                 </article>
                 <article class="form-row-one">
                     <div>
                         <span for="age" type="age">Age</span><br>
-                        <input id="user-email" placeholder="50">
+                        <input id="newAge" placeholder="50">
                     </div>
                     <div class="email-box">
                         <span for="email" type="email">Email</span><br>
-                        <input id="user-email" placeholder="john@snow.com">
+                        <input id="newUserEmail" placeholder="john@snow.com">
                     </div>
                 </article>
                 <article class="message form-row-one">
                     <div class="username-container">
                         <span for="usrname">Username</span><br>
-                        <input type="text" id="usrname" name="usrname" placeholder="JohnSnow1000">
+                        <input type="text" id="newUsername" name="usrname" placeholder="JohnSnow1000">
                     </div>
                     <div class="password-container">
                         <span for="psw">Password</span><br>
-                        <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        <input type="password" id="newPassword" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                             onclick="passwordTrigger()" required placeholder="Password">
                     </div>
@@ -74,7 +75,7 @@
                 <article class="form-row-one">
                     <div class="location-box">
                         <span for="email" type="email">Location</span><br>
-                        <input id="user-location" placeholder="Area">
+                        <input id="newLocation" placeholder="Area">
                     </div>
                 </article>
                 <div class="form-check d-flex justify-content-center mb-5">
@@ -84,8 +85,8 @@
                             <br><a href="#!">Terms of service</a>
                     </label>
                 </div>
-                <input class="submit-btn" type="submit" value="Submit">
-            </form>
+                <input id="submit" class="submit-btn" type="submit" value="Submit">
+            <!-- </form> -->
     
             <div id="messageToDisplay">
                 <h4>Password must have the following:</h4>

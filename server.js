@@ -15,7 +15,18 @@ const housingPostTest = new mongoose.Schema({
     // time: String
 });
 
+const userSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    age: Number,
+    email: String,
+    password: String,
+    location: String,
+    time: String
+})
+
 const housingPostModel = mongoose.model("housingPosts", housingPostTest)
+const userModel = mongoose.model("users", userSchema)
 
 // app.set('view engine', 'ejs')
 
@@ -118,4 +129,25 @@ app.put('/test/delete/:id', function (req, res) {
             console.log(data);
         res.send("All good! Deleted.")
     });
+})
+
+app.put('/signup/create', function (req, res) {
+    console.log(req.body)
+    userModel.create({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        age: req.body.age,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        location: req.body.location,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send("New user created!")
+    })
 })
