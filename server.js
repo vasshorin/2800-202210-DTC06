@@ -104,14 +104,18 @@ app.post('/login/authentication', function (req, res, next) {
         } else {
             console.log('Data' + users)
         }
-        if (users.filter(user => user.email == req.body.email)[0].password == req.body.password) {
+
+        user=users.filter((userobj)=>{
+            return userobj.email == req.body.email
+        })
+        if (user[0].password==req.body.password){
             req.session.authenticated = true
             req.session.email = req.body.email
-            res.send("Successful Login!")
-        } else {
-            req.session.authenticated = false
-            res.send("Failed Login!")
+            req.session.userId = user[0]._id
+            req.session.userobj = user
+            res.send("Successful Login!" + req.session.userobj)
         }
+
     })
 })
 
