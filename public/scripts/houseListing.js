@@ -13,7 +13,7 @@ userID = null
 // Current user ID
 function getUserId() {
     $.ajax({
-        url: "http://localhost:5002/userId",
+        url: "https://warm-cove-79874.herokuapp.com/userId",
         type: "GET",
         success: loadEventsToMainDiv
     })
@@ -34,7 +34,7 @@ function submitForm() {
 
     console.log(title, description, price, time)
     $.ajax({
-        url: "http://localhost:5002/newHousePost/create",
+        url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
         type: "put",
         data: {
             title: title,
@@ -62,7 +62,7 @@ function loadEventsToMainDiv(userObj) {
     userID = userObj._id;
     console.log("the userId: " + userObj._id);
     $.ajax({
-        url: "http://localhost:5002/test/read",
+        url: "https://warm-cove-79874.herokuapp.com/test/read",
         type: "get",
         success: retrieveUserIDfromPosts
         // success: (r) => {

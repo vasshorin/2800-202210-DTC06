@@ -74,7 +74,7 @@ async function storeNewUser() {
     currentTime = new Date()
     console.log(newFirstName, newLastName, newAge, newUserEmail, newUsername, newPassword, newLocation, currentTime)
     await $.ajax({
-        url: 'http://localhost:5002/signup/create',
+        url: 'https://warm-cove-79874.herokuapp.com/signup/create',
         type: 'PUT',
         data: {
             firstname: newFirstName,
