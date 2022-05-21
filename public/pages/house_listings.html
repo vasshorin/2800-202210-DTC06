@@ -37,139 +37,125 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
     <link rel="stylesheet" href="../styles/house_listing.css">
-    <link rel="stylesheet" href="/public/styles/index.css">
+    <!-- <link rel="stylesheet" href="/public/styles/index.css"> -->
 </head>
 
 <body>
     <!-- HTML Layout -->
 
-    <header>
-
-        <input type="checkbox" name="" id="toggler">
-        <label for="toggler" class="fas fa-bars"></label>
-    
-        <a href="/public/pages/index.html" class="logo">UCAN<span>.</span></a>
-    
-        <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="#about">about</a>
-            <a href="#products">postings</a>
-            <a href="#contact">contact</a>
-        </nav>
-    
-        <div class="icons">
-            <a href="#" class="fas fa-user"></a>
-        </div>
-    
-    </header>
+    <!-- top navbar -->
+    <div id="topNavPlaceHolder"></div>
 
     <!-- body of the page -->
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h1>House Listing</h1>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>House Listing</h1>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h2>Featured Houses</h2>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Featured Houses</h2>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card-deck">
-                    <div class="card">
-                        <img class="card-img-top" src="https://picsum.photos/300/200?random=1" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-deck">
+                        <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/300/200?random=1" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/300/200?random=2" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This card has supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/300/200?random=3" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This card has even longer content than the first to show that equal
+                                    height action.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <img class="card-img-top" src="https://picsum.photos/300/200?random=2" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Other Houses</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-deck">
+                        <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/300/200?random=4" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img-top" src="https://picsum.photos/300/200?random=3" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/300/200?random=5" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This card has supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img class="card-img-top" src="https://picsum.photos/300/200?random=6" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This card has even longer content than the first to show that equal
+                                    height action.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h2>Other Houses</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card-deck">
-                    <div class="card">
-                        <img class="card-img-top" src="https://picsum.photos/300/200?random=4" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img-top" src="https://picsum.photos/300/200?random=5" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img class="card-img-top" src="https://picsum.photos/300/200?random=6" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
-                    </div>
+    
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary">Show More</button>
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <button type="button" class="btn btn-primary">Show More</button>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- footer -->
-    <nav id="footerPlaceHolder"></nav>
+        <!-- footer -->
+        <div class="footer"></div>
+    </main>
 
     <!-- bottom navbar -->
-    <nav id="bottomNavPlaceHolder"></nav>
+    <div id="bottomNavPlaceHolder"></div>
 
-    <!-- JavaScript functions -->
-    <script src="../scripts/skeleton.js"></script>
+    
 </body>
 
 </html>

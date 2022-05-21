@@ -37,44 +37,48 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
     <link rel="stylesheet" href="../styles/newHouseListing.css">
-    <script src="houseListing.js"></script>
+    <script src="../scripts/houseListing.js"></script>
 </head>
 
 <body>
     <!-- HTML Layout -->
 
     <!-- top navbar -->
-    <nav id="topNavPlaceHolder"></nav>
+    <div id="topNavPlaceHolder"></div>
 
     <!-- body of the page -->
     <!-- Create title and main text field and a submit button -->
-    <div id="form">
-        <form>
+    <main>
+        <div id="form">
+            <!-- <form> -->
             <input type="text" name="text" placeholder="Name of your post" id="postTitle">
             <input type="text" name="text" placeholder="Enter price" id="postPrice">
-            <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your listing:" id="postBody" > </textarea>
+            <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your listing:"
+                id="postBody"> </textarea>
             <input type="submit" value="Submit" id="submit">
-            
-        </form>
-    </div>
 
-    <main>
 
+            <!--  
+                title: req.body.title,
+                description: req.body.description,
+                price: req.body.price,
+                userId: req.session.userobj._id,
+                time: req.body.time -->
+            <!-- </form> -->
+        </div>
+        <!-- footer -->
+        <div class="footer"></div>
     </main>
 
-
-    <!-- footer -->
-    <nav id="footerPlaceHolder"></nav>
-
     <!-- bottom navbar -->
-    <nav id="bottomNavPlaceHolder"></nav>
+    <div id="bottomNavPlaceHolder"></div>
 
-    <!-- JavaScript functions -->
-    <script src="../scripts/skeleton.js"></script>
 </body>
 
 </html>

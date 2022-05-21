@@ -43,6 +43,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../styles/style.css">
     <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/chat.js"></script>
+    <link rel="stylesheet" href="../styles/chat.css">
 </head>
 
 <body>
@@ -53,11 +55,15 @@
 
     <!-- body of the page, put everything for body in main-->
     <main>
-        
-        <!-- footer -->
-        <div id="footer"></div>
+        <!-- container element in which TalkJS will display a chat UI -->
+    <div id="talkjs-container">
+        <i>Loading chat...</i>
+    </div>
     </main>
     
+    <!-- footer -->
+    <!-- <div id="footer"></div> -->
+
     <!-- bottom navbar -->
     <div id="bottomNavPlaceHolder"></div>
 </body>
