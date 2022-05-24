@@ -3,7 +3,9 @@ const app = express()
 const https = require('https')
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose')
-const { isNumber } = require('util')
+const {
+    isNumber
+} = require('util')
 // const testSchema = new mongoose.Schema({
 //     user: String,
 //     text: String
@@ -81,7 +83,7 @@ app.use(express.static('./public'))
 // })
 
 // user ID object
-app.get('/userId', function(req,res){
+app.get('/userId', function (req, res) {
     console.log(req.session.userobj)
     res.send(req.session.userobj)
 })
@@ -100,8 +102,10 @@ app.put('/newHousePost/create', function (req, res) {
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + data)
+            res.status(200).send()
         }
         res.send('Data inserted!')
     })
@@ -124,10 +128,11 @@ app.get('/test/read', function (req, res) {
         // console.log(`user INSIDE TEST/READ: ${user}`)
         if (err) {
             console.log("Error" + err)
+            res.status(500).send()
         } else {
             console.log("Data" + testData)
+            res.status(200).send(testData + " user INSIDE SEND" + user)
         }
-        res.send(testData + " user INSIDE SEND" + user)
     })
 })
 
@@ -136,11 +141,12 @@ app.get('/test/read/users', function (req, res, next) {
     userModel.find({}, function (err, users) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + users)
+            res.status(200).send(users + " user INSIDE SEND" + user)
         }
         var user = req.session.userId
-        res.send(users + " user INSIDE SEND" + user)
 
         // user=users.filter((userobj)=>{
         //     return userobj.email == req.body.email
@@ -158,24 +164,26 @@ app.get('/test/read/users', function (req, res, next) {
 })
 
 
+// whe nwe visit this route, we're checking
 app.post('/login/authentication', function (req, res, next) {
     userModel.find({}, function (err, users) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + users)
         }
 
-        user=users.filter((userobj)=>{
+        user = users.filter((userobj) => {
             return userobj.email == req.body.email
         })
-        if (user[0].password==req.body.password){
+        if (user[0].password == req.body.password) {
             req.session.authenticated = true
             req.session.email = req.body.email
             req.session.userId = user[0]._id
             req.session.userobj = user[0]
             // LoggedInUserID = req.session.userId
-            res.send("Successful Login!" + req.session.userobj + "user id: " + req.session.userId)
+            res.status(200).send("Successful Login!" + req.session.userobj + "user id: " + req.session.userId)
         }
 
     })
@@ -193,10 +201,11 @@ app.put('/test/update/:id', function (req, res) {
     }, function (err, testData) {
         if (err) {
             console.log('Error' + err)
+            res.status(500)
         } else {
             console.log('Data' + testData)
+            res.status(200).send('Data updated!')
         }
-        res.send('Data updated!')
     })
 })
 
@@ -218,10 +227,13 @@ app.put('/test/delete/:id', function (req, res) {
     housingPostModel.deleteOne({
         id: req.params.id
     }, function (err, data) {
-        if (err) console.log(err);
-        else
-            console.log(data);
-        res.send("All good! Deleted.")
+        if (err) {
+            console.log('Error' + err)
+            res.status(200).send()
+        } else {
+            console.log('Data' + data)
+            res.status(500).send("Delete successful!")
+        }
     });
 })
 
@@ -239,9 +251,10 @@ app.put('/signup/create', function (req, res) {
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
+            res.status(200).send()
         } else {
             console.log('Data' + data)
+            res.status(500).send("New user created!")
         }
-        res.send("New user created!")
     })
 })
