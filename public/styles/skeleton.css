@@ -11,7 +11,7 @@
     outline: none;
     border: none;
     text-decoration: none;
-    text-transform: capitalize;
+    text-transform: none;
     transition: .2s linear;
 }
 
