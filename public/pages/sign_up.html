@@ -161,13 +161,11 @@
             />
             <label for="email" class="form-label">Email address</label>
           </div>
-             <p>Are you over 16?</p>
-              <label class="radio-inline">
-                <input type="radio" name="age" checked>Yes
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="age">
-              </label>
+          <label for="age">Are you over 16:</label>
+          <select id="age" name="age">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
 
           <div class="form-floating mb-3">
             <input

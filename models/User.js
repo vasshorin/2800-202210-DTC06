@@ -43,17 +43,29 @@ const userSchema = new Schema(
         },
         admin: false,
         posts: [{
-            title: String,
-            body: String,
-            type: String,
-            url: String
+            title: {
+                type: String,
+                required: true
+            },
+            body: {
+                type: String,
+                required: true
+            },
+            type: {
+                type: String,
+                required: true
+            },
+            url: {
+                type: String,
+                required: true
+            }
         }]
     },
     {
       _id: true,
       id: true,
       timestamps: true,
-    }
+    },
+
   );
-  
   module.exports = mongoose.model("User", userSchema);

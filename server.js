@@ -41,8 +41,8 @@ app.use(express.urlencoded({ extended: true}));
 
 app.use(session({
     secret: 'ssshhhhh',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: store
 }))
 
@@ -106,23 +106,28 @@ app.get('/userId', function (req, res) {
 
 
 // Create
-app.put('/newHousePost/create', async function (req, res) {
+app.post('/newHousePost/create', async function (req, res) {
     const { title, body, type, url } = req.body;
-    const user = await userModel.findById(req.session.userobj._id);
+    const user = await userModel.findOne({ _id: req.session.userId });
+    console.log(user.posts)
 
-    if(!user.post) {
-        user.post = [];
+    const ID = "2";
+
+    if(!user.posts) {
+        user.posts = [];
     }
 
     const post = {
-        title: title,
-        body: body,
-        type: type,
-        url: url
+        title: req.body.title,
+        body: req.body.body,
+        type: req.body.type,
+        url: ID
     }
 
-    user.post.push(post);
+    user.posts.push(post);
     await user.save();
+    console.log(user.posts);
+    res.redirect('/index.html');    
 
 
     
@@ -145,6 +150,30 @@ app.put('/newHousePost/create', async function (req, res) {
     //     res.send('Data inserted!')
     // })
 })
+
+
+// app.post("/shoppingcart", isAuth, async function (req, res) {
+//     const { pokeID, quantity, price , checkout} = req.body;
+//     const user = await UserModel.findOne({ _id: req.session.userId });
+    
+//     if (!user.cart) {
+//       user.cart = [];
+//     }
+
+//     const cartItem = {
+//         pokeID: pokeID,
+//         quantity: quantity,
+//         price: price,
+//         checkout: false,
+//         createdAt: new Date()
+//     };
+
+//     user.cart.push(cartItem);
+//     await user.save();
+//     // res.redirect("/userProfile");
+//     console.log(user.cart);
+// });
+
 
 // Read
 // var LoggedInUserID = db.housingPostModel.find({userId})
@@ -199,32 +228,6 @@ app.get('/test/read/users', function (req, res, next) {
 })
 
 
-// whe new visit this route, we're checking
-// app.post('/login/authentication', function (req, res, next) {
-//     userModel.find({}, function (err, users) {
-//         if (err) {
-//             console.log('Error' + err)
-//             res.status(500).send()
-//         } else {
-//             console.log('Data' + users)
-//         }
-
-//         user = users.filter((userobj) => {
-//             return userobj.email == req.body.email
-//         })
-//         if (user[0].password == req.body.password) {
-//             req.session.authenticated = true
-//             req.session.email = req.body.email
-//             req.session.userId = user[0]._id
-//             req.session.userobj = user[0]
-//             // LoggedInUserID = req.session.userId
-//             res.status(200).send(req.session.userobj)
-//         }
-
-//     })
-// })
-
-//
 app.post("/login/authentication", async (req, res) => {
     const { email, password } = req.body;
      // TODO: check if user is an admin, if so, redirect to admin page instead of user page
@@ -249,11 +252,11 @@ app.post("/login/authentication", async (req, res) => {
     } else {
         req.session.isAuth = true;
         req.session.userId = user._id;
-        req.session.firstname = user.firstname;
-        req.session.lastname = user.lastname;
+        req.session.firstName = user.firstName;
+        req.session.lastName = user.lastName;
         req.session.email = user.email;
         req.session.password = user.password;
-        req.session.post = user.post;
+        req.session.posts = user.posts;
         console.log(req.session);
         res.redirect("/index.html");
     }
@@ -318,7 +321,7 @@ app.post('/signup/create', async function (req, res) {
         } else {
             console.log('Data' + data)
             res.status(500).send("New user created!")
-            // res.redirect('/')
+            res.redirect('/pages/logIn.html')
         }
     })
 })

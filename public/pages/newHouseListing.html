@@ -56,11 +56,18 @@
     <!-- Create title and main text field and a submit button -->
     <main>
         <div id="form">
-            <!-- <form> -->
-            <input type="text" name="text" placeholder="Name of your post" id="postTitle">
-            <input type="text" name="text" placeholder="Enter price" id="postPrice">
-            <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your listing:"
-                id="postBody"> </textarea>
+            <form action="/newHousePost/create" method="POST">
+            <input type="text" name="title" placeholder="Name of your post" id="title">
+            <textarea rows="5" cols="5" type="text" name="body" placeholder="Enter details of your listing:"
+                id="body"> </textarea>
+            <label for="type">Choose type:</label>
+                <select id="type" name="type">
+                <option value="housing">Housing</option>
+                <option value="jobs">Jobs</option>
+                <option value="community">community</option>
+                <option value="food">Food</option>
+            </select>
+            <input type="hidden" name="url" placeholder="url" id="url">
             <input type="submit" value="Submit" id="submit">
 
 
@@ -70,7 +77,7 @@
                 price: req.body.price,
                 userId: req.session.userobj._id,
                 time: req.body.time -->
-            <!-- </form> -->
+            </form>
         </div>
         <!-- footer -->
         <div class="footer"></div>
