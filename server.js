@@ -7,11 +7,6 @@ app.set('view engine', 'ejs')
 const {
     isNumber
 } = require('util')
-// const testSchema = new mongoose.Schema({
-//     user: String,
-//     text: String
-// });
-// const testModel = mongoose.model("tests", testSchema);
 
 var session = require('express-session')
 
@@ -26,6 +21,9 @@ const housingPostSchema = new mongoose.Schema({
     description: String,
     price: Number,
     userId: String,
+    firstName: String,
+    lastName: String,
+    email: String,
     username: String,
     time: String
 });
@@ -46,7 +44,6 @@ const userSchema = new mongoose.Schema({
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)
 
-
 app.use(bodyparser.urlencoded({
     extended: true
 }))
@@ -55,9 +52,6 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-
-// mongoose.connect("mongodb://localhost:27017/timelineDB",
-//     { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.listen(process.env.PORT || 5002 || 5005, (err) => {
     if (err)
@@ -103,6 +97,9 @@ app.put('/newHousePost/create', function (req, res) {
         price: req.body.price,
         userId: req.session.userId,
         username: req.session.userobj.username,
+        firstName: req.session.userobj.firstName,
+        lastName: req.session.userobj.lastName,
+        email: req.session.userobj.email,
         time: req.body.time
     }, function (err, data) {
         if (err) {
@@ -151,7 +148,24 @@ app.get('/housePosts/read', function (req, res) {
     })
 })
 
-
+// direct to specific post
+app.get('/housePosts/:postId', function (req, res) {
+    housingPostModel.findById(req.params.postId, function (err, post) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + post)
+        }
+        res.render('housing',{
+            title: post.title,
+            price: post.price,
+            description: post.description,
+            firstName: post.firstName,
+            email: post.email,
+            userId: post.userId
+        })
+    })
+})
 
 
 

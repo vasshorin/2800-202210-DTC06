@@ -3,14 +3,29 @@ function populatePosts(posts) {
     postArray = '<hr>'
     for (i = 0; i < posts.length; i++) {
         postArray += `
-        Title: ${posts[i].title}<br>
-        Price: $${posts[i].price}<br>
-        Description: ${posts[i].description}<br>
-        Posted by: ${posts[i].username}<br>
-        Posted at: ${posts[i].time}<br>
-        <button class="chat" id="${posts[i].userId}">Chat!</button><hr>`
+        <a href="../housePosts/${posts[i]._id}" class="btn">"
+            Title: ${posts[i].title}<br>
+            Price: $${posts[i].price}<br>
+            Description: ${posts[i].description}<br>
+            Posted by: ${posts[i].username}<br>
+            Posted at: ${posts[i].time}
+            <hr>
+        </a>`
     }
     $('#posts').html(postArray)
+}
+
+function directPost(){
+    postId=$(this).attr('id')
+    console.log(postId)
+    $.ajax({
+        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
+        url: `http://localhost:5002/housePosts/${postId}`,
+        type: 'GET',
+        success: (x)=>{
+            console.log(x)
+        }
+    })
 }
 
 function getPosts() {
@@ -38,6 +53,7 @@ function directChat() {
 function setup() {
     getPosts()
     $('body').on('click', '.chat', directChat)
+    // $('body').on('click', '.btn', directPost)
 }
 
 $(document).ready(setup)

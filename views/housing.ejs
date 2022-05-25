@@ -61,7 +61,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2><strong>Title:</strong></h2>
+                        <h2><strong>Title: <%= title %></strong></h2>
                     </div>
                     <img src="../images/logo.png" alt="house" class="img-fluid" width="200px" height="200px">
                 </div>
@@ -77,10 +77,10 @@
                             <strong>Address:</strong>
                         </p>
                         <p>
-                            <strong>Price:</strong>
+                            <strong>Price: $ <%= price %></strong>
                         </p>
                         <p>
-                            <strong>Description:</strong>
+                            <strong>Description: <%= description %></strong>
                         </p>
                         <p>
                             <strong>Bedrooms:</strong>
@@ -113,14 +113,14 @@
                         <p>
                             <strong>Contact details</strong>
                         </p>
-                        <p><strong>Name:</strong></p>
-                        <p><strong>Email:</strong></p>
+                        <p><strong>Name: <%= firstName %></strong></p>
+                        <p><strong>Email: <%= email %></strong></p>
                         <p><strong>Phone:</strong></p>
                         <p><strong>Message:</strong></p>
                         <hr>
                     </div>
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-primary">Chat</button>
+                        <a href="../chat/<%= userId %>"><button type="button" class="btn btn-primary">Chat</button></a>
                     </div>
                 </div>
                 <!-- footer -->
