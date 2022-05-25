@@ -64,29 +64,27 @@
 // FELIX YOU NEED TO WORK ON THIS AGAIN
 
 async function storeNewUser() {
-    username= $('#username').val()
-    firstName = $('#firstName').val()
-    lastName = $('#lastName').val()
-    email = $('#email').val()
-    age = $('#age').val()
-    province=$('#province').val()
-    city=$('#city').val()
-    password = $('#password').val()
-    time = new Date()
+    newFirstName = $('#newFirstName').val()
+    newLastName = $('#newLastName').val()
+    newAge = $('#newAge').val()
+    newUserEmail = $('#newUserEmail').val()
+    newUsername = $('#newUsername').val()
+    newPassword = $('#newPassword').val()
+    newLocation = $('#newLocation').val()
+    currentTime = new Date()
+    console.log(newFirstName, newLastName, newAge, newUserEmail, newUsername, newPassword, newLocation, currentTime)
     await $.ajax({
-        // url: 'https://warm-cove-79874.herokuapp.com/signup/create',
-        url: 'http://localhost:5002/signup/create',
-        type: 'POST',
+        url: 'https://warm-cove-79874.herokuapp.com/signup/create',
+        type: 'PUT',
         data: {
-            username: username,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            age: age,
-            province: province,
-            city: city,
-            password: password,
-            time: time
+            firstname: newFirstName,
+            lastname: newLastName,
+            age: newAge,
+            email: newUserEmail,
+            username: newUsername,
+            password: newPassword,
+            location: newLocation,
+            time: currentTime
         },
         success: (x) => {
             console.log(x)
@@ -95,7 +93,7 @@ async function storeNewUser() {
 }
 
 function setup() {
-    // $("#messageToDisplay").hide();
+    $("#messageToDisplay").hide();
     $('body').on('click', '#submit', storeNewUser);
 }
 
