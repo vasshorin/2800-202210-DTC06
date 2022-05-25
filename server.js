@@ -52,15 +52,15 @@ app.use(session({
 // ----------------
 
 
-// function isAuth(req, res, next) {
-//     if (req.sessionID && req.session.authenticated) {
-//       console.log(req.sessionID);
-//       next();
-//     } else {
-//       console.log("Not authenticated");
-//       res.redirect("/login");
-//     }
-// }
+function isAuth(req, res, next) {
+    if (req.sessionID) {
+      console.log(req.sessionID);
+      next();
+    } else {
+      console.log("Not authenticated");
+      res.redirect("/pages/login.html");
+    }
+}
 
 
 app.use(bodyparser.urlencoded({
@@ -163,14 +163,6 @@ app.get('/:type/:id', function (req, res) {
     // console.log(LoggedInUserID)
     // LoggedInUserID   
     housingPostModel.find({}, function (err, testData) {
-        // if (userId == req.session.userobj._id) {
-        //     res.send(testData)
-        // } else {
-        //     res.send("You are not logged in!")
-        //     console.log("Error" + err)
-        // }
-        var user = req.session.userId
-        // console.log(`user INSIDE TEST/READ: ${user}`)
         if (err) {
             console.log("Error" + err)
             res.status(500).send()
@@ -182,30 +174,23 @@ app.get('/:type/:id', function (req, res) {
 })
 
 
-app.get('/test/read/users', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + users)
-            res.status(200).send(users + " user INSIDE SEND" + user)
-        }
-        var user = req.session.userId
+app.get('/ownposts',isAuth, async  function (req, res) {
+    const user = await userModel.findById(req.session.userId);
+    const userPosts = user.posts;
+    const userLenggth = userPosts.length;
+    console.log(userPosts.length);
+    for (let i = 0; i <= userPosts.length; i++) {
 
-        // user=users.filter((userobj)=>{
-        //     return userobj.email == req.body.email
-        // })
-        // if (user[0].password==req.body.password){
-        //     req.session.authenticated = true
-        //     req.session.email = req.body.email
-        //     req.session.userId = user[0]._id
-        //     req.session.userobj = user[0]
-        //     // LoggedInUserID = req.session.userId
-        //     res.send(+ req.session.userobj + "user id: " + req.session.userId)
-        // }
-
-    })
+        res.render('ownposts', {
+            userPosts: userPosts,
+            userLenggth: userLenggth,
+            title: userPosts[i].title,
+            body: userPosts[i].body,
+            type: userPosts[i].type,
+            url: userPosts[i].url
+        })
+        console.log(userPosts[i]);
+    }
 })
 
 

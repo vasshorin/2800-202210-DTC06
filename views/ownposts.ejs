@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+
+       <div class="card">
+        <h1 class="card-title" style="text-align: center; font-weight: bold;">Posts items:</h1>
+        <% for (var i = 0; i < userPosts.length; i++) { %>
+            <div class="card-inside"> 
+                <div id="right_side">
+                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].title %></h5></div>
+                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].body %></h5></div>
+                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].type %></h5></div>
+                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].url %></h5></div>
+                    <div class="total"><h5 class="card-title-price"><b>  lngth</b> <%= userLenggth %></h5></div>
+                </div>
+        <% } %>
+    </div>
+    </div>
+    </main>
+</body>
+</html>
