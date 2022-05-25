@@ -42,7 +42,7 @@
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/skeleton.js"></script>
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="/styles/skeleton.css">
 </head>
 
 <body>
@@ -58,7 +58,7 @@
             <% for (var i = 0; i < userPosts.length; i++) { %>
                 <div class="card-inside"> 
                     <div id="right_side">
-                        <!-- <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].title %></h5></div> -->
+                        <div class="total"><h5 class="card-title-price"><b>Title:</b> <%= userPosts[i].title %></h5></div>
                         <div class="total"><h5 class="card-title-price"><b>Body:</b> <%= userPosts[i].body %></h5></div>
                         <div class="total"><h5 class="card-title-price"><b>Type:</b> <%= userPosts[i].type %></h5></div>
                         <div class="total"><h5 class="card-title-price"><b>url:</b> <%= userPosts[i].url %></h5></div>

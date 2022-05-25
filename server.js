@@ -196,17 +196,16 @@ app.get('/ownposts', isAuth, async  function (req, res) {
     const userPosts = user.posts; // get user posts
     const userLenggth = userPosts.length;
     console.log(userPosts.length);
-    for (let i = 0; i <= userPosts.length; i++) { // loop through user posts
+    for (let i = 0; i < userPosts.length; i++) { // loop through user posts
         res.render('ownposts', {
-            // TODO: fix fail after page reloads (userPosts[i].body is undefined)
             userPosts: userPosts,
             userLenggth: userLenggth,
-            // title: userPosts[i].title,
+            title: userPosts[i].title,
             body: userPosts[i].body,
             type: userPosts[i].type,
             url: userPosts[i].url
         })
-        console.log(userPosts[i]);
+        console.log(userPosts[i].body);
     }
 })
 
