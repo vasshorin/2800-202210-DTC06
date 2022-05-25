@@ -9,6 +9,7 @@ const {
 } = require('util')
 
 var session = require('express-session')
+const { stringify } = require('querystring')
 
 app.use(session({
     secret: 'ssshhhhh',
@@ -25,6 +26,8 @@ const housingPostSchema = new mongoose.Schema({
     lastName: String,
     email: String,
     username: String,
+    city: String,
+    province: String,
     time: String
 });
 
@@ -94,6 +97,8 @@ app.put('/newHousePost/create', function (req, res) {
     housingPostModel.create({
         title: req.body.title,
         description: req.body.description,
+        city: req.body.city,
+        province: req.body.province,
         price: req.body.price,
         userId: req.session.userId,
         username: req.session.userobj.username,
@@ -162,7 +167,9 @@ app.get('/housePosts/:postId', function (req, res) {
             description: post.description,
             firstName: post.firstName,
             email: post.email,
-            userId: post.userId
+            userId: post.userId,
+            city: post.city,
+            province: post.province
         })
     })
 })
