@@ -110,8 +110,9 @@ app.post('/newHousePost/create', async function (req, res) {
     const { title, body, type, url } = req.body;
     const user = await userModel.findOne({ _id: req.session.userId });
     console.log(user.posts)
-
-    const ID = "2";
+    const random = Math.floor(Math.random() * 100000)
+    const ID = `/${type}/${random}`
+    console.log(ID)
 
     if(!user.posts) {
         user.posts = [];
@@ -152,33 +153,13 @@ app.post('/newHousePost/create', async function (req, res) {
 })
 
 
-// app.post("/shoppingcart", isAuth, async function (req, res) {
-//     const { pokeID, quantity, price , checkout} = req.body;
-//     const user = await UserModel.findOne({ _id: req.session.userId });
-    
-//     if (!user.cart) {
-//       user.cart = [];
-//     }
 
-//     const cartItem = {
-//         pokeID: pokeID,
-//         quantity: quantity,
-//         price: price,
-//         checkout: false,
-//         createdAt: new Date()
-//     };
-
-//     user.cart.push(cartItem);
-//     await user.save();
-//     // res.redirect("/userProfile");
-//     console.log(user.cart);
-// });
 
 
 // Read
 // var LoggedInUserID = db.housingPostModel.find({userId})
 
-app.get('/test/read', function (req, res) {
+app.get('/:type/:id', function (req, res) {
     // console.log(LoggedInUserID)
     // LoggedInUserID   
     housingPostModel.find({}, function (err, testData) {
