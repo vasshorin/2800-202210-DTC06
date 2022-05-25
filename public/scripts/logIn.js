@@ -1,22 +1,22 @@
-async function authenticateUser() {
-    email = $('#email').val()
-    password = $('#password').val()
-    console.log(email, password)
-    await $.ajax({
-        url: 'https://warm-cove-79874.herokuapp.com/login/authentication',
-        type: 'POST',
-        data: {
-            email: email,
-            password: password
-        },
-        success: (x) => {
-            console.log("extra" + x)
-        }
-    })
-}
+// async function authenticateUser() {
+//     email = $('#email').val()
+//     password = $('#password').val()
+//     console.log(email, password)
+//     await $.ajax({
+//         url: 'https://warm-cove-79874.herokuapp.com/login/authentication',
+//         type: 'POST',
+//         data: {
+//             email: email,
+//             password: password
+//         },
+//         success: (x) => {
+//             console.log("extra" + x)
+//         }
+//     })
+// }
 
-function setup() {
-    $('body').on('click', '#login', authenticateUser)
-}
+// function setup() {
+//     $('body').on('click', '#login', authenticateUser)
+// }
 
-$(document).ready(setup)
+// $(document).ready(setup)

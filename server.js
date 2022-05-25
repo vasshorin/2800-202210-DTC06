@@ -11,6 +11,7 @@ const bodyparser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const { CLIENT_RENEG_WINDOW } = require('tls');
 const app = express();
+const router = express.Router();
 
 const userModel = require('./models/User');
 const postModel = require('./models/post');
@@ -51,32 +52,88 @@ app.use(session({
 // -- MIDDLEWARE --
 // ----------------
 
+
 function isAuth(req, res, next) {
     if (req.sessionID && req.session.authenticated) {
-      // console.log(req.sessionID);
+      console.log(req.sessionID);
       next();
     } else {
-      res.redirect("/login");
+      console.log("Not authenticated");
+      res.sendFile(path.join(__dirname+'/logIn.html'));
     }
 }
-
 
 app.use(bodyparser.urlencoded({
     extended: true
 }))
 
-mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryWrites=true&w=majority", {
+mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
-app.listen(process.env.PORT || 5002 || 5005, (err) => {
-    if (err)
-        console.log(err)
+/*
+ User Login Logout
+*/
+// app.get("/", function (req, res) {
+//     res.redirect("login");
+//   });
+
+  
+
+app.get("/login"), function (req, res) {
+    console.log("seinding");
+    // res.sendFile("/public/pages/logIn.html", { root: __dirname });
+    res.sendFile(path.join(__dirname + '/pages/logIn.html'));
+}
+
+app.get("/homepage"), function (req, res) {
+    console.log("seinding");
+    res.render("homepage");
+}
+// ------------
+// --  LOGIN --
+// ------------
+app.post('/login/authentication', async (req, res) =>  {
+    const { email, password } = req.body;
+    console.log(email);
+    if (password === '' || email === '') {
+        res.render("login", {
+            error: "Please fill in all fields"
+        });
+        return;
+    }
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+        res.render("login", {
+            error: "User does not exist"
+        });
+        return;
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        res.render("login", {
+            error: "Incorrect password"
+        });
+        return;
+    } else {
+        req.session.isAuth = true;
+        req.session.userId = user._id;
+        req.session.userobj = user;
+        req.session.firstName = user.firstName;
+        req.session.lastName = user.lastName;
+        req.session.email = user.email;
+        req.session.post = user.post;
+        console.log(req.session);
+        res.redirect("/");
+    }
 })
+  
 
 
-app.use(express.static('./public'))
 
 // app.get('/', function (req, res) {
 //     res.send('.public/pages/index.html')
@@ -91,25 +148,46 @@ app.get('/userId', function (req, res) {
 
 // CRUD
 
+
 // Create
-app.put('/newHousePost/create', function (req, res) {
-    console.log(req.body)
-    housingPostModel.create({
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        userId: req.session.userobj._id,
-        time: req.body.time
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + data)
-            res.status(200).send()
-        }
-        res.send('Data inserted!')
-    })
+app.put('/newHousePost/create', async function (req, res) {
+    const { title, body, type, url } = req.body;
+    const user = await userModel.findById(req.session.userobj._id);
+
+    if(!user.post) {
+        user.post = [];
+    }
+
+    const post = {
+        title: title,
+        body: body,
+        type: type,
+        url: url
+    }
+
+    user.post.push(post);
+    await user.save();
+
+
+    
+
+    // console.log(req.body)
+    // housingPostModel.create({
+    //     title: req.body.title,
+    //     description: req.body.description,
+    //     price: req.body.price,
+    //     userId: req.session.userobj._id,
+    //     time: req.body.time
+    // }, function (err, data) {
+    //     if (err) {
+    //         console.log('Error' + err)
+    //         res.status(500).send()
+    //     } else {
+    //         console.log('Data' + data)
+    //         res.status(200).send()
+    //     }
+    //     res.send('Data inserted!')
+    // })
 })
 
 // Read
@@ -165,30 +243,6 @@ app.get('/test/read/users', function (req, res, next) {
 })
 
 
-// whe nwe visit this route, we're checking
-app.post('/login/authentication', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + users)
-        }
-
-        user = users.filter((userobj) => {
-            return userobj.email == req.body.email
-        })
-        if (user[0].password == req.body.password) {
-            req.session.authenticated = true
-            req.session.email = req.body.email
-            req.session.userId = user[0]._id
-            req.session.userobj = user[0]
-            // LoggedInUserID = req.session.userId
-            res.status(200).send("Successful Login!" + req.session.userobj + "user id: " + req.session.userId)
-        }
-
-    })
-})
 
 // Update
 app.put('/test/update/:id', function (req, res) {
@@ -210,20 +264,6 @@ app.put('/test/update/:id', function (req, res) {
     })
 })
 
-// Delete
-// app.put('/test/delete/:id', function (req, res) {
-//     housingPostModel.deleteOne({
-//        _id: req.body.id
-//     }, function (err, testData) {
-//         if (err) {
-//             console.log("Error " + err);
-//         } else {
-//             console.log("Data " + testData);
-//         }
-//         res.send("Data deleted!");
-//     });
-// });
-
 app.put('/test/delete/:id', function (req, res) {
     housingPostModel.deleteOne({
         id: req.params.id
@@ -238,17 +278,22 @@ app.put('/test/delete/:id', function (req, res) {
     });
 })
 
-app.put('/signup/create', function (req, res) {
-    console.log(req.body)
+app.post('/signup/create', function (req, res) {
+    let time = new Date();
+    // const hashedPassword = await bcrypt.hash(req.body.password, 12);
+
     userModel.create({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        age: req.body.age,
-        email: req.body.email,
         username: req.body.username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        age: req.body.age,
+        province: req.body.province,
+        city: req.body.city,
         password: req.body.password,
-        location: req.body.location,
-        time: req.body.time
+        time: time,
+        admin: false,
+        post: []
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
@@ -256,6 +301,18 @@ app.put('/signup/create', function (req, res) {
         } else {
             console.log('Data' + data)
             res.status(500).send("New user created!")
+            // res.redirect('/')
         }
     })
 })
+
+
+
+
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
+    if (err)
+        console.log(err)
+})
+
+
+// app.use(express.static('./public'))

@@ -8,15 +8,6 @@ const userSchema = new Schema(
           required: true,
           unique: true
         },
-        password: {
-            type: String,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true
-        },
         firstName: {
             type: String,
             required: true
@@ -25,8 +16,13 @@ const userSchema = new Schema(
             type: String,
             required: true
         },
+        email: {
+            type: String,
+            required: true,
+            unique: true
+        },
         age: {
-            type: Boolean,
+            type: String,
             required: true
         },
         province: {
@@ -34,6 +30,10 @@ const userSchema = new Schema(
             required: true
         },
         city: {
+            type: String,
+            required: true
+        },
+        password: {
             type: String,
             required: true
         },
