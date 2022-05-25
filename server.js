@@ -59,10 +59,6 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
 // mongoose.connect("mongodb://localhost:27017/timelineDB",
 //     { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.listen(process.env.PORT || 5002 || 5005, (err) => {
-    if (err)
-        console.log(err)
-})
 
 // app.listen(5003, function (err) {
 //     if (err)
@@ -341,4 +337,11 @@ app.post('/signup/create', function (req, res) {
         }
         res.send("New user created!")
     })
+})
+
+
+
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
+    if (err)
+        console.log(err)
 })
