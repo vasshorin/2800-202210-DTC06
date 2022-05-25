@@ -1,50 +1,65 @@
-// CONVERT TO EJS HERE
+// ------------
+// -- CONSTS --
+// ------------
 
-
-const express = require('express')
-const app = express()
 const https = require('https')
-const bodyparser = require('body-parser')
-const mongoose = require('mongoose')
-const {
-    isNumber
-} = require('util')
-// const testSchema = new mongoose.Schema({
-//     user: String,
-//     text: String
-// });
-// const testModel = mongoose.model("tests", testSchema);
+const express = require('express');
+const session = require('express-session');
+const MongoDBSession = require('connect-mongodb-session')(session);
+const mongoose = require('mongoose');
+const bodyparser = require('body-parser');
+const bcrypt = require('bcryptjs');
+const { CLIENT_RENEG_WINDOW } = require('tls');
+const app = express();
 
-var session = require('express-session')
+const userModel = require('./models/User');
+const postModel = require('./models/post');
+const { stringify } = require('querystring');
+const { totalmem } = require('os');
+const { isNumber } = require('util')
+
+const mongoURI = "mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryWrites=true&w=majority"
+
+const store = new MongoDBSession({
+    uri: mongoURI,
+    collection: 'sessions'
+});
+
+// Bodyparser
+app.use(
+    bodyparser.urlencoded({
+      parameterLimit: 100000,
+      limit: "50mb",
+      extended: true,
+    })
+  );
+
+
+// Setting view engine
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true}));
 
 app.use(session({
     secret: 'ssshhhhh',
+    resave: true,
     saveUninitialized: true,
-    resave: true
+    store: store
 }))
 
-const housingPostSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    price: Number,
-    userId: String,
-    time: String
-});
 
-const userSchema = new mongoose.Schema({
-    firstName: String,
-    lastName: String,
-    age: Number,
-    email: String,
-    password: String,
-    location: String,
-    time: String
-})
+// ----------------
+// -- MIDDLEWARE --
+// ----------------
 
-const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
-const userModel = mongoose.model("users", userSchema)
+function isAuth(req, res, next) {
+    if (req.sessionID && req.session.authenticated) {
+      // console.log(req.sessionID);
+      next();
+    } else {
+      res.redirect("/login");
+    }
+}
 
-// app.set('view engine', 'ejs')
 
 app.use(bodyparser.urlencoded({
     extended: true
@@ -55,30 +70,13 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
     useUnifiedTopology: true
 });
 
-// mongoose.connect("mongodb://localhost:27017/timelineDB",
-//     { useNewUrlParser: true, useUnifiedTopology: true });
-
 app.listen(process.env.PORT || 5002 || 5005, (err) => {
     if (err)
         console.log(err)
 })
 
-// app.listen(5003, function (err) {
-//     if (err)
-//         console.log(err);
-// })
-
 
 app.use(express.static('./public'))
-
-// function auth(req , res, next) {
-//     if (req.session.authenticated) {
-//         console.log("authenticated");
-//         next()
-//     } else {
-//         res.redirect("/sign_up.html")
-//     }
-// }
 
 // app.get('/', function (req, res) {
 //     res.send('.public/pages/index.html')
