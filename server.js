@@ -11,7 +11,6 @@ const bodyparser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const { CLIENT_RENEG_WINDOW } = require('tls');
 const app = express();
-const router = express.Router();
 
 const userModel = require('./models/User');
 const postModel = require('./models/post');
@@ -53,15 +52,16 @@ app.use(session({
 // ----------------
 
 
-function isAuth(req, res, next) {
-    if (req.sessionID && req.session.authenticated) {
-      console.log(req.sessionID);
-      next();
-    } else {
-      console.log("Not authenticated");
-      res.sendFile(path.join(__dirname+'/logIn.html'));
-    }
-}
+// function isAuth(req, res, next) {
+//     if (req.sessionID && req.session.authenticated) {
+//       console.log(req.sessionID);
+//       next();
+//     } else {
+//       console.log("Not authenticated");
+//       res.redirect("/login");
+//     }
+// }
+
 
 app.use(bodyparser.urlencoded({
     extended: true
@@ -75,65 +75,21 @@ mongoose.connect(mongoURI, {
 /*
  User Login Logout
 */
-// app.get("/", function (req, res) {
-//     res.redirect("login");
-//   });
+app.get("/", function (req, res) {
+    res.redirect("login");
+  });
 
   
 
 app.get("/login"), function (req, res) {
     console.log("seinding");
     // res.sendFile("/public/pages/logIn.html", { root: __dirname });
-    res.sendFile(path.join(__dirname + '/pages/logIn.html'));
+    res.sendFile(path.join(__dirname + '/logIn.html'));
 }
-
-app.get("/homepage"), function (req, res) {
-    console.log("seinding");
-    res.render("homepage");
-}
-// ------------
-// --  LOGIN --
-// ------------
-app.post('/login/authentication', async (req, res) =>  {
-    const { email, password } = req.body;
-    console.log(email);
-    if (password === '' || email === '') {
-        res.render("login", {
-            error: "Please fill in all fields"
-        });
-        return;
-    }
-    const user = await userModel.findOne({ email: email });
-
-    if (!user) {
-        res.render("login", {
-            error: "User does not exist"
-        });
-        return;
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-        res.render("login", {
-            error: "Incorrect password"
-        });
-        return;
-    } else {
-        req.session.isAuth = true;
-        req.session.userId = user._id;
-        req.session.userobj = user;
-        req.session.firstName = user.firstName;
-        req.session.lastName = user.lastName;
-        req.session.email = user.email;
-        req.session.post = user.post;
-        console.log(req.session);
-        res.redirect("/");
-    }
-})
   
 
 
+app.use(express.static('./public'))
 
 // app.get('/', function (req, res) {
 //     res.send('.public/pages/index.html')
@@ -243,6 +199,65 @@ app.get('/test/read/users', function (req, res, next) {
 })
 
 
+// whe new visit this route, we're checking
+app.post('/login/authentication', function (req, res, next) {
+    userModel.find({}, function (err, users) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500).send()
+        } else {
+            console.log('Data' + users)
+        }
+
+        user = users.filter((userobj) => {
+            return userobj.email == req.body.email
+        })
+        if (user[0].password == req.body.password) {
+            req.session.authenticated = true
+            req.session.email = req.body.email
+            req.session.userId = user[0]._id
+            req.session.userobj = user[0]
+            // LoggedInUserID = req.session.userId
+            res.status(200).send(req.session.userobj)
+        }
+
+    })
+})
+
+//
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+     // TODO: check if user is an admin, if so, redirect to admin page instead of user page
+    if (password === '' || email === '') {
+        res.render("login", {
+            error: "Please fill in all fields"
+        });
+        return;
+    }
+
+    const user = await UserModel.findOne({ email: email });
+
+    if (!user) {
+        res.redirect("/login");
+    } 
+    
+    const isMatch = await bcrypt.compare(password, user.password);
+    
+
+    if(!isMatch) {
+        res.redirect("/login");
+    } else {
+        req.session.isAuth = true;
+        req.session.userId = user._id;
+        req.session.firstname = user.firstname;
+        req.session.lastname = user.lastname;
+        req.session.email = user.email;
+        req.session.password = user.password;
+        req.session.cart = user.cart;
+        console.log(req.session);
+        res.redirect(`/userProfile`);
+    }
+});
 
 // Update
 app.put('/test/update/:id', function (req, res) {
@@ -280,8 +295,7 @@ app.put('/test/delete/:id', function (req, res) {
 
 app.post('/signup/create', function (req, res) {
     let time = new Date();
-    // const hashedPassword = await bcrypt.hash(req.body.password, 12);
-
+    console.log(req.body)
     userModel.create({
         username: req.body.username,
         firstName: req.body.firstName,
@@ -307,12 +321,7 @@ app.post('/signup/create', function (req, res) {
 })
 
 
-
-
-app.listen(process.env.PORT || 5002 || 5005, (err) => {
+app.listen(process.env.PORT || 5005, (err) => {
     if (err)
         console.log(err)
 })
-
-
-// app.use(express.static('./public'))
