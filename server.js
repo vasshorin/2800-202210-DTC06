@@ -1,15 +1,12 @@
-// --------------
-// --  CONSTS  --
-// --------------
-
 const express = require('express')
 const app = express()
 const https = require('https')
 const bodyparser = require('body-parser')
 const mongoose = require('mongoose')
 app.set('view engine', 'ejs')
-const { isNumber } = require('util')
-
+const {
+    isNumber
+} = require('util')
 
 var session = require('express-session')
 
@@ -19,23 +16,46 @@ app.use(session({
     resave: true
 }))
 
-// --------------
-// --  MODELS  --
-// --------------
 
-const housingPostModel =  require('./models/housingPost')
-const userModel = require("./models/user")
+// Housing Post Database Schema
+const housingPostSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    price: Number,
+    userId: String,
+    username: String,
+    time: String
+});
+
+// User Database Schema
+const userSchema = new mongoose.Schema({
+    username: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    age: String,
+    province: String,
+    city: String,
+    password: String,
+    admin: Boolean,
+    time: String
+})
+
+const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
+const userModel = mongoose.model("users", userSchema)       
+
+
+app.use(bodyparser.urlencoded({
+    extended: true
+}))
 
 mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
-app.use(bodyparser.urlencoded({
-    extended: true
-}))
 
-
+app.use(express.static('./public'))
 
 // function auth(req , res, next) {
 //     if (req.session.authenticated) {
@@ -46,13 +66,10 @@ app.use(bodyparser.urlencoded({
 //     }
 // }
 
-// --------------
-// --  ROUTES  --
-// --------------
+// app.get('/', function (req, res) {
+//     res.send('.public/pages/index.html')
 
-app.get('/', function (req, res) {
-    res.send('/pages/index.html')
-})
+// })
 
 // user ID object
 app.get('/userId', function (req, res) {
@@ -60,10 +77,148 @@ app.get('/userId', function (req, res) {
     res.send(req.session.userobj)
 })
 
+// Housing Routes
 
-// --------------
-// --  LOGIN  --
-// --------------
+// Create new house posts
+app.put('/newHousePost/create', function (req, res) {
+    console.log(req.body)
+    housingPostModel.create({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        userId: req.session.userId,
+        username: req.session.userobj.username,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send('Data inserted!')
+    })
+})
+
+// Read user's own house posts
+app.get('/ownHousePost/read', function (req, res) {
+
+    housingPostModel.find({
+        userId: req.session.userId
+    }, {}, {
+        sort: {
+            _id: -1
+        }
+    }, function (err, data) {
+
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
+// Read all house posts
+app.get('/housePosts/read', function (req, res) {
+
+    housingPostModel.find({}, {}, {
+        sort: {
+            _id: -1
+        }
+    }, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
+
+
+
+
+
+
+
+
+// CRUD
+
+// Create
+app.put('/newHousePost/create', function (req, res) {
+    console.log(req.body)
+    housingPostModel.create({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        userId: req.session.userobj._id,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500).send()
+        } else {
+            console.log('Data' + data)
+            res.status(200).send()
+        }
+        res.send('Data inserted!')
+    })
+})
+
+// Read
+// var LoggedInUserID = db.housingPostModel.find({userId})
+
+app.get('/test/read', function (req, res) {
+    // console.log(LoggedInUserID)
+    // LoggedInUserID   
+    housingPostModel.find({}, function (err, testData) {
+        // if (userId == req.session.userobj._id) {
+        //     res.send(testData)
+        // } else {
+        //     res.send("You are not logged in!")
+        //     console.log("Error" + err)
+        // }
+        var user = req.session.userId
+        // console.log(`user INSIDE TEST/READ: ${user}`)
+        if (err) {
+            console.log("Error" + err)
+            res.status(500).send()
+        } else {
+            console.log("Data" + testData)
+            res.status(200).send(testData + " user INSIDE SEND" + user)
+        }
+    })
+})
+
+
+app.get('/test/read/users', function (req, res, next) {
+    userModel.find({}, function (err, users) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500).send()
+        } else {
+            console.log('Data' + users)
+            res.status(200).send(users + " user INSIDE SEND" + user)
+        }
+        var user = req.session.userId
+
+        // user=users.filter((userobj)=>{
+        //     return userobj.email == req.body.email
+        // })
+        // if (user[0].password==req.body.password){
+        //     req.session.authenticated = true
+        //     req.session.email = req.body.email
+        //     req.session.userId = user[0]._id
+        //     req.session.userobj = user[0]
+        //     // LoggedInUserID = req.session.userId
+        //     res.send(+ req.session.userobj + "user id: " + req.session.userId)
+        // }
+
+    })
+})
+
 
 // Authenticate user
 app.post('/login/authentication', function (req, res, next) {
@@ -101,9 +256,54 @@ app.post('/login/authentication', function (req, res, next) {
     })
 })
 
-// ---------------
-// --  SIGN UP  --
-// ---------------
+// Update
+app.put('/test/update/:id', function (req, res) {
+    console.log(req.body)
+    housingPostModel.updateOne({
+        '_id': req.body.id
+    }, {
+        $set: {
+            description: req.body.description
+        }
+    }, function (err, testData) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500)
+        } else {
+            console.log('Data' + testData)
+            res.status(200).send('Data updated!')
+        }
+    })
+})
+
+// Delete
+// app.put('/test/delete/:id', function (req, res) {
+//     housingPostModel.deleteOne({
+//        _id: req.body.id
+//     }, function (err, testData) {
+//         if (err) {
+//             console.log("Error " + err);
+//         } else {
+//             console.log("Data " + testData);
+//         }
+//         res.send("Data deleted!");
+//     });
+// });
+
+app.put('/test/delete/:id', function (req, res) {
+    housingPostModel.deleteOne({
+        id: req.params.id
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(200).send()
+        } else {
+            console.log('Data' + data)
+            res.status(500).send("Delete successful!")
+        }
+    });
+})
+
 
 // Create new user
 app.post('/signup/create', function (req, res) {
@@ -129,162 +329,8 @@ app.post('/signup/create', function (req, res) {
 })
 
 
-// -------------
-// --  POSTS  --
-// -------------
 
-// Create new house posts
-app.put('/newHousePost/create', function (req, res) {
-    console.log(req.body)
-    housingPostModel.create({
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-        userId: req.session.userId,
-        username: req.session.userobj.username,
-        time: req.body.time
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-        } else {
-            console.log('Data' + data)
-        }
-        res.send('Data inserted!')
-    })
-})
-
-// Read user's own house posts
-app.get('/ownHousePost/read', function (req, res) {
-
-    housingPostModel.find({
-        userId: req.session.userId // LoggedInUserID
-    }, {}, {
-        sort: {
-            _id: -1 
-        }
-    }, function (err, data) {
-
-        if (err) {
-            console.log("Error" + err)
-        } else {
-            console.log("Data" + data)
-        }
-        res.send(data)
-    })
-})
-
-// Read all house posts
-app.get('/housePosts/read', function (req, res) {
-
-    housingPostModel.find({}, {}, {
-        sort: {
-            _id: -1
-        }
-    }, function (err, data) {
-        if (err) {
-            console.log("Error" + err)
-        } else {
-            console.log("Data" + data)
-        }
-        res.send(data)
-    })
-})
-
-// Read specific house post
-app.get('/test/read', function (req, res) {
-    // console.log(LoggedInUserID)
-    // LoggedInUserID   
-    housingPostModel.find({}, function (err, testData) {
-        // if (userId == req.session.userobj._id) {
-        //     res.send(testData)
-        // } else {
-        //     res.send("You are not logged in!")
-        //     console.log("Error" + err)
-        // }
-        var user = req.session.userId
-        // console.log(`user INSIDE TEST/READ: ${user}`)
-        if (err) {
-            console.log("Error" + err)
-            res.status(500).send()
-        } else {
-            console.log("Data" + testData)
-            res.status(200).send(testData + " user INSIDE SEND" + user)
-        }
-    })
-})
-
-// TODO: NOT SURE WHAT THIS IS
-app.get('/test/read/users', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + users)
-            res.status(200).send(users + " user INSIDE SEND" + user)
-        }
-        var user = req.session.userId
-
-        // user=users.filter((userobj)=>{
-        //     return userobj.email == req.body.email
-        // })
-        // if (user[0].password==req.body.password){
-        //     req.session.authenticated = true
-        //     req.session.email = req.body.email
-        //     req.session.userId = user[0]._id
-        //     req.session.userobj = user[0]
-        //     // LoggedInUserID = req.session.userId
-        //     res.send(+ req.session.userobj + "user id: " + req.session.userId)
-        // }
-
-    })
-})
-
-
-// Update
-app.put('/test/update/:id', function (req, res) {
-    console.log(req.body)
-    housingPostModel.updateOne({
-        '_id': req.body.id
-    }, {
-        $set: {
-            description: req.body.description
-        }
-    }, function (err, testData) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500)
-        } else {
-            console.log('Data' + testData)
-            res.status(200).send('Data updated!')
-        }
-    })
-})
-
-// Delete
-app.put('/test/delete/:id', function (req, res) {
-    housingPostModel.deleteOne({
-        id: req.params.id
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(200).send()
-        } else {
-            console.log('Data' + data)
-            res.status(500).send("Delete successful!")
-        }
-    });
-})
-
-
-// -----------
-// -- ADMIN --
-// -----------
-
-app.listen(process.env.PORT || 5006 || 5007, (err) => {
-    console.log(`Server is running on port ${process.env.PORT || 5006 || 5007}`);
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
     if (err)
         console.log(err)
 })
-
-app.use(express.static('./public'))
