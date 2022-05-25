@@ -11,12 +11,10 @@
 
 .TopNavHeader {
     grid-area: header;
-    /* height: 10%; */
 }
 
-.navbar .fixed-bottom-revised .navbar-dark .bg-dark {
+.navbar .fixed-bottom .navbar-dark .bg-dark {
     grid-area: footer;
-    /* height: 25%; */
 }
 
 #talkjs-container {
@@ -27,5 +25,3 @@
     height: 80vh;
     padding: 4em 10px 0px 10px;
 }
-
-
