@@ -1,3 +1,7 @@
+// ---------------
+// -- CONSTANTS --
+// ---------------
+
 const express = require('express')
 const app = express()
 const https = require('https')
@@ -66,18 +70,96 @@ app.use(express.static('./public'))
 //     }
 // }
 
-// app.get('/', function (req, res) {
-//     res.send('.public/pages/index.html')
+app.get('/', function (req, res) {
+    console.log("home page")
+    res.redirect('/pages/index.html')
+})
 
-// })
-
-// user ID object
+// user ID object   RS
 app.get('/userId', function (req, res) {
     console.log(req.session.userobj)
     res.send(req.session.userobj)
 })
 
 // Housing Routes
+
+// ----------------
+// --    LOGIN   --
+// ----------------
+
+// Authenticate user
+app.post('/login/authentication', function (req, res, next) {
+    userModel.find({}, function (err, users) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + users)
+        }
+
+        user = users.filter((userobj) => {
+            return userobj.email == req.body.email
+        })
+        console.log(user)
+        if (user[0].password == req.body.password) {
+            req.session.authenticated = true
+            req.session.email = req.body.email
+            req.session.userId = user[0]._id
+            req.session.userobj = {
+                userId: user[0]._id,
+                username: user[0].username,
+                firstName: user[0].firstName,
+                lastName: user[0].lastName,
+                email: user[0].email,
+                age: user[0].age,
+                province: user[0].province,
+                city: user[0].city,
+                admin: user[0].admin,
+                time: user[0].time
+            }
+            // LoggedInUserID = req.session.userId
+            res.send(req.session.userobj)
+        }
+
+    })
+})
+
+
+
+// -----------------
+// --    SIGNUP   --
+// -----------------
+
+
+// Create new user
+app.post('/signup/create', function (req, res) {
+    console.log(req.body)
+    userModel.create({
+        username: req.body.username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        age: req.body.age,
+        province: req.body.province,
+        city: req.body.city,
+        password: req.body.password,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send("New user created!")
+    })
+})
+
+
+
+// -----------------
+// --    POSTS    --
+// -----------------
+
+
 
 // Create new house posts
 app.put('/newHousePost/create', function (req, res) {
@@ -139,12 +221,9 @@ app.get('/housePosts/read', function (req, res) {
 
 
 
-
-
-
-
-
-// CRUD
+// -----------------
+// --    CRUD    --
+// -----------------
 
 // Create
 app.put('/newHousePost/create', function (req, res) {
@@ -166,9 +245,6 @@ app.put('/newHousePost/create', function (req, res) {
         res.send('Data inserted!')
     })
 })
-
-// Read
-// var LoggedInUserID = db.housingPostModel.find({userId})
 
 app.get('/test/read', function (req, res) {
     // console.log(LoggedInUserID)
@@ -220,42 +296,6 @@ app.get('/test/read/users', function (req, res, next) {
 })
 
 
-// Authenticate user
-app.post('/login/authentication', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-        } else {
-            console.log('Data' + users)
-        }
-
-        user = users.filter((userobj) => {
-            return userobj.email == req.body.email
-        })
-        console.log(user)
-        if (user[0].password == req.body.password) {
-            req.session.authenticated = true
-            req.session.email = req.body.email
-            req.session.userId = user[0]._id
-            req.session.userobj = {
-                userId: user[0]._id,
-                username: user[0].username,
-                firstName: user[0].firstName,
-                lastName: user[0].lastName,
-                email: user[0].email,
-                age: user[0].age,
-                province: user[0].province,
-                city: user[0].city,
-                admin: user[0].admin,
-                time: user[0].time
-            }
-            // LoggedInUserID = req.session.userId
-            res.send(req.session.userobj)
-        }
-
-    })
-})
-
 // Update
 app.put('/test/update/:id', function (req, res) {
     console.log(req.body)
@@ -276,20 +316,7 @@ app.put('/test/update/:id', function (req, res) {
     })
 })
 
-// Delete
-// app.put('/test/delete/:id', function (req, res) {
-//     housingPostModel.deleteOne({
-//        _id: req.body.id
-//     }, function (err, testData) {
-//         if (err) {
-//             console.log("Error " + err);
-//         } else {
-//             console.log("Data " + testData);
-//         }
-//         res.send("Data deleted!");
-//     });
-// });
-
+// Delete posts by id
 app.put('/test/delete/:id', function (req, res) {
     housingPostModel.deleteOne({
         id: req.params.id
@@ -305,30 +332,9 @@ app.put('/test/delete/:id', function (req, res) {
 })
 
 
-// Create new user
-app.post('/signup/create', function (req, res) {
-    console.log(req.body)
-    userModel.create({
-        username: req.body.username,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        age: req.body.age,
-        province: req.body.province,
-        city: req.body.city,
-        password: req.body.password,
-        time: req.body.time
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-        } else {
-            console.log('Data' + data)
-        }
-        res.send("New user created!")
-    })
-})
-
-
+// -----------------
+// --    ADMIN    --
+// -----------------
 
 app.listen(process.env.PORT || 5002 || 5005, (err) => {
     if (err)
