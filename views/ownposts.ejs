@@ -1,28 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
+    <title>COMP2800 DTC-06 Template Page</title>
 
-       <div class="card">
-        <h1 class="card-title" style="text-align: center; font-weight: bold;">Posts items:</h1>
-        <% for (var i = 0; i < userPosts.length; i++) { %>
-            <div class="card-inside"> 
-                <div id="right_side">
-                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].title %></h5></div>
-                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].body %></h5></div>
-                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].type %></h5></div>
-                    <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].url %></h5></div>
-                    <div class="total"><h5 class="card-title-price"><b>  lngth</b> <%= userLenggth %></h5></div>
-                </div>
-        <% } %>
-    </div>
-    </div>
+    <!-- Bootstrap Library CSS JS CDN -->
+    <!-- https://github.com/twbs/bootstrap/blob/v5.0.2/LICENSE
+    The MIT License (MIT)
+
+    Copyright (c) 2011-2021 Twitter, Inc.
+    Copyright (c) 2011-2021 The Bootstrap Authors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Other libraries and styles -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+    <!-- HTML Layout -->
+
+    <!-- top navbar -->
+    <div id="topNavPlaceHolder"></div>
+
+    <!-- body of the page, put everything for body in main-->
+    <main>
+        <div class="card">
+            <h1 class="card-title" style="text-align: center; font-weight: bold;">Posts items:</h1>
+            <% for (var i = 0; i < userPosts.length; i++) { %>
+                <div class="card-inside"> 
+                    <div id="right_side">
+                        <!-- <div class="total"><h5 class="card-title-price"><b>posts</b> <%= userPosts[i].title %></h5></div> -->
+                        <div class="total"><h5 class="card-title-price"><b>Body:</b> <%= userPosts[i].body %></h5></div>
+                        <div class="total"><h5 class="card-title-price"><b>Type:</b> <%= userPosts[i].type %></h5></div>
+                        <div class="total"><h5 class="card-title-price"><b>url:</b> <%= userPosts[i].url %></h5></div>
+                        <div style="border-bottom: 1px solid black ;" class="total"><h5 class="card-title-price"><b>  lngth</b> <%= userLenggth %></h5></div>
+                    </div>
+            <% } %>
+            </div>
+            </div>
+        <!-- footer -->
+        <div id="footer"></div>
     </main>
+    
+    <!-- bottom navbar -->
+    <div id="bottomNavPlaceHolder"></div>
 </body>
+
 </html>

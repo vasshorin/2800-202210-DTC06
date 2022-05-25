@@ -53,7 +53,7 @@ app.use(session({
 
 
 function isAuth(req, res, next) {
-    if (req.sessionID) {
+    if (req.session.isAuth) {
       console.log(req.sessionID);
       next();
     } else {
@@ -125,7 +125,6 @@ app.post("/login/authentication", async (req, res) => {
 // -- SIGNUP --
 // ------------
 
-
 app.post('/signup/create', async function (req, res) {
     let time = new Date();
     console.log(req.body)
@@ -165,7 +164,7 @@ app.post('/signup/create', async function (req, res) {
 /*
 CREATE POST
 */
-app.post('/newHousePost/create', async function (req, res) {
+app.post('/newHousePost/create', isAuth, async function (req, res) {
     const { title, body, type, url } = req.body;
     const user = await userModel.findOne({ _id: req.session.userId });
     console.log(user.posts)
@@ -195,7 +194,7 @@ app.post('/newHousePost/create', async function (req, res) {
 VIEW OWN POSTS
 */
 
-app.get('/ownposts',isAuth, async  function (req, res) {
+app.get('/ownposts', isAuth, async  function (req, res) {
     const user = await userModel.findById(req.session.userId);
     const userPosts = user.posts;
     const userLenggth = userPosts.length;
@@ -205,7 +204,7 @@ app.get('/ownposts',isAuth, async  function (req, res) {
         res.render('ownposts', {
             userPosts: userPosts,
             userLenggth: userLenggth,
-            title: userPosts[i].title,
+            // title: userPosts[i].title,
             body: userPosts[i].body,
             type: userPosts[i].type,
             url: userPosts[i].url
@@ -213,6 +212,17 @@ app.get('/ownposts',isAuth, async  function (req, res) {
         console.log(userPosts[i]);
     }
 })
+
+// -------------
+// -- LOGOUT ---
+// -------------
+
+app.post("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/pages/login.html");
+    });
+});
+
 
 
 
