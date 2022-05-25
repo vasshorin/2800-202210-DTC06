@@ -221,54 +221,54 @@ app.get('/ownposts',isAuth, async  function (req, res) {
 // -- UNUSED FOR NOW --
 // ---------------------------------------------------------------------------------------------------------------------
 
-app.get('/:type/:id', function (req, res) {
+// app.get('/:type/:id', function (req, res) {
  
-    housingPostModel.find({}, function (err, testData) {
-        if (err) {
-            console.log("Error" + err)
-            res.status(500).send()
-        } else {
-            console.log("Data" + testData)
-            res.status(200).send(testData + " user INSIDE SEND" + user)
-        }
-    })
-})
+//     housingPostModel.find({}, function (err, testData) {
+//         if (err) {
+//             console.log("Error" + err)
+//             res.status(500).send()
+//         } else {
+//             console.log("Data" + testData)
+//             res.status(200).send(testData + " user INSIDE SEND" + user)
+//         }
+//     })
+// })
 
 
 
 // Update
-app.put('/test/update/:id', function (req, res) {
-    console.log(req.body)
-    housingPostModel.updateOne({
-        '_id': req.body.id
-    }, {
-        $set: {
-            description: req.body.description
-        }
-    }, function (err, testData) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500)
-        } else {
-            console.log('Data' + testData)
-            res.status(200).send('Data updated!')
-        }
-    })
-})
+// app.put('/test/update/:id', function (req, res) {
+//     console.log(req.body)
+//     housingPostModel.updateOne({
+//         '_id': req.body.id
+//     }, {
+//         $set: {
+//             description: req.body.description
+//         }
+//     }, function (err, testData) {
+//         if (err) {
+//             console.log('Error' + err)
+//             res.status(500)
+//         } else {
+//             console.log('Data' + testData)
+//             res.status(200).send('Data updated!')
+//         }
+//     })
+// })
 
-app.put('/test/delete/:id', function (req, res) {
-    housingPostModel.deleteOne({
-        id: req.params.id
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(200).send()
-        } else {
-            console.log('Data' + data)
-            res.status(500).send("Delete successful!")
-        }
-    });
-})
+// app.put('/test/delete/:id', function (req, res) {
+//     housingPostModel.deleteOne({
+//         id: req.params.id
+//     }, function (err, data) {
+//         if (err) {
+//             console.log('Error' + err)
+//             res.status(200).send()
+//         } else {
+//             console.log('Data' + data)
+//             res.status(500).send("Delete successful!")
+//         }
+//     });
+// })
 
 
 
