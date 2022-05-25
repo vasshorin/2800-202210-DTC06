@@ -79,6 +79,8 @@ app.get("/", function (req, res) {
     res.redirect("/index.html");
   });
   
+
+
 // ------------
 // -- LOGIN --
 // ------------
@@ -96,7 +98,7 @@ app.post("/login/authentication", async (req, res) => {
     const user = await userModel.findOne({ email: email });
 
     if (!user) {
-        res.redirect(__dirname + "/public/pages/logIn.html");
+        res.redirect("/public/pages/logIn.html");
     } 
     
     const isMatch = await bcrypt.compare(password, user.password);
@@ -160,9 +162,9 @@ app.post('/signup/create', async function (req, res) {
 // -------------
 
 
-
-
-
+/*
+CREATE POST
+*/
 app.post('/newHousePost/create', async function (req, res) {
     const { title, body, type, url } = req.body;
     const user = await userModel.findOne({ _id: req.session.userId });
@@ -186,50 +188,12 @@ app.post('/newHousePost/create', async function (req, res) {
     await user.save();
     console.log(user.posts);
     res.redirect('/index.html');    
-
-
-    
-
-    // console.log(req.body)
-    // housingPostModel.create({
-    //     title: req.body.title,
-    //     description: req.body.description,
-    //     price: req.body.price,
-    //     userId: req.session.userobj._id,
-    //     time: req.body.time
-    // }, function (err, data) {
-    //     if (err) {
-    //         console.log('Error' + err)
-    //         res.status(500).send()
-    //     } else {
-    //         console.log('Data' + data)
-    //         res.status(200).send()
-    //     }
-    //     res.send('Data inserted!')
-    // })
 })
 
 
-
-
-
-// Read
-// var LoggedInUserID = db.housingPostModel.find({userId})
-
-app.get('/:type/:id', function (req, res) {
-    // console.log(LoggedInUserID)
-    // LoggedInUserID   
-    housingPostModel.find({}, function (err, testData) {
-        if (err) {
-            console.log("Error" + err)
-            res.status(500).send()
-        } else {
-            console.log("Data" + testData)
-            res.status(200).send(testData + " user INSIDE SEND" + user)
-        }
-    })
-})
-
+/*
+VIEW OWN POSTS
+*/
 
 app.get('/ownposts',isAuth, async  function (req, res) {
     const user = await userModel.findById(req.session.userId);
@@ -249,6 +213,28 @@ app.get('/ownposts',isAuth, async  function (req, res) {
         console.log(userPosts[i]);
     }
 })
+
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// -- UNUSED FOR NOW --
+// ---------------------------------------------------------------------------------------------------------------------
+
+app.get('/:type/:id', function (req, res) {
+ 
+    housingPostModel.find({}, function (err, testData) {
+        if (err) {
+            console.log("Error" + err)
+            res.status(500).send()
+        } else {
+            console.log("Data" + testData)
+            res.status(200).send(testData + " user INSIDE SEND" + user)
+        }
+    })
+})
+
+
 
 // Update
 app.put('/test/update/:id', function (req, res) {
@@ -286,6 +272,9 @@ app.put('/test/delete/:id', function (req, res) {
 
 
 
+// -------------
+// -- PORTS --
+// -------------
 app.listen(process.env.PORT || 5006, (err) => {
     if (err){
         console.log(err)
