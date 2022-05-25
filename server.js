@@ -255,7 +255,7 @@ app.post("/login/authentication", async (req, res) => {
         req.session.password = user.password;
         req.session.post = user.post;
         console.log(req.session);
-        // res.redirect(`/userProfile`);
+        res.redirect("/index.html");
     }
 });
 
