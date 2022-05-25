@@ -88,25 +88,22 @@ app.get("/", function (req, res) {
 app.post("/login/authentication", async (req, res) => {
     const { email, password } = req.body;
      // TODO: check if user is an admin, if so, redirect to admin page instead of user page
-    if (password === '' || email === '') {
-        res.render("login", {
-            error: "Please fill in all fields"
-        });
-        return;
+    if (password === '' || email === '') { 
+        res.redirect("/pages/login.html"); // if the user didn't fill in the form, redirect to login page 
     }
 
     const user = await userModel.findOne({ email: email });
 
-    if (!user) {
+    if (!user) { // if user is not found
         res.redirect("/public/pages/logIn.html");
     } 
     
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password); // match password with hash
     
 
-    if(!isMatch) {
+    if(!isMatch) { // if password is incorrect
         res.redirect("/public/pages/logIn.html");
-    } else {
+    } else { // if password is correct, grab user info and store in session
         req.session.isAuth = true;
         req.session.userId = user._id;
         req.session.firstName = user.firstName;
@@ -129,9 +126,9 @@ app.post('/signup/create', async function (req, res) {
     let time = new Date();
     console.log(req.body)
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 12);
+    const hashedPassword = await bcrypt.hash(req.body.password, 12); // 12 is the number of rounds
 
-    userModel.create({
+    userModel.create({ 
         username: req.body.username,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -165,15 +162,15 @@ app.post('/signup/create', async function (req, res) {
 CREATE POST
 */
 app.post('/newHousePost/create', isAuth, async function (req, res) {
-    const { title, body, type, url } = req.body;
-    const user = await userModel.findOne({ _id: req.session.userId });
-    console.log(user.posts)
-    const random = Math.floor(Math.random() * 100000)
+    const { title, body, type, url } = req.body; 
+    const user = await userModel.findOne({ _id: req.session.userId }); // get user from session
+    console.log(user.posts) 
+    const random = Math.floor(Math.random() * 100000) // random number for post id
     const ID = `/${type}/${random}`
     console.log(ID)
 
     if(!user.posts) {
-        user.posts = [];
+        user.posts = []; // if user has no posts, create an empty array
     }
 
     const post = {
@@ -183,8 +180,8 @@ app.post('/newHousePost/create', isAuth, async function (req, res) {
         url: ID
     }
 
-    user.posts.push(post);
-    await user.save();
+    user.posts.push(post); // add post to user posts array
+    await user.save(); 
     console.log(user.posts);
     res.redirect('/index.html');    
 })
@@ -195,13 +192,13 @@ VIEW OWN POSTS
 */
 
 app.get('/ownposts', isAuth, async  function (req, res) {
-    const user = await userModel.findById(req.session.userId);
-    const userPosts = user.posts;
+    const user = await userModel.findById(req.session.userId); // get user from session
+    const userPosts = user.posts; // get user posts
     const userLenggth = userPosts.length;
     console.log(userPosts.length);
-    for (let i = 0; i <= userPosts.length; i++) {
-
+    for (let i = 0; i <= userPosts.length; i++) { // loop through user posts
         res.render('ownposts', {
+            // TODO: fix fail after page reloads (userPosts[i].body is undefined)
             userPosts: userPosts,
             userLenggth: userLenggth,
             // title: userPosts[i].title,
@@ -218,7 +215,7 @@ app.get('/ownposts', isAuth, async  function (req, res) {
 // -------------
 
 app.post("/logout", (req, res) => {
-    req.session.destroy(() => {
+    req.session.destroy(() => { // destroy session
         res.redirect("/pages/login.html");
     });
 });
@@ -295,4 +292,4 @@ app.listen(process.env.PORT || 5006, (err) => {
 
 
 
-app.use(express.static('./public'))
+app.use(express.static('./public')) // serve static files from public folder
