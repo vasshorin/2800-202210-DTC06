@@ -200,32 +200,32 @@ app.get('/test/read/users', function (req, res, next) {
 
 
 // whe new visit this route, we're checking
-app.post('/login/authentication', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + users)
-        }
+// app.post('/login/authentication', function (req, res, next) {
+//     userModel.find({}, function (err, users) {
+//         if (err) {
+//             console.log('Error' + err)
+//             res.status(500).send()
+//         } else {
+//             console.log('Data' + users)
+//         }
 
-        user = users.filter((userobj) => {
-            return userobj.email == req.body.email
-        })
-        if (user[0].password == req.body.password) {
-            req.session.authenticated = true
-            req.session.email = req.body.email
-            req.session.userId = user[0]._id
-            req.session.userobj = user[0]
-            // LoggedInUserID = req.session.userId
-            res.status(200).send(req.session.userobj)
-        }
+//         user = users.filter((userobj) => {
+//             return userobj.email == req.body.email
+//         })
+//         if (user[0].password == req.body.password) {
+//             req.session.authenticated = true
+//             req.session.email = req.body.email
+//             req.session.userId = user[0]._id
+//             req.session.userobj = user[0]
+//             // LoggedInUserID = req.session.userId
+//             res.status(200).send(req.session.userobj)
+//         }
 
-    })
-})
+//     })
+// })
 
 //
-app.post("/login", async (req, res) => {
+app.post("/login/authentication", async (req, res) => {
     const { email, password } = req.body;
      // TODO: check if user is an admin, if so, redirect to admin page instead of user page
     if (password === '' || email === '') {
@@ -235,17 +235,17 @@ app.post("/login", async (req, res) => {
         return;
     }
 
-    const user = await UserModel.findOne({ email: email });
+    const user = await userModel.findOne({ email: email });
 
     if (!user) {
-        res.redirect("/login");
+        res.redirect(__dirname + "/public/pages/logIn.html");
     } 
     
     const isMatch = await bcrypt.compare(password, user.password);
     
 
     if(!isMatch) {
-        res.redirect("/login");
+        res.redirect("/public/pages/logIn.html");
     } else {
         req.session.isAuth = true;
         req.session.userId = user._id;
@@ -253,9 +253,9 @@ app.post("/login", async (req, res) => {
         req.session.lastname = user.lastname;
         req.session.email = user.email;
         req.session.password = user.password;
-        req.session.cart = user.cart;
+        req.session.post = user.post;
         console.log(req.session);
-        res.redirect(`/userProfile`);
+        // res.redirect(`/userProfile`);
     }
 });
 
@@ -293,9 +293,12 @@ app.put('/test/delete/:id', function (req, res) {
     });
 })
 
-app.post('/signup/create', function (req, res) {
+app.post('/signup/create', async function (req, res) {
     let time = new Date();
     console.log(req.body)
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
+
     userModel.create({
         username: req.body.username,
         firstName: req.body.firstName,
@@ -304,7 +307,7 @@ app.post('/signup/create', function (req, res) {
         age: req.body.age,
         province: req.body.province,
         city: req.body.city,
-        password: req.body.password,
+        password: hashedPassword,
         time: time,
         admin: false,
         post: []
@@ -321,7 +324,10 @@ app.post('/signup/create', function (req, res) {
 })
 
 
-app.listen(process.env.PORT || 5005, (err) => {
-    if (err)
+app.listen(process.env.PORT || 5006, (err) => {
+    if (err){
         console.log(err)
+    } else {
+        console.log("Server is running on port 5006")
+    }
 })
