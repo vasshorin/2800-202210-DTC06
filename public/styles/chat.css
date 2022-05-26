@@ -13,10 +13,6 @@
     grid-area: header;
 }
 
-.navbar .fixed-bottom .navbar-dark .bg-dark {
-    grid-area: footer;
-}
-
 #talkjs-container {
     justify-self: end;
     align-items: end;
@@ -25,3 +21,9 @@
     height: 80vh;
     padding: 4em 10px 0px 10px;
 }
+
+.navbar .fixed-bottom .navbar-dark .bg-dark {
+    grid-area: footer;
+}
+
+
