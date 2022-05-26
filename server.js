@@ -226,7 +226,7 @@ app.delete('/ownCommunityPost/delete/:postId', function (req, res) {
 // -------------------
 
 // Create new house posts
-app.put('/newHousePost/create', isAuth, function (req, res) {
+app.put('/newHousePost/create', function (req, res) {
     console.log(req.body)
     housingPostModel.create({
         title: req.body.title,
