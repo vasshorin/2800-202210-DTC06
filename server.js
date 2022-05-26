@@ -44,7 +44,6 @@ const jobPostSchema = new mongoose.Schema({
     time: String
 });
 
-
 // Housing Post Database Schema
 const housingPostSchema = new mongoose.Schema({
     title: String,
@@ -208,6 +207,20 @@ app.get('/communityPost/:postId', function (req, res) {
     })
 })
 
+// Delete own Community Post
+app.delete('/ownCommunityPost/delete/:postId', function (req, res) {
+    communityPostModel.findByIdAndDelete(req.params.postId, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+            res.status(500).send()
+        } else {
+            console.log("Data" + data)
+            res.status(200).send('Data deleted!')
+        }
+    })
+})
+
+
 // -------------------
 // -- HOUSING POSTS --
 // -------------------
@@ -236,6 +249,20 @@ app.put('/newHousePost/create', isAuth, function (req, res) {
         res.send('Data inserted!')
     })
 })
+
+// Delete specific house post
+app.get('/housingPost/delete/:postId', function (req, res) {
+    housingPostModel.findByIdAndDelete(req.params.postId, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send('Data deleted!')
+    })
+})
+
+
 
 // Read user's own house posts
 app.get('/ownHousePost/read', function (req, res) {
