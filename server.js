@@ -30,7 +30,19 @@ const communityPostSchema = new mongoose.Schema({
     time: String
 });
 
-
+// Job Post Database Schema
+const jobPostSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    userId: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    username: String,
+    city: String,
+    province: String,
+    time: String
+});
 
 
 // Housing Post Database Schema
@@ -201,7 +213,7 @@ app.get('/communityPost/:postId', function (req, res) {
 // -------------------
 
 // Create new house posts
-app.put('/newHousePost/create', function (req, res) {
+app.put('/newHousePost/create', isAuth, function (req, res) {
     console.log(req.body)
     housingPostModel.create({
         title: req.body.title,
