@@ -1,3 +1,5 @@
+// New branch
+
 // Populate the posts on the page when the page loads.
 function populatePosts(posts) {
     console.log(posts)
