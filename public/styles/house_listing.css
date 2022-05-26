@@ -14,7 +14,27 @@
 
 }
 
-img {
-    max-width: 30%;
-    height: auto;
+p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
 }
+
+img {
+    max-width: 100%;
+}
+
+img .img-card-top{
+    max-height: 1%;
+}
+
+/* .card-image-top{
+    width: 100vw;
+} */
+/* 
+.felix-test{
+
+} */
+
