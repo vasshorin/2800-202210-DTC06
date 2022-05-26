@@ -70,10 +70,10 @@ app.use(express.static('./public'))
 //     }
 // }
 
-app.get('/', function (req, res) {
-    console.log("home page")
-    res.redirect('/pages/index.html')
-})
+// app.get('/', function (req, res) {
+//     console.log("home page")
+//     // res.redirect('/pages/index.html')
+// })
 
 // user ID object   RS
 // app.get('/userId', function (req, res) {
@@ -151,7 +151,7 @@ app.post('/signup/create', function (req, res) {
             console.log('Data' + data)
             res.status(200).send()
         }
-        res.send("New user created!")
+        // res.send("New user created!")
     })
 })
 
