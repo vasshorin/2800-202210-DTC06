@@ -13,6 +13,8 @@ async function authenticateUser() {
         },
         success: (x) => {
             console.log("extra" + x)
+            // redirect to index page  
+            window.location.href = '/index.html'
         }
     })
 }
