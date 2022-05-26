@@ -8,9 +8,10 @@
 //     })
 // }
 
-(function (t, a, l, k, j, s) {
+// Working example from SDK documentation, link: https://talkjs.com/docs/sdk/javascript/getting-started/
+(function (t, a, l, k, j, s) { 
     s = a.createElement('script');
-    s.async = 1;
+    s.async = 1; 
     s.src = "https://cdn.talkjs.com/talk.js";
     a.head.appendChild(s);
     k = t.Promise;
@@ -32,7 +33,7 @@
     };
 })(window, document, []);
 
-// function talkjs(user){
+// 
 Talk.ready.then(function () {
     // userDetails = null
     // $.ajax({
