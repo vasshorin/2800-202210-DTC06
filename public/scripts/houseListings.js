@@ -1,7 +1,8 @@
+// Populate the posts on the page when the page loads.
 function populatePosts(posts) {
     console.log(posts)
     postArray = '<hr>'
-    for (i = 0; i < posts.length; i++) {
+    for (i = 0; i < posts.length; i++) { // for each post
         postArray += `
         <a href="../housePosts/${posts[i]._id}" class="btn">"
             Title: ${posts[i].title}<br>
@@ -28,6 +29,7 @@ function directPost(){
     })
 }
 
+{/* // Ajax call to get all posts from the database and call populatePosts to populate the page, when the page loads. */}
 function getPosts() {
     $.ajax({
         // url:'https://warm-cove-79874.herokuapp.com/housePosts/read',
@@ -37,6 +39,7 @@ function getPosts() {
     })
 }
 
+// Opens direct chat with the user who posted the post.
 function directChat() {
     otherUserId = $(this).attr('id')
     console.log(otherUserId)

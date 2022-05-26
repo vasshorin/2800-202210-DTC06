@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
 })
 
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
-const userModel = mongoose.model("users", userSchema)
+const userModel = mongoose.model("users", userSchema)       
 
 
 app.use(bodyparser.urlencoded({
@@ -75,89 +75,13 @@ app.use(express.static('./public'))
 //     }
 // }
 
-// user ID object   RS
-// app.get('/userId', function (req, res) {
-//     console.log(req.session.userobj)
-//     res.send(req.session.userobj)
-// })
-
-// ----------------
-// --    LOGIN   --
-// ----------------
-
-// Authenticate user
-app.post('/login/authentication', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-        } else {
-            console.log('Data' + users)
-        }
-
-        user = users.filter((userobj) => {
-            return userobj.email == req.body.email
-        })
-        console.log(user)
-        if (user[0].password == req.body.password) {
-            req.session.authenticated = true
-            req.session.email = req.body.email
-            req.session.userId = user[0]._id
-            req.session.userobj = {
-                userId: user[0]._id,
-                username: user[0].username,
-                firstName: user[0].firstName,
-                lastName: user[0].lastName,
-                email: user[0].email,
-                age: user[0].age,
-                province: user[0].province,
-                city: user[0].city,
-                admin: user[0].admin,
-                time: user[0].time
-            }
-            // LoggedInUserID = req.session.userId
-            res.send(req.session.userobj)
-        }
-
-    })
+app.get('/', function (req, res) {
+    res.send('/index.html')
 })
 
-
-
-// -----------------
-// --    SIGNUP   --
-// -----------------
-
-
-// Create new user
-app.post('/signup/create', function (req, res) {
-    console.log(req.body)
-    userModel.create({
-        username: req.body.username,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        age: req.body.age,
-        province: req.body.province,
-        city: req.body.city,
-        password: req.body.password,
-        time: req.body.time
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-        } else {
-            console.log('Data' + data)
-        }
-        res.send("New user created!")
-    })
-})
-
-
-
-// -----------------
-// --    POSTS    --
-// -----------------
-
-
+// -------------------
+// -- HOUSING POSTS --
+// -------------------
 
 // Create new house posts
 app.put('/newHousePost/create', function (req, res) {
@@ -188,10 +112,10 @@ app.put('/newHousePost/create', function (req, res) {
 app.get('/ownHousePost/read', function (req, res) {
 
     housingPostModel.find({
-        userId: req.session.userId
+        userId: req.session.userId // Find all posts by userId of the currently logged in user
     }, {}, {
         sort: {
-            _id: -1
+            _id: -1 // Sort posts by descending order (latest first)
         }
     }, function (err, data) {
 
@@ -209,7 +133,7 @@ app.get('/housePosts/read', function (req, res) {
 
     housingPostModel.find({}, {}, {
         sort: {
-            _id: -1
+            _id: -1 // Sort posts by descending order (latest first)
         }
     }, function (err, data) {
         if (err) {
@@ -242,6 +166,103 @@ app.get('/housePosts/:postId', function (req, res) {
     })
 })
 
+// --------------
+// -- USERS --
+// --------------
+
+
+// LOGIN USER
+app.post('/login/authentication', function (req, res, next) {
+    userModel.find({}, function (err, users) { // find all users
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + users)
+        }
+
+        user = users.filter((userobj) => {
+            return userobj.email == req.body.email // find user with email matching the one entered
+        })
+        console.log(user)
+        if (user[0].password == req.body.password) {
+            req.session.authenticated = true
+            req.session.email = req.body.email
+            req.session.userId = user[0]._id
+            req.session.userobj = { // create user object to store in session with the following data
+                userId: user[0]._id,
+                username: user[0].username,
+                firstName: user[0].firstName,
+                lastName: user[0].lastName,
+                email: user[0].email,
+                age: user[0].age,
+                province: user[0].province,
+                city: user[0].city,
+                admin: user[0].admin,
+                time: user[0].time
+            }
+            // LoggedInUserID = req.session.userId
+            res.send(req.session.userobj)
+        }
+
+    })
+})
+
+
+
+// ---------------
+// -- SIGNUP --
+// ---------------
+
+// Create new user
+app.post('/signup/create', function (req, res) {
+    console.log(req.body)
+    userModel.create({ // Creat new signup user
+        username: req.body.username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        age: req.body.age,
+        province: req.body.province,
+        city: req.body.city,
+        password: req.body.password,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send("New user created!")
+    })
+})
+
+// -----------
+// -- LOGOUT--
+// -----------
+app.post("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/login");
+    });
+});
+
+
+// ---------------
+// -- ADMIN --
+// ---------------
+
+// Ports for the server
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
+    if (err)
+        console.log(err)
+})
+
+
+
+
+
+// --------------------------------------------------------------------
+// -- UNUSED FOR NOW --
+// --------------------------------------------------------------------
 // Update
 // app.put('/test/update/:id', function (req, res) {
 //     console.log(req.body)
@@ -262,7 +283,6 @@ app.get('/housePosts/:postId', function (req, res) {
 //     })
 // })
 
-// Delete
 // app.put('/test/delete/:id', function (req, res) {
 //     housingPostModel.deleteOne({
 //         id: req.params.id
@@ -276,13 +296,3 @@ app.get('/housePosts/:postId', function (req, res) {
 //         }
 //     });
 // })
-
-
-// -----------------
-// --    ADMIN    --
-// -----------------
-
-app.listen(process.env.PORT || 5002 || 5005, (err) => {
-    if (err)
-        console.log(err)
-})

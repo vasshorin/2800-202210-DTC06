@@ -16,6 +16,7 @@ function populatePosts(userPosts) {
     $('#ownPosts').html(postArray)
 }
 
+// load events to main div
 function loadEventsToMainDiv() {
     $('#ownPosts').empty()
     $.ajax({
@@ -27,8 +28,7 @@ function loadEventsToMainDiv() {
 }
 
 
-// submit form            
-// userId: req.session.userobj._id,
+// Get user input from form and send to database to create a new post
 function submitForm() {
     var title = $("#postTitle").val();
     var description = $("#postBody").val();

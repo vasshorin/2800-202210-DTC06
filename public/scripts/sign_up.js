@@ -63,6 +63,7 @@
 
 // FELIX YOU NEED TO WORK ON THIS AGAIN
 
+// Get user input from form and send to database to create a new user object
 async function storeNewUser() {
     username= $('#username').val()
     firstName = $('#firstName').val()
@@ -90,6 +91,8 @@ async function storeNewUser() {
         },
         success: (x) => {
             console.log(x)
+            // redirect to login page
+            window.location.href = "/pages/login.html" // redirect to login page
         }
     })
 }

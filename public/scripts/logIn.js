@@ -1,3 +1,4 @@
+// Gets input from the user and sends it to the server to match it with the database to authenticate the user. 
 async function authenticateUser() {
     email = $('#email').val()
     password = $('#password').val()
