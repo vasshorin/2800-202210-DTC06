@@ -14,8 +14,8 @@ function populatePosts(userPosts) {
         City: ${userPosts[i].city}<br>
         Province: ${userPosts[i].province}<br>
         Posted by: ${userPosts[i].username}<br>
-        Posted at: ${userPosts[i].time}<hr>
-        <button id="${userPosts[i]._id}" class="deleteButtons">Delete</button>`
+        Posted at: ${userPosts[i].time}
+        <button id="${userPosts[i]._id}" class="deleteButtons">Delete</button><hr>`
     }
     $('#ownPosts').html(postArray)
 }
@@ -43,6 +43,8 @@ function deleteEvent() {
         type: 'get',
         success: (x) => {
             console.log(x)
+            // redirect to main page
+            window.location.href = "/pages/newHouseListing.html"
         }
     })
 }
