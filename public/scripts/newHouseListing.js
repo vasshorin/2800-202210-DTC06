@@ -1,6 +1,23 @@
 var now = new Date(Date.now());
 var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
+
+// Delete post from database based on id
+function deleteEvent(id) {
+    console.log("Deleting event with id: " + id);
+    housingPostModel.deleteOne({
+        _id: id
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500).send()
+        } else {
+            console.log('Data' + data)
+            res.status(200).send("Delete successful!")
+        }
+    })
+}
+
 // Populate user's own house postings
 function populatePosts(userPosts) {
     console.log(userPosts)

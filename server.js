@@ -110,6 +110,7 @@ app.get('/', function (req, res) {
 // -------------------
 // - COMMUNITY POSTS -
 // -------------------
+
 // -> Links to newCommunityForm.html
 app.put('/newCommunityPostForm/create', function (req, res) {
     console.log(req.body)
@@ -157,6 +158,43 @@ app.get('/ownCommunityPost/read', function (req, res) {
     })
 })
 
+// Read all comunity posts
+app.get('/communityPost/read', function (req, res) {
+
+    communityPostModel.find({}, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
+// direct to specific post
+app.get('/communityPost/:postId', function (req, res) {
+    communityPostModel.findById(req.params.postId, function (err, post) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + post)
+        }
+        res.render('communityPost', {
+            title: post.eventTitle,
+            description: post.eventDescription,
+            firstName: post.firstName,
+            lastName: post.lastName,
+            email: post.email,
+            organizer: post.eventOrganizerName,
+            location: post.eventLocation,
+            userId: post.userId,
+        })
+    })
+})
 
 // -------------------
 // -- HOUSING POSTS --
