@@ -2,22 +2,6 @@ var now = new Date(Date.now());
 var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
 
-// Delete post from database based on id
-function deleteEvent(id) {
-    console.log("Deleting event with id: " + id);
-    housingPostModel.deleteOne({
-        _id: id
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + data)
-            res.status(200).send("Delete successful!")
-        }
-    })
-}
-
 // Populate user's own house postings
 function populatePosts(userPosts) {
     console.log(userPosts)
@@ -30,7 +14,8 @@ function populatePosts(userPosts) {
         City: ${userPosts[i].city}<br>
         Province: ${userPosts[i].province}<br>
         Posted by: ${userPosts[i].username}<br>
-        Posted at: ${userPosts[i].time}<hr>`
+        Posted at: ${userPosts[i].time}<hr>
+        <button id="${userPosts[i]._id}" class="deleteButtons">Delete</button>`
     }
     $('#ownPosts').html(postArray)
 }
@@ -47,6 +32,20 @@ function loadEventsToMainDiv() {
     })
 }
 
+
+// delete post
+function deleteEvent() {
+    var postId = $(this).attr('id')
+    console.log(postId)
+    $.ajax({
+        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
+        url: `http://localhost:5002/housingPost/delete/${postId}`,
+        type: 'get',
+        success: (x) => {
+            console.log(x)
+        }
+    })
+}
 
 // Get user input from form and send to database to create a new post
 function submitForm() {
@@ -152,7 +151,7 @@ function setup() {
     loadEventsToMainDiv()
 
     $("body").on("click", "#submit", submitForm)
-    // $("body").on("click", ".deleteButtons", deleteEvent)
+    $("body").on("click", ".deleteButtons", deleteEvent)
 }
 
 $(document).ready(setup);
