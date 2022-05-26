@@ -1,77 +1,88 @@
 var now = new Date(Date.now());
 var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-// let userId = ''
 
-// function storeUserObj (userObj){
-//     userId = userObj._id
-//     return userId
-// }
-
-userID = null
-
-
-// Current user ID
-function getUserId() {
-    $.ajax({
-        url: "https://warm-cove-79874.herokuapp.com/userId",
-        type: "GET",
-        success: loadEventsToMainDiv
-    })
-    // success: (userObj)=>{
-    //     userId = userObj
-    // }
-    // })
-    // return userId
+// Populate user's own house postings
+function populatePosts(userPosts) {
+    console.log(userPosts)
+    postArray = '<hr>'
+    for (i = 0; i < userPosts.length; i++) {
+        postArray += `
+        Title: ${userPosts[i].title}<br>
+        Price: $${userPosts[i].price}<br>
+        Description: ${userPosts[i].description}<br>
+        City: ${userPosts[i].city}<br>
+        Province: ${userPosts[i].province}<br>
+        Posted by: ${userPosts[i].username}<br>
+        Posted at: ${userPosts[i].time}<hr>`
+    }
+    $('#ownPosts').html(postArray)
 }
 
-// submit form            
-// userId: req.session.userobj._id,
+
+// load events to main div
+function loadEventsToMainDiv() {
+    $('#ownPosts').empty()
+    $.ajax({
+        // url:'https://warm-cove-79874.herokuapp.com/ownHousePost/read',
+        url: 'http://localhost:5002/ownHousePost/read',
+        type: 'GET',
+        success: populatePosts
+    })
+}
+
+
+// Get user input from form and send to database to create a new post
 function submitForm() {
     var title = $("#postTitle").val();
     var description = $("#postBody").val();
     var price = $("#postPrice").val();
+    var city = $("#postCity").val();
+    var province = $("#postProvince").val();
     var time = new Date();
 
     console.log(title, description, price, time)
     $.ajax({
-        url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
+        // url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
+        url: "http://localhost:5002/newHousePost/create",
         type: "put",
         data: {
             title: title,
             description: description,
             price: price,
+            city: city,
+            province: province,
             time: time
         },
         success: (r) => {
             console.log(r)
-            $("main").empty()
+            // $("main").empty()
             loadEventsToMainDiv()
         }
     })
 }
 
 // Up to this point.
-function retrieveUserIDfromPosts(userObj2){
+// function retrieveUserIDfromPosts(userObj2){
     
-    console.log('posts'+ userObj2['userId'])
+//     console.log('posts'+ userObj2['userId'])
     
-    console.log('ID is inside retriever' + userID)
-}
+//     console.log('ID is inside retriever' + userID)
+// }
 
-function loadEventsToMainDiv(userObj) {
-    userID = userObj._id;
-    console.log("the userId: " + userObj._id);
-    $.ajax({
-        url: "https://warm-cove-79874.herokuapp.com/test/read",
-        type: "get",
-        success: retrieveUserIDfromPosts
+// function loadEventsToMainDiv(userObj) {
+//     userID = userObj._id;
+//     console.log("the userId: " + userObj._id);
+//     $.ajax({
+//         url: "https://warm-cove-79874.herokuapp.com/test/read",
+//         type: "get",
+//         success: retrieveUserIDfromPosts
         // success: (r) => {
         //     // console.log(r)
         //     // if (userId == r[i].userId)
 
         // }
-    })
-}
+//     })
+// }
 
 
 // Code for display
@@ -121,15 +132,10 @@ function loadEventsToMainDiv(userObj) {
 // }
 
 function setup() {
-    getUserId()
-    // loadEventsToMainDiv()
+    loadEventsToMainDiv()
 
     $("body").on("click", "#submit", submitForm)
     // $("body").on("click", ".deleteButtons", deleteEvent)
 }
-
-
-
-
 
 $(document).ready(setup);

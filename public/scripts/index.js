@@ -1,4 +1,4 @@
-// styling for strictly uCAN logo
+// Variable for throttling UCAN letters
 var throttle = false;
 var throttleTwo = false; 
 // Letter U

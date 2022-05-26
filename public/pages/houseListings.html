@@ -42,8 +42,9 @@
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/skeleton.js"></script>
-    <link rel="stylesheet" href="../styles/newHouseListing.css">
-    <script src="../scripts/newHouseListing.js"></script>
+    <script src="../scripts/houseListings.js"></script>
+    <link rel="stylesheet" href="../styles/generalHouseListings.css">
+    <!-- <link rel="stylesheet" href="/public/styles/index.css"> -->
 </head>
 
 <body>
@@ -54,18 +55,14 @@
 
     <!-- body of the page -->
     <main>
-        <div id="form">
-            <input type="text" name="text" placeholder="Name of your post" id="postTitle">
-            <input type="text" name="text" placeholder="Enter price" id="postPrice">
-            <input type="text" name="text" placeholder="Enter city" id="postCity">
-            <input type="text" name="text" placeholder="Enter province" id="postProvince">
-            <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your listing:"
-                id="postBody"> </textarea>
-            <input type="submit" value="Submit" id="submit">
+        <div class="container">
+
+            <div id="posts"></div>
+                </div>
+            </div>
+
         </div>
-
-        <div id="ownPosts"></div>
-
+    
         <!-- footer -->
         <div class="footer"></div>
     </main>
@@ -73,6 +70,7 @@
     <!-- bottom navbar -->
     <div id="bottomNavPlaceHolder"></div>
 
+    
 </body>
 
 </html>
