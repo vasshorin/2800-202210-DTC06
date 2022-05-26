@@ -76,12 +76,10 @@ app.get('/', function (req, res) {
 })
 
 // user ID object   RS
-app.get('/userId', function (req, res) {
-    console.log(req.session.userobj)
-    res.send(req.session.userobj)
-})
-
-// Housing Routes
+// app.get('/userId', function (req, res) {
+//     console.log(req.session.userobj)
+//     res.send(req.session.userobj)
+// })
 
 // ----------------
 // --    LOGIN   --
@@ -92,8 +90,10 @@ app.post('/login/authentication', function (req, res, next) {
     userModel.find({}, function (err, users) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + users)
+            res.status(200).send()
         }
 
         user = users.filter((userobj) => {
@@ -146,8 +146,10 @@ app.post('/signup/create', function (req, res) {
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + data)
+            res.status(200).send()
         }
         res.send("New user created!")
     })
@@ -174,8 +176,10 @@ app.put('/newHousePost/create', function (req, res) {
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + data)
+            res.status(200).send()
         }
         res.send('Data inserted!')
     })
@@ -194,8 +198,10 @@ app.get('/ownHousePost/read', function (req, res) {
 
         if (err) {
             console.log("Error" + err)
+            res.status(500).send()
         } else {
             console.log("Data" + data)
+            res.status(200).send()
         }
         res.send(data)
     })
@@ -211,8 +217,10 @@ app.get('/housePosts/read', function (req, res) {
     }, function (err, data) {
         if (err) {
             console.log("Error" + err)
+            res.status(500).send()
         } else {
             console.log("Data" + data)
+            res.status(200).send()
         }
         res.send(data)
     })
@@ -246,90 +254,40 @@ app.put('/newHousePost/create', function (req, res) {
     })
 })
 
-app.get('/test/read', function (req, res) {
-    // console.log(LoggedInUserID)
-    // LoggedInUserID   
-    housingPostModel.find({}, function (err, testData) {
-        // if (userId == req.session.userobj._id) {
-        //     res.send(testData)
-        // } else {
-        //     res.send("You are not logged in!")
-        //     console.log("Error" + err)
-        // }
-        var user = req.session.userId
-        // console.log(`user INSIDE TEST/READ: ${user}`)
-        if (err) {
-            console.log("Error" + err)
-            res.status(500).send()
-        } else {
-            console.log("Data" + testData)
-            res.status(200).send(testData + " user INSIDE SEND" + user)
-        }
-    })
-})
-
-
-app.get('/test/read/users', function (req, res, next) {
-    userModel.find({}, function (err, users) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500).send()
-        } else {
-            console.log('Data' + users)
-            res.status(200).send(users + " user INSIDE SEND" + user)
-        }
-        var user = req.session.userId
-
-        // user=users.filter((userobj)=>{
-        //     return userobj.email == req.body.email
-        // })
-        // if (user[0].password==req.body.password){
-        //     req.session.authenticated = true
-        //     req.session.email = req.body.email
-        //     req.session.userId = user[0]._id
-        //     req.session.userobj = user[0]
-        //     // LoggedInUserID = req.session.userId
-        //     res.send(+ req.session.userobj + "user id: " + req.session.userId)
-        // }
-
-    })
-})
-
-
 // Update
-app.put('/test/update/:id', function (req, res) {
-    console.log(req.body)
-    housingPostModel.updateOne({
-        '_id': req.body.id
-    }, {
-        $set: {
-            description: req.body.description
-        }
-    }, function (err, testData) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(500)
-        } else {
-            console.log('Data' + testData)
-            res.status(200).send('Data updated!')
-        }
-    })
-})
+// app.put('/test/update/:id', function (req, res) {
+//     console.log(req.body)
+//     housingPostModel.updateOne({
+//         '_id': req.body.id
+//     }, {
+//         $set: {
+//             description: req.body.description
+//         }
+//     }, function (err, testData) {
+//         if (err) {
+//             console.log('Error' + err)
+//             res.status(500)
+//         } else {
+//             console.log('Data' + testData)
+//             res.status(200).send('Data updated!')
+//         }
+//     })
+// })
 
 // Delete posts by id
-app.put('/test/delete/:id', function (req, res) {
-    housingPostModel.deleteOne({
-        id: req.params.id
-    }, function (err, data) {
-        if (err) {
-            console.log('Error' + err)
-            res.status(200).send()
-        } else {
-            console.log('Data' + data)
-            res.status(500).send("Delete successful!")
-        }
-    });
-})
+// app.put('/test/delete/:id', function (req, res) {
+//     housingPostModel.deleteOne({
+//         id: req.params.id
+//     }, function (err, data) {
+//         if (err) {
+//             console.log('Error' + err)
+//             res.status(200).send()
+//         } else {
+//             console.log('Data' + data)
+//             res.status(500).send("Delete successful!")
+//         }
+//     });
+// })
 
 
 // -----------------
