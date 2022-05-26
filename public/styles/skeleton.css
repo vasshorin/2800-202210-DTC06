@@ -11,7 +11,8 @@
     outline: none;
     border: none;
     text-decoration: none;
-    text-transform: none;
+    text-transform: capitalize;
+    transition: .2s linear;
 }
 
 .nav-btn {
@@ -60,11 +61,10 @@ html {
     color: var(--lightblue);
 }
 
-header .navbar a {
-    font-size: 1rem;
+.TopNavHeader .navbar a {
+    font-size: 2rem;
     padding: 0 1.5rem;
     color: #666;
-    text-decoration:none;
 }
 
 .TopNavHeader .navbar a:hover {
@@ -93,7 +93,6 @@ header .navbar a {
     cursor: pointer;
     border: .1rem solid rgba(0, 0, 0, .3);
     display: none;
-    text-decoration:none;
 }
 
 .credit {
@@ -149,7 +148,6 @@ header .navbar a {
 
     .TopNavHeader .fa-bars {
         display: block;
-        text-decoration:none;
     }
 
     .TopNavHeader .navbar {
@@ -160,7 +158,6 @@ header .navbar a {
         background: rgb(189, 236, 246);
         border-top: .1rem solid rgba(0, 0, 0, .1);
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-        text-decoration:none;
     }
 
     .TopNavHeader #toggler:checked~.navbar {
@@ -173,7 +170,6 @@ header .navbar a {
         background: #fff;
         border: .1rem solid rgba(0, 0, 0, .1);
         display: block;
-        text-decoration:none;
     }
 
     .icons-container .icons h3 {
