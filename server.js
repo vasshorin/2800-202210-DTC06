@@ -6,19 +6,16 @@ const express = require('express')
 const app = express()
 const https = require('https')
 const bodyparser = require('body-parser')
+const session = require('express-session')
+const MongoDBSession = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose')
 app.set('view engine', 'ejs')
 const {
     isNumber
 } = require('util')
 
-var session = require('express-session')
 
-app.use(session({
-    secret: 'ssshhhhh',
-    saveUninitialized: true,
-    resave: true
-}))
+
 
 
 // Housing Post Database Schema
@@ -64,16 +61,30 @@ mongoose.connect("mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryW
 });
 
 
+
+app.use(session({
+    secret: 'ssshhhhh',
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoDBSession({
+        uri: "mongodb+srv://andy:andy1993@ucan.gvfrz.mongodb.net/ucan?retryWrites=true&w=majority",
+        collection: 'sessions'
+    })
+}))
+
 app.use(express.static('./public'))
 
-// function auth(req , res, next) {
-//     if (req.session.authenticated) {
-//         console.log("authenticated");
-//         next()
-//     } else {
-//         res.redirect("/sign_up.html")
-//     }
-// }
+
+// ----------------
+// -- MIDDLEWARE --
+// ----------------
+const isAuth = (req, res, next) => {
+    if(req.session.isAuth) {
+        next();
+    } else {
+        res.redirect('/pages/login.html');
+    }
+};
 
 app.get('/', function (req, res) {
     res.send('/index.html')
@@ -84,7 +95,7 @@ app.get('/', function (req, res) {
 // -------------------
 
 // Create new house posts
-app.put('/newHousePost/create', function (req, res) {
+app.put('/newHousePost/create', isAuth, function (req, res) {
     console.log(req.body)
     housingPostModel.create({
         title: req.body.title,
@@ -241,7 +252,7 @@ app.post('/signup/create', function (req, res) {
 // -----------
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
-        res.redirect("/login");
+        res.redirect("/index.html");
     });
 });
 
