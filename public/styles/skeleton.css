@@ -149,7 +149,7 @@ html {
 @media (max-width:768px) {
 
     html {
-        font-size: 55%;
+        font-size: 50%;
     }
 
     .TopNavHeader .fa-bars {
@@ -171,7 +171,7 @@ html {
     }
 
     .TopNavHeader .navbar a {
-        margin: 1rem;
+        margin: 0.5rem;
         padding: 0.5rem;
         background: rgb(239, 239, 239);
         border: .1rem solid rgba(0, 0, 0, .1);
