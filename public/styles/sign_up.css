@@ -1,58 +1,60 @@
 /* Form styling - baseline grid  */
 
-.mainGrid{
-    display: grid;
-    justify-items: center !important;
-    align-items: center !important;
-    grid-template-areas: "form-allotment"
-                         "req-box";
-                        
+.mainGrid {
+  display: grid;
+  justify-items: center !important;
+  align-items: center !important;
+  grid-template-areas: "form-allotment"
+    "req-box";
+
 }
 
 form {
-    grid-area: column-start, form_allotment;
-    display: grid;
-    justify-content: center;
-    column-gap: 10px;
-    padding: 2rem;
-    margin: 2rem auto 0 auto;
-    max-width: 500px;
-    background-color: #ffff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.25rem;
+  grid-area: column-start, form_allotment;
+  display: grid;
+  justify-content: space evenly;
+  column-gap: 10px;
+  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  max-width: 500px;
+  background-color: #ffff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: 0.25rem;
 }
 
 #message {
-    grid-area: req-box;
-    justify-content: center;
-    background: white;
-    color: #000;
-    padding: 20px;
-    margin-top: 10px;
+  grid-area: req-box;
+  justify-content: center;
+  background: white;
+  color: #000;
+  padding: 20px;
+  margin-top: 10px;
 }
 
-  
-.header{
-    text-align: center;
+
+.header {
+  text-align: center;
 }
+
 /* Flex container for each article*/
-.form-row-one{
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
-    column-gap: 1rem;
+.form-row-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+  column-gap: 1rem;
 }
 
 /* highlights the input field. */
 input:focus {
-    outline: 2px solid #FFB703;
+  outline: 2px solid #FFB703;
 }
+
 /* Hover color on submit button input.*/
 form .submit-btn:hover {
-background: #FFB703;
+  background: #FFB703;
 }
 
 
@@ -88,13 +90,13 @@ input[type=submit] {
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
   color: green;
-  content : '✓';
+  content: '✓';
 }
 
 .valid:before {
   position: relative;
   left: -35px;
-  content : '✓';
+  content: '✓';
 }
 
 /* Add a red text color and an "x" icon when the requirements are wrong */
