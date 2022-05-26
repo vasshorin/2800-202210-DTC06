@@ -91,6 +91,38 @@ app.get('/', function (req, res) {
     res.send('/index.html')
 })
 
+
+// -------------------
+// ---- ALL POSTS ----
+// -------------------
+
+app.get('/getPosts/:userId/:type', function (req, res) {
+    if (req.params.type == 'housing') {
+        model = housingPostModel
+    } else if (req.params.type == 'job') {
+        model = jobPostModel
+    } else if (req.params.type == 'donation') {
+        model = donationPostModel
+    } else if (req.params.type == 'community') {
+        model = communityPostModel
+    }
+    console.log(req.params.userId)
+    model.find({
+        userId: req.params.userId
+    }, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
 // -------------------
 // -- HOUSING POSTS --
 // -------------------

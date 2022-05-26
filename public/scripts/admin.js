@@ -1,4 +1,7 @@
 userCards = ''
+userId = ''
+postType = ''
+postArray = ''
 
 function populateUsers(users) {
     console.log(users)
@@ -46,10 +49,10 @@ function populateUsers(users) {
                     <button class="btn btn-primary edit" id="edit${users[i]._id}" value="${users[i]._id}">Edit User</button>
                     <button class="btn btn-primary confirm" id="confirm${users[i]._id}" value="${users[i]._id}">Confirm</button>
                 </p>
-                <button class="btn btn-primary" id="${users[i]._id}" value="housing" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Housing posts</button>
-                <button class="btn btn-primary" id="${users[i]._id}" value="job" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Job posts</button>
-                <button class="btn btn-primary" id="${users[i]._id}" value="donation" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Donation posts</button>
-                <button class="btn btn-primary" id="${users[i]._id}" value="community" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Community posts</button>
+                <button class="btn btn-primary getPost" value="${users[i]._id}" id="housing" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Housing posts</button>
+                <button class="btn btn-primary getPost" value="${users[i]._id}" id="job" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Job posts</button>
+                <button class="btn btn-primary getPost" value="${users[i]._id}" id="donation" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Donation posts</button>
+                <button class="btn btn-primary getPost" value="${users[i]._id}" id="community" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Community posts</button>
                 <div class="collapse" id="posts${users[i]._id}">
                 </div>
             </div>
@@ -78,7 +81,7 @@ function updateInfo() {
         // url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
         url: 'http://localhost:5002/updateUserInfo',
         type: 'PUT',
-        data:{
+        data: {
             userId: userId,
             firstName: firstName,
             lastName: lastName,
@@ -87,11 +90,48 @@ function updateInfo() {
             city: city,
             province: province
         },
-        success: (msg)=>{
+        success: (msg) => {
             alert(msg)
         }
     })
 }
+
+function populatePosts(posts) {
+    console.log(posts)
+    $(`#posts${userId}`).empty()
+    if (postType == 'housing') {
+        urlType = 'housePosts'
+    } else if (postType == 'job') {
+        urlType = 'jobPosts'
+    } else if (postType == 'donation') {
+        urlType = 'donationPosts'
+    } else if (postType == 'community') {
+        urlType = 'communityPosts'
+    }
+    for (i = 0; i < posts.length; i++) {
+        postArray += `
+        <div class="card card-body">
+            Title: ${posts[i].title}<br>
+            <span>URL: <a href="/${urlType}/${posts[i]._id}"> click to go to the page </a></span><br>
+            <button class="btn btn-danger delete" id="delete${posts[i]._id}" value="${posts[i]._id}">Delete</button>
+        </div>`
+    }
+    $(`#posts${userId}`).html(postArray)
+}
+
+function getPosts() {
+    postArray = ''
+    userId = $(this).attr('value')
+    postType = $(this).attr('id')
+    console.log(userId, postType)
+    $.ajax({
+        // url: `https://warm-cove-79874.herokuapp.com/getPosts/${postType}`,
+        url: `http://localhost:5002/getPosts/${userId}/${postType}`,
+        type: 'GET',
+        success: populatePosts
+    })
+}
+
 
 function getUsers() {
     $.ajax({
@@ -106,6 +146,7 @@ function setup() {
     getUsers()
     $('body').on('click', '.edit', editInfo)
     $('body').on('click', '.confirm', updateInfo)
+    $('body').on('click', '.getPost', getPosts)
 }
 
 $(document).ready(setup)

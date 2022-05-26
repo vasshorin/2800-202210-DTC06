@@ -24,7 +24,7 @@ function loadSkeleton() {
 
 // call the functions
 function setup() {
-  checkAdmin()
+  // checkAdmin()
   loadSkeleton();
 }
 
