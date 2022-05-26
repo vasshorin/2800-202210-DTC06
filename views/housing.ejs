@@ -42,7 +42,7 @@
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/skeleton.js"></script>
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="/styles/individualHousePost.css">
 </head>
 
 <body>
@@ -61,14 +61,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h2><strong>Title: <%= title %></strong></h2>
+                        <h2 style=""><strong>Title:</strong> <%= title %></h2>
                     </div>
-                    <img src="../images/logo.png" alt="house" class="img-fluid" width="200px" height="200px">
+                    <img src="https://picsum.photos/200/300" alt="house" class="img-fluid" width="200px" height="200px">
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3>Details</h3>
+                        <h3 style="text-align: center; font-size: 2em;">Details</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -77,50 +77,22 @@
                             <strong>Address: <%= city %>, <%= province %></strong>
                         </p>
                         <p>
-                            <strong>Price: $ <%= price %></strong>
+                            <strong>Price:</strong> $<%= price %>
                         </p>
                         <p>
-                            <strong>Description: <%= description %></strong>
-                        </p>
-                        <p>
-                            <strong>Bedrooms:</strong>
-                        </p>
-                        <p>
-                            <strong>Bathrooms:</strong>
-                        </p>
-                        <p>
-                            <strong>Garage:</strong>
-                        </p>
-                        <p>
-                            <strong>Pool:</strong>
-                        </p>
-                        <p>
-                            <strong>Furnished:</strong>
-                        </p>
-                        <p>
-                            <strong>Pets:</strong>
-                        </p>
-                        <p>
-                            <strong>Laundry:</strong>
-                        </p>
-                        <p>
-                            <strong>Property Type:</strong>
-                        </p>
-                        <p>
-                            <strong>Property Status:</strong>
+                            <strong>Description:</strong> <%= description %>
                         </p>
                         <hr>
-                        <p>
-                            <strong>Contact details</strong>
+                        <p style="text-align: center; font-size: 2rem;">
+                            Contact details
                         </p>
-                        <p><strong>Name: <%= firstName %></strong></p>
-                        <p><strong>Email: <%= email %></strong></p>
-                        <p><strong>Phone:</strong></p>
-                        <p><strong>Message:</strong></p>
+                        <p><strong>Name:</strong> <%= firstName %></p>
+                        <p><strong>Email:</strong> <%= email %></p>
+                        <!-- <p><strong>Phone:</strong></p> -->
                         <hr>
                     </div>
                     <div class="col-md-12">
-                        <a href="../chat/<%= userId %>"><button type="button" class="btn btn-primary">Chat</button></a>
+                        <a href="../chat/<%= userId %>"><button type="button" class="btn btn-warning">Chat</button></a>
                     </div>
                 </div>
                 <!-- footer -->

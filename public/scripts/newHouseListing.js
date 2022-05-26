@@ -16,6 +16,14 @@ function populatePosts(userPosts) {
     $('#ownPosts').html(postArray)
 }
 
+
+
+
+
+
+
+
+
 // load events to main div
 function loadEventsToMainDiv() {
     $('#ownPosts').empty()
