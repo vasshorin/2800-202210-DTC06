@@ -44,11 +44,12 @@ const userSchema = new mongoose.Schema({
     city: String,
     password: String,
     admin: Boolean,
-    time: String
+    time: String,
+    admin: Boolean
 })
 
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
-const userModel = mongoose.model("users", userSchema)       
+const userModel = mongoose.model("users", userSchema)
 
 
 app.use(bodyparser.urlencoded({
@@ -79,7 +80,7 @@ app.use(express.static('./public'))
 // -- MIDDLEWARE --
 // ----------------
 const isAuth = (req, res, next) => {
-    if(req.session.isAuth) {
+    if (req.session.isAuth) {
         next();
     } else {
         res.redirect('/pages/login.html');
@@ -218,7 +219,48 @@ app.post('/login/authentication', function (req, res, next) {
     })
 })
 
+// SEND USER INFO TO CLIENT
+app.get('/user', function (req, res) {
+    res.send(req.session.userobj)
+})
 
+// SEND USERS TO ADMIN DASHBOARD
+app.get('/getAllUsers', function (req, res) {
+    userModel.find({
+        admin: false
+    }, function (err, users) {
+        if (err) {
+            console.log('Err' + err)
+        } else {
+            console.log('Data' + users)
+        }
+        res.send(users)
+    })
+})
+
+// UPDATE USERS INFO
+app.put('/updateUserInfo', function (req, res) {
+    userModel.updateOne({
+        _id: req.body.userId
+    }, {
+        $set: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            age: req.body.age,
+            email: req.body.email,
+            city: req.body.city,
+            province: req.body.province
+        }
+    }, function (err, testData) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500)
+        } else {
+            console.log('Data' + testData)
+            res.status(200).send('User info updated!')
+        }
+    })
+})
 
 // ---------------
 // -- SIGNUP --
@@ -236,7 +278,8 @@ app.post('/signup/create', function (req, res) {
         province: req.body.province,
         city: req.body.city,
         password: req.body.password,
-        time: req.body.time
+        time: req.body.time,
+        admin: false
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
