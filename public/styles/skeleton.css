@@ -140,9 +140,17 @@ html {
         padding: 2rem;
     }
 
+    html {
+        font-size: 50%;
+    }
+
 }
 
 @media (max-width:768px) {
+
+    html {
+        font-size: 55%;
+    }
 
     .TopNavHeader .fa-bars {
         display: block;
@@ -163,8 +171,8 @@ html {
     }
 
     .TopNavHeader .navbar a {
-        margin: 1.5rem;
-        padding: 1.5rem;
+        margin: 1rem;
+        padding: 0.5rem;
         background: #fff;
         border: .1rem solid rgba(0, 0, 0, .1);
         display: block;
