@@ -15,6 +15,20 @@ const {
 } = require('util')
 
 
+// Community Post Database Schema
+const communityPostSchema = new mongoose.Schema({
+    userId: String,
+    firstName: String,
+    lastName: String,
+    email: String,
+    username: String,
+
+    eventTitle: String,
+    eventLocation: String,
+    eventDescription: String,
+    time: String
+});
+
 
 
 
@@ -47,6 +61,7 @@ const userSchema = new mongoose.Schema({
     time: String
 })
 
+const communityPostModel = mongoose.model("communityPosts", communityPostSchema)    
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)       
 
@@ -89,6 +104,35 @@ const isAuth = (req, res, next) => {
 app.get('/', function (req, res) {
     res.send('/index.html')
 })
+
+
+// -------------------
+// - COMMUNITY POSTS -
+// -------------------
+// -> Links to communitySubmissionForm.html.
+app.put('/newCommunityPostForm/create', isAuth, function (req, res) {
+    console.log(req.body)
+    communityPostModel.create({
+        userId: req.session.userId,
+        username: req.session.userobj.username,
+        firstName: req.session.userobj.firstName,
+        lastName: req.session.userobj.lastName,
+        email: req.session.userobj.email,
+        time: req.body.time,
+
+        eventTitle: req.body.eventTitle,
+        eventLocation: req.body.eventLocation,
+        eventDescription: req.body.eventDescription,
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send('Data inserted!')
+    })
+})
+
 
 // -------------------
 // -- HOUSING POSTS --
