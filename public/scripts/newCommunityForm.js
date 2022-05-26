@@ -1,6 +1,7 @@
 var now = new Date(Date.now());
 var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
+
 // Populate user's own community post
 function populateCommunityPosts(userCommunityPost) {
     console.log(userCommunityPost)
@@ -14,13 +15,13 @@ function populateCommunityPosts(userCommunityPost) {
         Posted by: ${userCommunityPost[i].username}<br>
         Posted at: ${userCommunityPost[i].time}<hr>`
     }
-    $('#ownCommunityPost').html(communityPostArray)
+    $('#ownCommunityPost').append(communityPostArray)
 }
 
 
 // load events to main div
-function loadEventsToMainDiv() {
-    $('#ownPosts').empty()
+function loadEventsToCommunityOwnPosts() {
+    $('#ownCommunityPost').empty()
     $.ajax({
         url: 'http://localhost:5002/ownCommunityPost/read',
         type: 'GET',
@@ -40,7 +41,7 @@ function submitCommunityFormBtn() {
     console.log(eventTitleVar, eventOrganizerName, eventLocationVar, eventDescriptionVar, timeOfEventPost)
     $.ajax({
         url: "http://localhost:5002/newCommunityPostForm/create",
-        type: "PUT",
+        type: "put",
         data: {
             eventTitle: eventTitleVar,
             eventOrganizerName: eventOrganizerName,
@@ -50,14 +51,14 @@ function submitCommunityFormBtn() {
         },
         success: (r) => {
             console.log(r)
-            loadEventsToMainDiv()
+            loadEventsToCommunityOwnPosts()
         }
     })
 }
 
 
 function setup() {
-    loadEventsToMainDiv()
+    loadEventsToCommunityOwnPosts()
     $("body").on("click", "#submit", submitCommunityFormBtn)
 }
 

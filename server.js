@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
     time: String
 })
 
-const communityPostModel = mongoose.model("communityPosts", communityPostSchema)    
+const communityPostModel = mongoose.model("communityposts", communityPostSchema)    
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)       
 
@@ -111,7 +111,7 @@ app.get('/', function (req, res) {
 // - COMMUNITY POSTS -
 // -------------------
 // -> Links to newCommunityForm.html
-app.put('/newCommunityPostForm/create', isAuth, function (req, res) {
+app.put('/newCommunityPostForm/create', function (req, res) {
     console.log(req.body)
     communityPostModel.create({
         userId: req.session.userId,
@@ -119,12 +119,12 @@ app.put('/newCommunityPostForm/create', isAuth, function (req, res) {
         firstName: req.session.userobj.firstName,
         lastName: req.session.userobj.lastName,
         email: req.session.userobj.email,
-        time: req.body.time,
 
         eventTitle: req.body.eventTitle,
         eventOrganizerName: req.body.eventOrganizerName,
         eventLocation: req.body.eventLocation,
         eventDescription: req.body.eventDescription,
+        time: req.body.time,
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
