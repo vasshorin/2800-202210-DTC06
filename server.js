@@ -183,15 +183,15 @@ app.get('/communityPost/:postId', function (req, res) {
         } else {
             console.log("Data" + post)
         }
-        res.render('housing', {
-            title: post.title,
-            price: post.price,
-            description: post.description,
+        res.render('communityPost', {
+            title: post.eventTitle,
+            description: post.eventDescription,
             firstName: post.firstName,
+            lastName: post.lastName,
             email: post.email,
+            organizer: post.eventOrganizerName,
+            location: post.eventLocation,
             userId: post.userId,
-            city: post.city,
-            province: post.province
         })
     })
 })

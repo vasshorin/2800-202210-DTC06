@@ -10,7 +10,7 @@ function populatePosts(posts) {
         <h5 class="card-title"><b>Title: ${posts[i].eventTitle}</b></h5>
         <img class="card-img-top" src="https://picsum.photos/seed/picsum/500/500?random=6" alt="Card image cap">
         <p class="card-text felix-test">Description: ${posts[i].eventDescription} </p>
-        <a href="../housePosts/${posts[i]._id}" class="btn btn-warning">View Post</a>
+        <a href="../communityPost/${posts[i]._id}" class="btn btn-warning">View Post</a>
         <p class="card-text"><small class="text-muted">Posted by: ${posts[i].firstName} ${posts[i].lastName} at: ${posts[i].time}</small></p>
         </div>
         </div>
