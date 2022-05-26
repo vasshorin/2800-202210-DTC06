@@ -23,6 +23,7 @@ const communityPostSchema = new mongoose.Schema({
     email: String,
     username: String,
 
+    eventOrganizerName: String, 
     eventTitle: String,
     eventLocation: String,
     eventDescription: String,
@@ -109,7 +110,7 @@ app.get('/', function (req, res) {
 // -------------------
 // - COMMUNITY POSTS -
 // -------------------
-// -> Links to communitySubmissionForm.html.
+// -> Links to newCommunityForm.html
 app.put('/newCommunityPostForm/create', isAuth, function (req, res) {
     console.log(req.body)
     communityPostModel.create({
@@ -121,15 +122,38 @@ app.put('/newCommunityPostForm/create', isAuth, function (req, res) {
         time: req.body.time,
 
         eventTitle: req.body.eventTitle,
+        eventOrganizerName: req.body.eventOrganizerName,
         eventLocation: req.body.eventLocation,
         eventDescription: req.body.eventDescription,
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
+            res.status(500).send()
         } else {
             console.log('Data' + data)
+            res.status(200).send('Data inserted!')
         }
-        res.send('Data inserted!')
+    })
+})
+
+// Read own Community Post
+app.get('/ownCommunityPost/read', function (req, res) {
+
+    communityPostModel.find({
+        userId: req.session.userId // Find all posts by userId of the currently logged in user
+    }, {}, {
+        sort: {
+            _id: -1 // Sort Community Posts
+        }
+    }, function (err, data) {
+
+        if (err) {
+            console.log("Error" + err)
+            res.status(500).send()
+        } else {
+            console.log("Data" + data)
+            res.status(200).send(data)
+        }
     })
 })
 

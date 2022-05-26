@@ -44,7 +44,7 @@
     <script src="../scripts/skeleton.js"></script>
     <!-- Styles are from newHouseListings, will create separate css/js elements. -->
     <link rel="stylesheet" href="../styles/newHouseListing.css">
-    <script src="../scripts/newHouseListing.js"></script>
+    <script src="../scripts/newCommunityForm.js"></script>
 </head>
 
 <body>
@@ -57,13 +57,14 @@
     <main>
         <div id="form">
             <input type="text" name="text" placeholder="Name of your event post" id="eventPostTitle">
+            <input type="text" name="text" placeholder="Organizer Name" id="eventPostOrganizer">
             <input type="text" name="text" placeholder="Enter location" id="eventPostLocation">
             <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your event:"
                 id="eventPostBody"> </textarea>
             <input type="submit" value="Submit" id="submit">
         </div>
 
-        <div id="ownPosts"></div>
+        <div id="ownCommunityPost"></div>
 
         <!-- footer -->
         <div class="footer"></div>
