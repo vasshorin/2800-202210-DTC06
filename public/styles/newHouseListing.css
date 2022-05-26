@@ -17,7 +17,7 @@ body {
     margin: 27% 2%;
 }
 
-#postPrice, #postTitle {
+#postPrice, #postTitle, #postCity, #postProvince {
     margin: 4% 2%   ;
     height: 50px;
     
@@ -27,7 +27,6 @@ body {
     margin: 4% 2%;
     /* width: 100%; */
     height: 40vw;
-
 }
 main {
     width: 100%;

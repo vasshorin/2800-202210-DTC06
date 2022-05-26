@@ -10,18 +10,13 @@ function populatePosts(userPosts) {
         Title: ${userPosts[i].title}<br>
         Price: $${userPosts[i].price}<br>
         Description: ${userPosts[i].description}<br>
+        City: ${userPosts[i].city}<br>
+        Province: ${userPosts[i].province}<br>
         Posted by: ${userPosts[i].username}<br>
         Posted at: ${userPosts[i].time}<hr>`
     }
     $('#ownPosts').html(postArray)
 }
-
-
-
-
-
-
-
 
 
 // load events to main div
@@ -41,6 +36,8 @@ function submitForm() {
     var title = $("#postTitle").val();
     var description = $("#postBody").val();
     var price = $("#postPrice").val();
+    var city = $("#postCity").val();
+    var province = $("#postProvince").val();
     var time = new Date();
 
     console.log(title, description, price, time)
@@ -52,6 +49,8 @@ function submitForm() {
             title: title,
             description: description,
             price: price,
+            city: city,
+            province: province,
             time: time
         },
         success: (r) => {
