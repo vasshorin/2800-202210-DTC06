@@ -2,12 +2,9 @@
 
 .mainGrid {
   display: grid;
-  gap: 0.5em;
   justify-items: center !important;
   align-items: center !important;
-  grid-template-rows: 1fr 0fr 0fr 0fr 0fr 0fr 0fr;
-  grid-template-areas: 
-  "form-allotment"
+  grid-template-areas: "form-allotment"
     "req-box";
 
 }
