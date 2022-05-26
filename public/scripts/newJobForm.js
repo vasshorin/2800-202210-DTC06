@@ -2,36 +2,36 @@ var now = new Date(Date.now());
 var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
 
-// Populate user's own community post
-function populateCommunityPosts(userCommunityPost) {
-    console.log(userCommunityPost)
-    communityPostArray = '<hr>'
-    for (i = 0; i < userCommunityPost.length; i++) {
-        communityPostArray += `
-        Event Title: ${userCommunityPost[i].eventTitle}<br>
-        Event Organizer: ${userCommunityPost[i].eventOrganizerName}<br>
-        Event Location: ${userCommunityPost[i].eventLocation}<br>
-        Event Description: ${userCommunityPost[i].eventDescription}<br>
-        Posted by: ${userCommunityPost[i].username}<br>
-        Posted at: ${userCommunityPost[i].time}<hr>`
+// Populate user's own Job post
+function populateJobPosts(userJobPost) {
+    console.log(userJobPost)
+    jobPostArray = '<hr>'
+    for (i = 0; i < userJobPost.length; i++) {
+        jobPostArray += `
+        Event Title: ${userJobPost[i].eventTitle}<br>
+        Event Organizer: ${userJobPost[i].eventOrganizerName}<br>
+        Event Location: ${userJobPost[i].eventLocation}<br>
+        Event Description: ${userJobPost[i].eventDescription}<br>
+        Posted by: ${userJobPost[i].username}<br>
+        Posted at: ${userJobPost[i].time}<hr>`
     }
-    $('#ownCommunityPost').append(communityPostArray)
+    $('#ownJobPost').append(jobPostArray)
 }
 
 
 // load events to main div
-function loadEventsToCommunityOwnPosts() {
-    $('#ownCommunityPost').empty()
+function loadEventsToJobOwnPosts() {
+    $('#ownJobPost').empty()
     $.ajax({
-        url: 'http://localhost:5002/ownCommunityPost/read',
+        url: 'http://localhost:5002/ownJobPost/read',
         type: 'GET',
-        success: populateCommunityPosts
+        success: populateJobPosts
     })
 }
 
 
 // Get user input from form and send to database to create a new post
-function submitCommunityFormBtn() {
+function submitJobFormBtn() {
     var eventTitleVar = $("#eventPostTitle").val();
     var eventOrganizerName = $("#eventPostOrganizer").val();
     var eventLocationVar = $("#eventPostLocation").val();
@@ -40,7 +40,7 @@ function submitCommunityFormBtn() {
 
     console.log(eventTitleVar, eventOrganizerName, eventLocationVar, eventDescriptionVar, timeOfEventPost)
     $.ajax({
-        url: "http://localhost:5002/newCommunityPostForm/create",
+        url: "http://localhost:5002/newJobPostForm/create",
         type: "put",
         data: {
             eventTitle: eventTitleVar,
@@ -51,15 +51,15 @@ function submitCommunityFormBtn() {
         },
         success: (r) => {
             console.log(r)
-            loadEventsToCommunityOwnPosts()
+            loadEventsToJobOwnPosts()
         }
     })
 }
 
 
 function setup() {
-    loadEventsToCommunityOwnPosts()
-    $("body").on("click", "#submit", submitCommunityFormBtn)
+    loadEventsToJobOwnPosts()
+    $("body").on("click", "#submit", submitJobFormBtn)
 }
 
 $(document).ready(setup);
