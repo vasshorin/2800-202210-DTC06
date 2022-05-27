@@ -24,7 +24,7 @@ function populateCommunityPosts(userCommunityPost) {
 function loadEventsToCommunityOwnPosts() {
     $('#ownCommunityPost').empty()
     $.ajax({
-        url: 'http://localhost:5002/ownCommunityPost/read',
+        url: 'https://warm-cove-79874.herokuapp.com/ownCommunityPost/read',
         type: 'GET',
         success: populateCommunityPosts
     })
@@ -35,8 +35,8 @@ function deleteEvent() {
     var postId = $(this).attr('id')
     console.log(postId)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
-        url: `http://localhost:5002/ownCommunityPost/delete/${postId}`,
+        url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
+        // url: `http://localhost:5002/ownCommunityPost/delete/${postId}`,
         type: 'get',
         success: (x) => {
             console.log(x)
@@ -61,7 +61,7 @@ function submitCommunityFormBtn() {
     } else {
         console.log(eventTitleVar, eventOrganizerName, eventLocationVar, eventDescriptionVar, timeOfEventPost)
         $.ajax({
-            url: "http://localhost:5002/newCommunityPostForm/create",
+            url: "https://warm-cove-79874.herokuapp.com/newCommunityPostForm/create",
             type: "put",
             data: {
                 eventTitle: eventTitleVar,

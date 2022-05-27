@@ -22,8 +22,8 @@ function directPost(){
     postId=$(this).attr('id')
     console.log(postId)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
-        url: `http://localhost:5002/jobPosts/${postId}`,
+        url: `https://warm-cove-79874.herokuapp.com/jobPosts/${postId}`,
+        // url: `http://localhost:5002/jobPosts/${postId}`,
         type: 'GET',
         success: (x)=>{
             console.log(x)
@@ -34,9 +34,9 @@ function directPost(){
 {/* // Ajax call to get all posts from the database and call populatePosts to populate the page, when the page loads. */}
 function getPosts() {
     $.ajax({
-        // url:'https://warm-cove-79874.herokuapp.com/housePosts/read',
-        url: 'http://localhost:5002/jobPosts/read',
-        type: 'GET',
+        url:'https://warm-cove-79874.herokuapp.com/jobPosts/read',
+        // url: 'http://localhost:5002/jobPosts/read',
+        // type: 'GET',
         success: populatePosts
     })
 }
@@ -46,8 +46,8 @@ function directChat() {
     otherUserId = $(this).attr('id')
     console.log(otherUserId)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/chat/${otherUserId}`,
-        url: `http://localhost:5002/chat/${otherUserId}`,
+        url: `https://warm-cove-79874.herokuapp.com/chat/${otherUserId}`,
+        // url: `http://localhost:5002/chat/${otherUserId}`,
         type: 'GET',
         success: (x) => {
             console.log(x)

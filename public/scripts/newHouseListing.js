@@ -47,8 +47,8 @@ function uploadImage() {
 function loadEventsToMainDiv() {
     $('#ownPosts').empty()
     $.ajax({
-        // url:'https://warm-cove-79874.herokuapp.com/ownHousePost/read',
-        url: 'http://localhost:5002/ownHousePost/read',
+        url:'https://warm-cove-79874.herokuapp.com/ownHousePost/read',
+        // url: 'http://localhost:5002/ownHousePost/read',
         type: 'GET',
         success: populatePosts
     })
@@ -60,8 +60,8 @@ function deleteEvent() {
     var postId = $(this).attr('id')
     console.log(postId)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
-        url: `http://localhost:5002/housingPost/delete/${postId}`,
+        url: `https://warm-cove-79874.herokuapp.com/housingPost/delete/${postId}`,
+        // url: `http://localhost:5002/housingPost/delete/${postId}`,
         type: 'get',
         success: (x) => {
             console.log(x)
@@ -88,8 +88,8 @@ function submitForm() {
     } else {
         console.log(title, description, price, time)
         $.ajax({
-            // url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
-            url: "http://localhost:5002/newHousePost/create",
+            url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
+            // url: "http://localhost:5002/newHousePost/create",
             type: "put",
             data: {
                 title: title,
