@@ -33,8 +33,8 @@ const communityPostSchema = new mongoose.Schema({
 
 // Job Post Database Schema
 const jobPostSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    jobTitle: String,
+    jobDescription: String,
     userId: String,
     firstName: String,
     lastName: String,
@@ -42,7 +42,7 @@ const jobPostSchema = new mongoose.Schema({
     username: String,
     city: String,
     province: String,
-    time: String
+    time: String,
 });
 
 // Housing Post Database Schema
@@ -77,6 +77,7 @@ const userSchema = new mongoose.Schema({
 })
 
 const communityPostModel = mongoose.model("communityposts", communityPostSchema)
+const jobPostModel = mongoose.model("jobposts", jobPostSchema)
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)
 
@@ -174,8 +175,6 @@ app.get('/getPosts/:userId/:type', function (req, res) {
         model = housingPostModel
     } else if (req.params.type == 'job') {
         model = jobPostModel
-    } else if (req.params.type == 'donation') {
-        model = donationPostModel
     } else if (req.params.type == 'community') {
         model = communityPostModel
     }
@@ -287,7 +286,7 @@ app.get('/communityPost/:postId', function (req, res) {
 })
 
 // Delete own Community Post
-app.delete('/ownCommunityPost/delete/:postId', function (req, res) {
+app.get('/ownCommunityPost/delete/:postId', function (req, res) {
     communityPostModel.findByIdAndDelete(req.params.postId, function (err, data) {
         if (err) {
             console.log("Error" + err)
@@ -404,6 +403,111 @@ app.get('/housePosts/:postId', function (req, res) {
 })
 
 // --------------
+// -- JOBS POSTS -
+// --------------
+
+// Create new job posts
+app.put('/newJobPost/create', function (req, res) {
+    console.log(req.body)
+    jobPostModel.create({
+        jobTitle: req.body.jobTitle,
+        jobDescription: req.body.jobDescription,
+        city: req.body.city,
+        province: req.body.province,
+        userId: req.session.userId,
+        username: req.session.userobj.username,
+        firstName: req.session.userobj.firstName,
+        lastName: req.session.userobj.lastName,
+        email: req.session.userobj.email,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500).send()
+        } else {
+            console.log('Data' + data)
+            res.status(200).send('Data inserted!')
+        }
+    })
+})
+
+// Read own job posts
+app.get('/ownJobPost/read', function (req, res) {
+
+    jobPostModel.find({
+        userId: req.session.userId // Find all posts by userId of the currently logged in user
+    }, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
+// Read all job posts
+app.get('/jobPosts/read', function (req, res) {
+
+    jobPostModel.find({}, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
+// direct to specific post
+app.get('/jobPosts/:postId', function (req, res) {
+    jobPostModel.findById(req.params.postId, function (err, post) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + post)
+        }
+        res.render('job', {
+            title: post.jobTitle,
+            description: post.jobDescription,
+            firstName: post.firstName,
+            lastName: post.lastName,
+            email: post.email,
+            userId: post.userId,
+            city: post.city,
+            province: post.province
+        })
+    })
+})
+
+
+// delete specific job post
+app.get('/jobPost/delete/:postId', function (req, res) {
+    jobPostModel.findByIdAndDelete(req.params.postId, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send('Data deleted!')
+    })
+})
+
+
+
+
+
+
+// --------------
 // ---- CHAT ----
 // --------------
 
@@ -461,7 +565,7 @@ app.get('/chat', function (req, res) {
 // --------------
 
 
-// LOGIN USER
+// // LOGIN USER
 app.post('/login/authentication', function (req, res, next) {
     userModel.find({}, function (err, users) { // find all users
         if (err) {
@@ -474,13 +578,10 @@ app.post('/login/authentication', function (req, res, next) {
             return userobj.email == req.body.email // find user with email matching the one entered
         })
 
-        if (user.length == 0 || user == null || user == undefined) {
+        if (user.length == 0 || user == null || user == undefined || user == '') { // if no user found
             res.send('No user found')
-        }
-
-        console.log(user)
-        if (user[0].password != req.body.password || user[0].password == undefined || user[0].password == null || user[0].password == '') {
-            res.send('Invalid email or password')
+        }else if (user[0].password != req.body.password) {
+            res.send('Invalid password')
         } else if (user[0].password == req.body.password) {
             req.session.authenticated = true
             req.session.email = req.body.email
@@ -611,51 +712,3 @@ app.post("/logout", (req, res) => {
         res.redirect("/index.html");
     });
 });
-
-
-// ---------------
-// -- ADMIN --
-// ---------------
-
-
-
-
-
-
-
-// --------------------------------------------------------------------
-// -- UNUSED FOR NOW --
-// --------------------------------------------------------------------
-// Update
-// app.put('/test/update/:id', function (req, res) {
-//     console.log(req.body)
-//     housingPostModel.updateOne({
-//         '_id': req.body.id
-//     }, {
-//         $set: {
-//             description: req.body.description
-//         }
-//     }, function (err, testData) {
-//         if (err) {
-//             console.log('Error' + err)
-//             res.status(500)
-//         } else {
-//             console.log('Data' + testData)
-//             res.status(200).send('Data updated!')
-//         }
-//     })
-// })
-
-// app.put('/test/delete/:id', function (req, res) {
-//     housingPostModel.deleteOne({
-//         id: req.params.id
-//     }, function (err, data) {
-//         if (err) {
-//             console.log('Error' + err)
-//             res.status(200).send()
-//         } else {
-//             console.log('Data' + data)
-//             res.status(500).send("Delete successful!")
-//         }
-//     });
-// })

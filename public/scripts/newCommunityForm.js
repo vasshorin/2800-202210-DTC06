@@ -13,7 +13,8 @@ function populateCommunityPosts(userCommunityPost) {
         Event Location: ${userCommunityPost[i].eventLocation}<br>
         Event Description: ${userCommunityPost[i].eventDescription}<br>
         Posted by: ${userCommunityPost[i].username}<br>
-        Posted at: ${userCommunityPost[i].time}<hr>`
+        Posted at: ${userCommunityPost[i].time}
+        <button id="${userCommunityPost[i]._id}" class="deleteButtons">Delete</button><hr>`
     }
     $('#ownCommunityPost').append(communityPostArray)
 }
@@ -26,6 +27,23 @@ function loadEventsToCommunityOwnPosts() {
         url: 'http://localhost:5002/ownCommunityPost/read',
         type: 'GET',
         success: populateCommunityPosts
+    })
+}
+
+// delete post
+function deleteEvent() {
+    var postId = $(this).attr('id')
+    console.log(postId)
+    $.ajax({
+        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
+        url: `http://localhost:5002/ownCommunityPost/delete/${postId}`,
+        type: 'get',
+        success: (x) => {
+            console.log(x)
+            console.log("deleted");
+            // redirect to main page
+            window.location.href = "/pages/newCommunityForm.html"
+        }
     })
 }
 
@@ -64,6 +82,7 @@ function submitCommunityFormBtn() {
 function setup() {
     loadEventsToCommunityOwnPosts()
     $("body").on("click", "#submit", submitCommunityFormBtn)
+    $("body").on("click", ".deleteButtons", deleteEvent)    
 }
 
 $(document).ready(setup);

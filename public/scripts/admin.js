@@ -52,7 +52,6 @@ function populateUsers(users) {
                 </p>
                 <button class="btn btn-primary getPost" value="${users[i]._id}" id="housing" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Housing posts</button>
                 <button class="btn btn-primary getPost" value="${users[i]._id}" id="job" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Job posts</button>
-                <button class="btn btn-primary getPost" value="${users[i]._id}" id="donation" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Donation posts</button>
                 <button class="btn btn-primary getPost" value="${users[i]._id}" id="community" type="button" data-bs-toggle="collapse" data-bs-target="#posts${users[i]._id}">Community posts</button>
                 <div class="collapse" id="posts${users[i]._id}">
                 </div>
@@ -100,24 +99,21 @@ function updateInfo() {
 
 // Populate posts
 function populatePosts(posts) {
-    console.log(posts)
     $(`#posts${userId}`).empty()
     // Based on postType, populate the posts to the postArray
     if (postType == 'housing') {
         urlType = 'housePosts'
     } else if (postType == 'job') {
         urlType = 'jobPosts'
-    } else if (postType == 'donation') {
-        urlType = 'donationPosts'
     } else if (postType == 'community') {
         urlType = 'communityPosts'
     }
     for (i = 0; i < posts.length; i++) {
         postArray += `
-        <div class="card card-body">
+        <div class="card card-body" id="post${posts[i]._id}">
             Title: ${posts[i].title}<br>
             <span>URL: <a href="/${urlType}/${posts[i]._id}"> click to go to the page </a></span><br>
-            <button class="btn btn-danger delete" id="delete${posts[i]._id}" value="${posts[i]._id}">Delete</button>
+            <button class="btn btn-danger delete" id="${urlType}" value="${posts[i]._id}">Delete</button>
         </div>`
     }
     $(`#posts${userId}`).html(postArray)
@@ -146,12 +142,33 @@ function getUsers() {
         success: populateUsers
     })
 }
+
+// Delete a post
+function deletePost(){
+    postId=$(this).attr('value')
+    postType=$(this).attr('id')
+    if(postType=='housePosts'){
+        deleteUrl=`http://localhost:5002/housingPost/delete/${postId}`
+    }else if(postType=='communityPosts'){
+        deleteUrl=`http://localhost:5002/ownCommunityPost/delete/${postId}`
+    }
+    $.ajax({
+        url: deleteUrl,
+        type: 'GET',
+        success: (msg)=>{
+            alert(msg)
+        }
+    })
+    $(`#post${postId}`).hide()
+}
+
 // Run setup and populate functions
 function setup() {
     getUsers()
     $('body').on('click', '.edit', editInfo)
     $('body').on('click', '.confirm', updateInfo)
     $('body').on('click', '.getPost', getPosts)
+    $('body').on('click', '.delete', deletePost)
 }
 
 $(document).ready(setup)
