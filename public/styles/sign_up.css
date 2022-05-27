@@ -114,3 +114,8 @@ input[type=submit] {
   content: '✖';
   color: red;
 }
+
+main{
+  padding-left: 20%;
+  padding-right: 20%;
+}
