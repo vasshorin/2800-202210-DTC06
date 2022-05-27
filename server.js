@@ -72,7 +72,8 @@ const userSchema = new mongoose.Schema({
     password: String,
     admin: Boolean,
     time: String,
-    admin: Boolean
+    admin: Boolean,
+    image: String
 })
 
 const communityPostModel = mongoose.model("communityposts", communityPostSchema)
@@ -415,9 +416,11 @@ app.get('/chat/:titleAndotherUserId', function (req, res) {
                 'senderId': req.session.userobj.userId,
                 'senderName': req.session.userobj.username,
                 'senderEmail': req.session.userobj.email,
+                'senderImage': req.session.userobj.image,
                 'receiverId': receiverUser._id,
                 'receiverName': receiverUser.username,
                 'receiverEmail': receiverUser.email,
+                'receiverImage': receiverUser.image,
                 'title': title
             })
         })
@@ -428,7 +431,8 @@ app.get('/chat', function (req, res) {
     res.render('chat', {
         'senderId': req.session.userobj.userId,
         'senderName': req.session.userobj.username,
-        'senderEmail': req.session.userobj.email
+        'senderEmail': req.session.userobj.email,
+        'senderImage': req.session.userobj.image
     })
 })
 
@@ -464,7 +468,8 @@ app.post('/login/authentication', function (req, res, next) {
                 province: user[0].province,
                 city: user[0].city,
                 admin: user[0].admin,
-                time: user[0].time
+                time: user[0].time,
+                image: user[0].image
             }
             // LoggedInUserID = req.session.userId
             res.send(req.session.userobj)

@@ -91,27 +91,14 @@
                     id: '<%= senderId %>',
                     name: '<%= senderName %>',
                     email: '<%= senderEmail %>',
-                    // id: '5678',
-                    // name: 'Felix',
-                    // email: 'felix@test.com',
-                    photoUrl: 'https://demo.talkjs.com/img/alice.jpg',
+                    photoUrl: '<%= senderImage %>',
                 });
                 window.talkSession = new Talk.Session({
                     appId: 'teJYdfcK',
                     me: me,
                 });
 
-                // var conversation = talkSession.getOrCreateConversation(
-                //     Talk.oneOnOneId(me, other)
-                // );
-                // conversation.setAttributes({
-                // });
-                // conversation.setParticipant(me);
-                // conversation.setParticipant(other);
-
-                var inbox = talkSession.createInbox({
-                    // selected: conversation
-                });
+                var inbox = talkSession.createInbox({});
 
                 inbox.mount(document.getElementById('talkjs-container'));
             });

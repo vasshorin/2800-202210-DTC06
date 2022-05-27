@@ -85,19 +85,13 @@
                     id: '<%= receiverId %>',
                     name: '<%= receiverName %>',
                     email: '<%= receiverEmail %>',
-                    // id: '1234',
-                    // name: 'Andy',
-                    // email: 'andy@test.com',
-                    photoUrl: 'https://demo.talkjs.com/img/sebastian.jpg',
+                    photoUrl: '<%= receiverImage %>',
                 });
                 var me = new Talk.User({
                     id: '<%= senderId %>',
                     name: '<%= senderName %>',
                     email: '<%= senderEmail %>',
-                    // id: '5678',
-                    // name: 'Felix',
-                    // email: 'felix@test.com',
-                    photoUrl: 'https://demo.talkjs.com/img/alice.jpg',
+                    photoUrl: '<%= senderImage %>',
                 });
                 window.talkSession = new Talk.Session({
                     appId: 'teJYdfcK',
