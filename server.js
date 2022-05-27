@@ -102,19 +102,36 @@ app.use(session({
 app.use(express.static('./public'))
 
 
+// Ports for the server -- Moved from below. 
+app.listen(process.env.PORT || 5002 || 5005, (err) => {
+    if (err)
+        console.log(err)
+})
+
+
 // ----------------
 // -- MIDDLEWARE --
 // ----------------
-const isAuth = (req, res, next) => {
-    if(req.session.isAuth) {
+
+
+// global middlware guard.
+function isAuth(req, res, next) {
+    console.log("This authication triggered.")
+    if (req.session.authenticated) {
+        console.log("User is authenticated.")
         next();
     } else {
-        res.redirect('/pages/login.html');
+        console.log("User is not authenticated.")
+        res.redirect('logIn.html')
     }
-};
+}
 
-app.get('/', function (req, res) {
-    res.send('/index.html')
+
+// make specific routes for each click/redirect, so if they click a button in index.html Job Postings Page, they will have to log in. 
+app.get('/pages/newHouseListing', isAuth, function (req, res) {
+    // Get user to go to pages/newHouseListing.html
+    console.log("/ route got accessed!")
+    res.send(`Welcome ${req.session.user}`)
 })
 
 
@@ -226,7 +243,7 @@ app.delete('/ownCommunityPost/delete/:postId', function (req, res) {
 // -------------------
 
 // Create new house posts
-app.put('/newHousePost/create', isAuth, function (req, res) {
+app.put('/newHousePost/create', function (req, res) {
     console.log(req.body)
     housingPostModel.create({
         title: req.body.title,
@@ -406,11 +423,7 @@ app.post("/logout", (req, res) => {
 // -- ADMIN --
 // ---------------
 
-// Ports for the server
-app.listen(process.env.PORT || 5002 || 5005, (err) => {
-    if (err)
-        console.log(err)
-})
+
 
 
 
