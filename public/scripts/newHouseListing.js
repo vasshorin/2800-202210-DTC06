@@ -1,5 +1,6 @@
 // Get time and date
 var now = new Date(Date.now());
+picURL= '';
 // Format time to hours, minutes, and seconds
 var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 
@@ -22,6 +23,25 @@ function populatePosts(userPosts) {
     $('#ownPosts').html(postArray)
 }
 
+// upload profile picture to storage
+// part of the codes are reused from 2022 Jan COMP 1800 DTC-14 project
+function uploadImage() {
+    // get the picture from user input
+    var uploadButton = document.getElementById("uploadButton");
+    uploadButton.addEventListener("change", uploadFile => {
+        var file = uploadFile.target.files[0];
+        // upload the picture to storage
+        var uploadStorage = firebase.storage().ref("Images/" + now + ".jpeg").put(file)
+        uploadStorage.then(() => {
+            // Get the URL
+            uploadStorage.snapshot.ref.getDownloadURL().then((pictureURL) => {
+                console.log('Image URL: ', pictureURL);
+                picURL=pictureURL
+            })
+            return picURL
+        })
+    })
+}
 
 // load events to main div
 function loadEventsToMainDiv() {
@@ -71,7 +91,8 @@ function submitForm() {
             price: price,
             city: city,
             province: province,
-            time: time
+            time: time,
+            image: picURL
         },
         success: (r) => {
             console.log(r)
@@ -84,7 +105,7 @@ function submitForm() {
 // Setup function
 function setup() {
     loadEventsToMainDiv()
-
+    uploadImage()
     $("body").on("click", "#submit", submitForm)
     $("body").on("click", ".deleteButtons", deleteEvent)
 }

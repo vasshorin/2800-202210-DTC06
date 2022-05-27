@@ -57,7 +57,8 @@ const housingPostSchema = new mongoose.Schema({
     username: String,
     city: String,
     province: String,
-    time: String
+    time: String,
+    image: String
 });
 
 // User Database Schema
@@ -311,7 +312,8 @@ app.put('/newHousePost/create', function (req, res) {
         firstName: req.session.userobj.firstName,
         lastName: req.session.userobj.lastName,
         email: req.session.userobj.email,
-        time: req.body.time
+        time: req.body.time,
+        image: req.body.image
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
@@ -389,7 +391,8 @@ app.get('/housePosts/:postId', function (req, res) {
             email: post.email,
             userId: post.userId,
             city: post.city,
-            province: post.province
+            province: post.province,
+            image: post.image
         })
     })
 })

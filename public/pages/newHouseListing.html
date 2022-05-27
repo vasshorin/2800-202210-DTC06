@@ -41,9 +41,16 @@
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script src="../scripts/storeAPI.js"></script>
+
     <script src="../scripts/skeleton.js"></script>
     <link rel="stylesheet" href="../styles/newHouseListing.css">
     <script src="../scripts/newHouseListing.js"></script>
+
+    
 </head>
 
 <body>
@@ -63,9 +70,9 @@
             id="postBody"> </textarea>
 
             <form action="/action_page.php">
-                <input type="file" id="myFile" name="filename">
+                <input type="file" id="uploadButton" name="filename">
             </form>
-        <input type="submit" value="Submit" id="submit">
+        <a href="../pages/houseListings.html"><input type="submit" value="Submit" id="submit"></a>
 
     </div>
 
