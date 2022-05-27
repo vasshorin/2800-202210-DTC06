@@ -1,23 +1,53 @@
-# 2800-202210-DTC06
+# 2800-202210-DTC06 - UCAN
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-
-This project will help the refugees that are coming to Canada.
+Our team, UCAN, is developing a web
+application to help Ukrainian refugees who
+have arrived into Canada to adapt their new
+life in the country by providing a platform that
+connects people who are willing to offer help
+and Ukrainian refugees who would appreciate
+support from others.
 
 Here's why you want to check this out:
 * You should be able to find a housing!
 * You just should
 * You :smile:
 
-Of course, we need to write a better readme later but this wil 
 
 Use the `BLANK_README.md` to get started.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+## To get started
+
+In order to get started, you need to clone our repository:
+
+```
+git clone https://github.com/vasshorin/2800-202210-DTC06.git
+```
+Run the following command to install all the dependencies:
+
+``` 
+cd 2800-202210-DTC06
+npm install
+```
+
+and then run the following command to start the server:
+
+```
+node start server.js
+```
+or run the following command to start the server in production mode:
+
+```
+nodemon server.js
+```
+
+If you would like to use our application but connect to your own database, in the `server.js` file, you can change the `mongoose.connect` on line 88 and `app.use(sessions{uri:})` on line 100 line to your own database url.
 
 ### Built With
 
@@ -28,6 +58,13 @@ Use the `BLANK_README.md` to get started.
 * ExpressJS
 * MongoDB
 * Mongoose
+
+
+### Needed Tools
+
+* Any text editor or IDE like VSCode
+* A web browser
+* A command line
 
 
 ### Content structure
