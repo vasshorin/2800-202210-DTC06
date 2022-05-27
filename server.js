@@ -57,7 +57,8 @@ const housingPostSchema = new mongoose.Schema({
     username: String,
     city: String,
     province: String,
-    time: String
+    time: String,
+    image: String
 });
 
 // User Database Schema
@@ -312,7 +313,8 @@ app.put('/newHousePost/create', function (req, res) {
         firstName: req.session.userobj.firstName,
         lastName: req.session.userobj.lastName,
         email: req.session.userobj.email,
-        time: req.body.time
+        time: req.body.time,
+        image: req.body.image
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
@@ -390,7 +392,8 @@ app.get('/housePosts/:postId', function (req, res) {
             email: post.email,
             userId: post.userId,
             city: post.city,
-            province: post.province
+            province: post.province,
+            image: post.image
         })
     })
 })
@@ -453,8 +456,15 @@ app.post('/login/authentication', function (req, res, next) {
         user = users.filter((userobj) => {
             return userobj.email == req.body.email // find user with email matching the one entered
         })
+        
+        if (user.length == 0 || user == null || user == undefined){ 
+            res.send('No user found')
+        }
+
         console.log(user)
-        if (user[0].password == req.body.password) {
+        if (user[0].password != req.body.password || user[0].password == undefined || user[0].password == null || user[0].password == '') {
+            res.send('Invalid email or password')
+        } else if (user[0].password == req.body.password) {
             req.session.authenticated = true
             req.session.email = req.body.email
             req.session.userId = user[0]._id
@@ -474,7 +484,6 @@ app.post('/login/authentication', function (req, res, next) {
             // LoggedInUserID = req.session.userId
             res.send(req.session.userobj)
         }
-
     })
 })
 

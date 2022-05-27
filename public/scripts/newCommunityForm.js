@@ -38,22 +38,26 @@ function submitCommunityFormBtn() {
     var eventDescriptionVar = $("#eventPostBody").val();
     var timeOfEventPost = new Date();
 
-    console.log(eventTitleVar, eventOrganizerName, eventLocationVar, eventDescriptionVar, timeOfEventPost)
-    $.ajax({
-        url: "http://localhost:5002/newCommunityPostForm/create",
-        type: "put",
-        data: {
-            eventTitle: eventTitleVar,
-            eventOrganizerName: eventOrganizerName,
-            eventLocation: eventLocationVar,
-            eventDescription: eventDescriptionVar,
-            time: timeOfEventPost
-        },
-        success: (r) => {
-            console.log(r)
-            loadEventsToCommunityOwnPosts()
-        }
-    })
+    if (eventTitleVar === "" || eventOrganizerName === "" || eventLocationVar === "" || eventDescriptionVar === "") {
+        alert("Please fill out all fields")
+    } else {
+        console.log(eventTitleVar, eventOrganizerName, eventLocationVar, eventDescriptionVar, timeOfEventPost)
+        $.ajax({
+            url: "http://localhost:5002/newCommunityPostForm/create",
+            type: "put",
+            data: {
+                eventTitle: eventTitleVar,
+                eventOrganizerName: eventOrganizerName,
+                eventLocation: eventLocationVar,
+                eventDescription: eventDescriptionVar,
+                time: timeOfEventPost
+            },
+            success: (r) => {
+                console.log(r)
+                loadEventsToCommunityOwnPosts()
+            }
+        })
+}
 }
 
 
