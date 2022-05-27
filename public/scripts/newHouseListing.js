@@ -60,26 +60,32 @@ function submitForm() {
     var province = $("#postProvince").val();
     var time = new Date();
 
-    console.log(title, description, price, time)
-    $.ajax({
-        // url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
-        url: "http://localhost:5002/newHousePost/create",
-        type: "put",
-        data: {
-            title: title,
-            description: description,
-            price: price,
-            city: city,
-            province: province,
-            time: time
-        },
-        success: (r) => {
-            console.log(r)
-            // $("main").empty()
-            loadEventsToMainDiv()
-        }
-    })
-}
+
+    if (title === "" || description === "" || price === "" || city === "" || province === "") { // if any of the fields are empty, alert user
+        alert("Please fill out all fields")
+    } else if (isNaN(price)) { // if price is not a number
+        alert("Please enter a vawlid price")
+    } else {
+        console.log(title, description, price, time)
+        $.ajax({
+            // url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
+            url: "http://localhost:5002/newHousePost/create",
+            type: "put",
+            data: {
+                title: title,
+                description: description,
+                price: price,
+                city: city,
+                province: province,
+                time: time
+            },
+            success: (r) => {
+                console.log(r)
+                // $("main").empty()
+                loadEventsToMainDiv()
+            }
+        })
+}}
 
 // Setup function
 function setup() {
