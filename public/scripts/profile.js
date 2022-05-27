@@ -1,14 +1,21 @@
 user = ''
 pictureURL = ''
 
+function populateUserInfo(userobj){
+    $('#firstNameInput').val(userobj.firstName)
+    $('#lastNameInput').val(userobj.lastName)
+    $('#ageInput').val(userobj.age)
+    $('#emailInput').val(userobj.email)
+    $('#cityInput').val(userobj.city)
+    $('#provinceInput').val(userobj.province)
+}
+
 function getUserobj() {
     $.ajax({
         // url: `https://warm-cove-79874.herokuapp.com/user`,
         url: 'http://localhost:5002/user',
         type: 'GET',
-        success: (userobj) => {
-            user = userobj
-        }
+        success: populateUserInfo
     })
     return user
 }
@@ -46,6 +53,8 @@ function uploadProfile() {
 function setup() {
     getUserobj()
     uploadProfile()
+    $('body').on('click', '.edit', editInfo)
+    $('body').on('click', '.confirm', updateInfo)
 }
 
 $(document).ready(setup)
