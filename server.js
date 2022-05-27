@@ -128,26 +128,34 @@ function isAuth(req, res, next) {
 }
 
 
-// ----------------
-// -- ROUTES ------
-// ----------------
+// --------------------------
+// -- DROP-DOWN ROUTES ------
+// --------------------------
 // Nyan Cat. Running around gif
 // make specific routes for each click/redirect, so if they click a button in index.html Job Postings Page, they will have to log in. 
 app.get('/pages/newHouseListing', isAuth, function (req, res) {
     // Get user to go to pages/newHouseListing.html
-    console.log("/ House posting route got accessed!")
+    console.log("/House posting route got accessed!")
     res.redirect('newHouseListing.html')
 })
 
 app.get('/pages/newJobForm', isAuth, function (req, res) {
-    console.log("/ Job form posting route got accessed!")
+    console.log("/Job form posting route got accessed!")
     res.redirect('jobPostings.html')
 })
 
 app.get('/pages/newCommunityForm', isAuth, function (req, res) {
-    console.log("/ Community form posting got accessed!")
+    console.log("/Community form posting got accessed!")
     res.redirect('newCommunityForm.html')
 })
+
+// ------ Profile Route --------- 
+
+app.get('/pages/profile', isAuth, function (req, res) {
+    console.log(" /Profile page has been accessed ")
+    res.redirect('profile.html')
+})
+
 
 // -------------------
 // ---- ALL POSTS ----
