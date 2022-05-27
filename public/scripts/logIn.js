@@ -13,8 +13,12 @@ async function authenticateUser() {
         },
         success: (x) => {
             console.log("extra" + x)
-            // redirect to index page  
-            window.location.href = '/index.html'
+            // if user is admin, redirect to admin page
+            if (x.admin === true) {
+                window.location.href = "/pages/admin.html"
+            } else {
+                window.location.href = "/index.html"
+            }
         }
     })
 }
