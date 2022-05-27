@@ -9,6 +9,7 @@ const bodyparser = require('body-parser')
 const session = require('express-session')
 const MongoDBSession = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 app.set('view engine', 'ejs')
 const {
     isNumber
@@ -23,7 +24,7 @@ const communityPostSchema = new mongoose.Schema({
     email: String,
     username: String,
 
-    eventOrganizerName: String, 
+    eventOrganizerName: String,
     eventTitle: String,
     eventLocation: String,
     eventDescription: String,
@@ -74,7 +75,7 @@ const userSchema = new mongoose.Schema({
     admin: Boolean
 })
 
-const communityPostModel = mongoose.model("communityposts", communityPostSchema)    
+const communityPostModel = mongoose.model("communityposts", communityPostSchema)
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)
 
@@ -386,6 +387,44 @@ app.get('/housePosts/:postId', function (req, res) {
 })
 
 // --------------
+// ---- CHAT ----
+// --------------
+
+// direct to chat with the post owner
+app.get('/chat/:titleAndotherUserId', function (req, res) {
+    paramsArray = req.params.titleAndotherUserId.split("&")
+    title = paramsArray[0]
+    otherUserId = paramsArray[1]
+    userModel.findById(
+        otherUserId,
+        function (err, receiverUser) {
+            if (err) {
+                console.log("Error" + err)
+            } else {
+                console.log("Data" + receiverUser)
+            }
+            res.render('directChat', {
+                'senderId': req.session.userobj.userId,
+                'senderName': req.session.userobj.username,
+                'senderEmail': req.session.userobj.email,
+                'receiverId': receiverUser._id,
+                'receiverName': receiverUser.username,
+                'receiverEmail': receiverUser.email,
+                'title': title
+            })
+        })
+})
+
+// direct to chat inbox
+app.get('/chat', function (req, res) {
+    res.render('chat', {
+        'senderId': req.session.userobj.userId,
+        'senderName': req.session.userobj.username,
+        'senderEmail': req.session.userobj.email
+    })
+})
+
+// --------------
 // -- USERS --
 // --------------
 
@@ -435,11 +474,14 @@ app.get('/user', function (req, res) {
 app.get('/getAllUsers', function (req, res) {
     userModel.find({
         admin: false
-    }, function (err, users) {
+    }, async function (err, users) {
         if (err) {
             console.log('Err' + err)
         } else {
             console.log('Data' + users)
+        }
+        for (i = 0; i < users.length; i++) {
+            users[i].password = await bcrypt.hash(users[i].password, 12)
         }
         res.send(users)
     })

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vasshorin/2800-202210-DTC06#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "common": "^0.2.5",
     "connect-mongodb-session": "^3.1.1",
