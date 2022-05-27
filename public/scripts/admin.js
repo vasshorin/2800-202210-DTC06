@@ -79,8 +79,8 @@ function updateInfo() {
     province = $(`#province${userId}`).val()
     document.getElementById(`user${userId}`).disabled = true
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
-        url: 'http://localhost:5002/updateUserInfo',
+        url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
+        // url: 'http://localhost:5002/updateUserInfo',
         type: 'PUT',
         data: {
             userId: userId,
@@ -126,8 +126,8 @@ function getPosts() {
     postType = $(this).attr('id')
     console.log(userId, postType)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/getPosts/${postType}`,
-        url: `http://localhost:5002/getPosts/${userId}/${postType}`,
+        url: `https://warm-cove-79874.herokuapp.com/getPosts/${postType}`,
+        // url: `http://localhost:5002/getPosts/${userId}/${postType}`,
         type: 'GET',
         success: populatePosts
     })
@@ -136,8 +136,8 @@ function getPosts() {
 // Get all users
 function getUsers() {
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/getAllUsers`,
-        url: 'http://localhost:5002/getAllUsers',
+        url: `https://warm-cove-79874.herokuapp.com/getAllUsers`,
+        // url: 'http://localhost:5002/getAllUsers',
         type: 'GET',
         success: populateUsers
     })
@@ -148,9 +148,9 @@ function deletePost(){
     postId=$(this).attr('value')
     postType=$(this).attr('id')
     if(postType=='housePosts'){
-        deleteUrl=`http://localhost:5002/housingPost/delete/${postId}`
+        deleteUrl=`https://warm-cove-79874.herokuapp.com/housingPost/delete/${postId}`
     }else if(postType=='communityPosts'){
-        deleteUrl=`http://localhost:5002/ownCommunityPost/delete/${postId}`
+        deleteUrl=`https://warm-cove-79874.herokuapp.com/ownCommunityPost/delete/${postId}`
     }
     $.ajax({
         url: deleteUrl,

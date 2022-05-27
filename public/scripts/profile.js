@@ -17,8 +17,8 @@ function populateUserInfo(userobj) {
 
 function getUserobj() {
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/user`,
-        url: 'http://localhost:5002/user',
+        url: `https://warm-cove-79874.herokuapp.com/user`,
+        // url: 'http://localhost:5002/user',
         type: 'GET',
         success: populateUserInfo
     })
@@ -39,8 +39,8 @@ function uploadProfile() {
             uploadStorage.snapshot.ref.getDownloadURL().then((pictureURL) => {
                 console.log('profile picture URL: ', pictureURL);
                 $.ajax({
-                    // url: `https://warm-cove-79874.herokuapp.com/uploadProfilePic`,
-                    url: 'http://localhost:5002/uploadProfilePic',
+                    url: `https://warm-cove-79874.herokuapp.com/uploadProfilePic`,
+                    // url: 'http://localhost:5002/uploadProfilePic',
                     type: 'PUT',
                     data: {
                         userId: user.userId,
@@ -71,8 +71,8 @@ function updateInfo() {
     province = $('#provinceInput').val()
     console.log(firstName, lastName, age, email, city, province)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
-        url: 'http://localhost:5002/updateUserInfo',
+        url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
+        // url: 'http://localhost:5002/updateUserInfo',
         type: 'PUT',
         data: {
             userId: null,

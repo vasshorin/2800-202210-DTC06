@@ -58,6 +58,11 @@ If you would like to use our application but connect to your own database, in th
 * ExpressJS
 * MongoDB
 * Mongoose
+* TalkJS
+* EJS
+* bcrypt
+* FirebaseStorage
+* Heroku
 
 
 # Needed Tools

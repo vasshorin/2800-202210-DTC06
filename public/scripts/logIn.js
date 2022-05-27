@@ -22,8 +22,8 @@ async function authenticateUser() {
         $('#password').val('')
     } else {
     await $.ajax({
-            // url: 'https://warm-cove-79874.herokuapp.com/login/authentication',
-            url: 'http://localhost:5002/login/authentication',
+            url: 'https://warm-cove-79874.herokuapp.com/login/authentication',
+            // url: 'http://localhost:5002/login/authentication',
             type: 'POST',
             data: {
                 email: email,
