@@ -76,13 +76,11 @@ If you would like to use our application but connect to your own database, in th
 
 ```
 |   .gitignore
-|   Dev.txt
 |   package-lock.json
 |   package.json
 |   Procfile
 |   README.md
 |   server.js
-|   Tree.txt
 |   
 +---.vscode
 |       settings.json
@@ -119,11 +117,13 @@ If you would like to use our application but connect to your own database, in th
 |   |       newHouseListing.html
 |   |       newJobForm.html
 |   |       profile.html
+|   |       setting.html
 |   |       sign_up.html
 |   |       template.html
 |   |       
 |   +---scripts
 |   |       admin.js
+|   |       chat.js
 |   |       communityListings.js
 |   |       houseListings.js
 |   |       index.js
@@ -134,6 +134,7 @@ If you would like to use our application but connect to your own database, in th
 |   |       newJobForm.js
 |   |       sign_up.js
 |   |       skeleton.js
+|   |       topNav.js
 |   |       
 |   +---skeletons
 |   |       bottomNav.html
@@ -151,6 +152,7 @@ If you would like to use our application but connect to your own database, in th
 |   |       newCommunityForm.css
 |   |       newHouseListing.css
 |   |       newJobForm.css
+|   |       setting.css
 |   |       sign_up.css
 |   |       skeleton.css
 |   |       style.css
