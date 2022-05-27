@@ -24,7 +24,7 @@ function populateJobPosts(userJobPost) {
 function loadEventsToJobOwnPosts() {
     $('#ownJobPost').empty()
     $.ajax({
-        url: 'http://localhost:5002/ownJobPost/read',
+        url: 'https://warm-cove-79874.herokuapp.com/ownJobPost/read',
         type: 'GET',
         success: populateJobPosts
     })
@@ -35,8 +35,8 @@ function deleteEvent() {
     var postId = $(this).attr('id')
     console.log(postId)
     $.ajax({
-        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
-        url: `http://localhost:5002/jobPost/delete/${postId}`,
+        url: `https://warm-cove-79874.herokuapp.com/jobPosts/delete/${postId}`,
+        // url: `http://localhost:5002/jobPost/delete/${postId}`,
         type: 'get',
         success: (x) => {
             console.log(x)
@@ -58,7 +58,7 @@ function submitJobFormBtn() {
     }
     console.log(jobTitle, jobDescription, city, province, jobTimePost)
     $.ajax({
-        url: "http://localhost:5002/newJobPost/create",
+        url: "https://warm-cove-79874.herokuapp.com/newJobPost/create",
         type: "put",
         data: {
             jobTitle: jobTitle,
