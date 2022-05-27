@@ -34,15 +34,15 @@ a, button .btn-lg{
 }
 
 .btn-group-lg>.btn, .btn-lg{
-    color: #FB8500;
+    background-color: #FB8500;
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
 }
 
-.bg-dark{
+/* .bg-dark{
     color: #FB8500;
-}
+} */
 
 main {
     padding-top: 85px;
