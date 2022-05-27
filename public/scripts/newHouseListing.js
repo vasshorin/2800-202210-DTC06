@@ -7,7 +7,7 @@ var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
 
 // Populate user's own house postings
 function populatePosts(userPosts) {
-    console.log(userPosts)
+    console.log("Userposts" + userPosts)
     postArray = '<hr>'
     for (i = 0; i < userPosts.length; i++) { // for each post in the array, get the following infromation
         postArray += `

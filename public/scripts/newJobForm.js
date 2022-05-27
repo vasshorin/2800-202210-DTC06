@@ -4,16 +4,17 @@ var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
 
 // Populate user's own Job post
 function populateJobPosts(userJobPost) {
-    console.log(userJobPost)
+    console.log("Userjobs"+ userJobPost)
     jobPostArray = '<hr>'
     for (i = 0; i < userJobPost.length; i++) {
         jobPostArray += `
-        Event Title: ${userJobPost[i].eventTitle}<br>
-        Event Organizer: ${userJobPost[i].eventOrganizerName}<br>
-        Event Location: ${userJobPost[i].eventLocation}<br>
-        Event Description: ${userJobPost[i].eventDescription}<br>
+        Job Title: ${userJobPost[i].jobTitle}<br>
+        Job description: ${userJobPost[i].jobDescription}<br>
+        Job City: ${userJobPost[i].city}<br>
+        Job Province: ${userJobPost[i].province}<br>
         Posted by: ${userJobPost[i].username}<br>
-        Posted at: ${userJobPost[i].time}<hr>`
+        Posted at: ${userJobPost[i].time}
+        <button id="${userJobPost[i]._id}" class="deleteButtons">Delete</button><hr>`
     }
     $('#ownJobPost').append(jobPostArray)
 }
@@ -29,25 +30,40 @@ function loadEventsToJobOwnPosts() {
     })
 }
 
+// delete post
+function deleteEvent() {
+    var postId = $(this).attr('id')
+    console.log(postId)
+    $.ajax({
+        // url: `https://warm-cove-79874.herokuapp.com/housePosts/${postId}`,
+        url: `http://localhost:5002/jobPost/delete/${postId}`,
+        type: 'get',
+        success: (x) => {
+            console.log(x)
+            // redirect to main page
+            window.location.href = "/pages/newJobForm.html"
+        }
+    })
+}
 
 // Get user input from form and send to database to create a new post
 function submitJobFormBtn() {
-    var eventTitleVar = $("#eventPostTitle").val();
-    var eventOrganizerName = $("#eventPostOrganizer").val();
-    var eventLocationVar = $("#eventPostLocation").val();
-    var eventDescriptionVar = $("#eventPostBody").val();
-    var timeOfEventPost = new Date();
+    var jobTitle = $("#jobTitle").val();
+    var city = $("#city").val();
+    var province = $("#province").val();
+    var jobDescription = $("#jobDescription").val();
+    var jobTimePost = new Date();
 
-    console.log(eventTitleVar, eventOrganizerName, eventLocationVar, eventDescriptionVar, timeOfEventPost)
+    console.log(jobTitle, jobDescription, city, province, jobTimePost)
     $.ajax({
-        url: "http://localhost:5002/newJobPostForm/create",
+        url: "http://localhost:5002/newJobPost/create",
         type: "put",
         data: {
-            eventTitle: eventTitleVar,
-            eventOrganizerName: eventOrganizerName,
-            eventLocation: eventLocationVar,
-            eventDescription: eventDescriptionVar,
-            time: timeOfEventPost
+            jobTitle: jobTitle,
+            city: city,
+            province: province,
+            jobDescription: jobDescription,
+            time: jobTimePost
         },
         success: (r) => {
             console.log(r)
@@ -60,6 +76,7 @@ function submitJobFormBtn() {
 function setup() {
     loadEventsToJobOwnPosts()
     $("body").on("click", "#submit", submitJobFormBtn)
+    $("body").on("click", ".deleteButtons", deleteEvent)
 }
 
 $(document).ready(setup);

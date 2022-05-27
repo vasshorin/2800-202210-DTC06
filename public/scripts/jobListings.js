@@ -8,8 +8,8 @@ function populatePosts(posts) {
         postArray += `
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">${posts[i].title}</h5>
-            <p class="card-text">${posts[i].description}</p>
+            <h5 class="card-title">${posts[i].jobTitle}</h5>
+            <p class="card-text">${posts[i].jobDescription}</p>
             <a href="../jobPosts/${posts[i]._id}" class="btn btn-info">View Details</a>
             <p class="card-text"><small class="text-muted">Posted by: ${posts[i].username} at: ${posts[i].time}</small></p>
           </div>
