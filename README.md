@@ -22,7 +22,7 @@ Use the `BLANK_README.md` to get started.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-## To get started
+# To get started
 
 In order to get started, you need to clone our repository:
 
@@ -49,7 +49,7 @@ nodemon server.js
 
 If you would like to use our application but connect to your own database, in the `server.js` file, you can change the `mongoose.connect` on line 88 and `app.use(sessions{uri:})` on line 100 line to your own database url.
 
-### Built With
+# Built With
 
 * HTML
 * CSS
@@ -60,14 +60,14 @@ If you would like to use our application but connect to your own database, in th
 * Mongoose
 
 
-### Needed Tools
+# Needed Tools
 
 * Any text editor or IDE like VSCode
 * A web browser
 * A command line
 
 
-### Content structure
+# Content structure
 
 ```
 |   .gitignore
