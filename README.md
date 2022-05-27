@@ -130,7 +130,6 @@ If you would like to use our application but connect to your own database, in th
 |   |       newJobForm.js
 |   |       sign_up.js
 |   |       skeleton.js
-|   |       topNav.js
 |   |       
 |   +---skeletons
 |   |       bottomNav.html

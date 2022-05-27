@@ -9,8 +9,10 @@ function populateUserInfo(userobj) {
     $('#cityInput').val(userobj.city)
     $('#provinceInput').val(userobj.province)
     if (userobj.image != null) {
-        $('#profilePicture').html(`<img src="${userobj.image}">`)
+        $('#profilePicture').html(`<img src="${userobj.image}" class="rounded-circle border border-dark border-1 mx-auto d-block" style="width: 150px">`)
     }
+    console.log(userobj)
+    user = userobj
 }
 
 function getUserobj() {
@@ -45,7 +47,7 @@ function uploadProfile() {
                         pictureURL: pictureURL
                     },
                     success: (msg) => {
-                        alert(msg)
+                        console.log(msg)
                     }
                 })
             })
@@ -53,11 +55,45 @@ function uploadProfile() {
     })
 }
 
+// Allow user to edit their info
+function editInfo() {
+    document.getElementById('personalInfoFields').disabled = false
+}
+
+// Upadte user's info to db
+function updateInfo() {
+    document.getElementById('personalInfoFields').disabled = true
+    firstName = $('#firstNameInput').val()
+    lastName = $('#lastNameInput').val()
+    age = $('#ageInput option:selected').val()
+    email = $('#emailInput').val()
+    city = $('#cityInput').val()
+    province = $('#provinceInput').val()
+    console.log(firstName, lastName, age, email, city, province)
+    $.ajax({
+        // url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
+        url: 'http://localhost:5002/updateUserInfo',
+        type: 'PUT',
+        data: {
+            userId: null,
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            email: email,
+            city: city,
+            province: province
+        },
+        success: (msg) => {
+            alert(msg)
+        }
+    })
+}
+
 function setup() {
     getUserobj()
     uploadProfile()
-    // $('body').on('click', '.edit', editInfo)
-    // $('body').on('click', '.confirm', updateInfo)
+    $('body').on('click', '#edit', editInfo)
+    $('body').on('click', '#save', updateInfo)
 }
 
 $(document).ready(setup)

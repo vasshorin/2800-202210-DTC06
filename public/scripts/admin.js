@@ -78,7 +78,6 @@ function updateInfo() {
     email = $(`#email${userId}`).val()
     city = $(`#city${userId}`).val()
     province = $(`#province${userId}`).val()
-    console.log(userId, firstName, lastName, age, email, city, province)
     document.getElementById(`user${userId}`).disabled = true
     $.ajax({
         // url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,

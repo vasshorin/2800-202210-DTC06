@@ -430,11 +430,16 @@ app.get('/chat/:titleAndotherUserId', function (req, res) {
 
 // direct to chat inbox
 app.get('/chat', function (req, res) {
+    if (req.session.userobj.image != null) {
+        image = req.session.userobj.image
+    } else {
+        image = 'https://firebasestorage.googleapis.com/v0/b/ucan-8aa2e.appspot.com/o/Images%2FUCAN_logo.png?alt=media&token=59c60c9d-b06a-47b7-86ef-f5cbb3b49bc3'
+    }
     res.render('chat', {
         'senderId': req.session.userobj.userId,
         'senderName': req.session.userobj.username,
         'senderEmail': req.session.userobj.email,
-        'senderImage': req.session.userobj.image
+        'senderImage': image
     })
 })
 
@@ -455,8 +460,8 @@ app.post('/login/authentication', function (req, res, next) {
         user = users.filter((userobj) => {
             return userobj.email == req.body.email // find user with email matching the one entered
         })
-        
-        if (user.length == 0 || user == null || user == undefined){ 
+
+        if (user.length == 0 || user == null || user == undefined) {
             res.send('No user found')
         }
 
@@ -510,8 +515,13 @@ app.get('/getAllUsers', function (req, res) {
 
 // UPDATE USERS INFO
 app.put('/updateUserInfo', function (req, res) {
+    if (req.body.userId == '') {
+        userId = req.session.userId
+    } else {
+        userId = req.body.userId
+    }
     userModel.updateOne({
-        _id: req.body.userId
+        _id: userId
     }, {
         $set: {
             firstName: req.body.firstName,
@@ -521,12 +531,12 @@ app.put('/updateUserInfo', function (req, res) {
             city: req.body.city,
             province: req.body.province
         }
-    }, function (err, testData) {
+    }, function (err, user) {
         if (err) {
             console.log('Error' + err)
             res.status(500)
         } else {
-            console.log('Data' + testData)
+            console.log('Data' + user)
             res.status(200).send('User info updated!')
         }
     })

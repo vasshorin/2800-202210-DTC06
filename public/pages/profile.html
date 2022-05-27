@@ -69,7 +69,7 @@
     
             <!-- form for profile fields -->
             <form>
-                <fieldset id="personalInfoFields">
+                <fieldset id="personalInfoFields" disabled>
     
                     <!-- name -->
                     <div class="form-group my-3">
@@ -117,13 +117,13 @@
     
                 <!-- edit and save buttons -->
                 <div class="my-5 d-flex justify-content-center">
-                    <button type="button" class="btn bg-secondary text-light my-3 me-5">Edit</button>
-                    <button type="button" class="btn bg-dark text-light my-3 ms-5">Save</button>
+                    <button type="button" class="btn bg-secondary text-light my-3 me-5" id="edit">Edit</button>
+                    <button type="button" class="btn bg-dark text-light my-3 ms-5" id="save">Save</button>
 
                 </div>
             </form>
             <form action="/logout" method="POST">
-                <button type="submit" class="btn bg-dark text-light my-3 ms-5">Logout</button>
+                <button type="submit" class="btn bg-dark text-light my-3">Logout</button>
             </form>
 
         </div>
