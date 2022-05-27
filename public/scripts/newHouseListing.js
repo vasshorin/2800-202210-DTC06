@@ -81,27 +81,6 @@ function submitForm() {
     var time = new Date();
 
     console.log(title, description, price, time)
-    $.ajax({
-        // url: "https://warm-cove-79874.herokuapp.com/newHousePost/create",
-        url: "http://localhost:5002/newHousePost/create",
-        type: "put",
-        data: {
-            title: title,
-            description: description,
-            price: price,
-            city: city,
-            province: province,
-            time: time,
-            image: picURL
-        },
-        success: (r) => {
-            console.log(r)
-            // $("main").empty()
-            loadEventsToMainDiv()
-        }
-    })
-}
-
     if (title === "" || description === "" || price === "" || city === "" || province === "") { // if any of the fields are empty, alert user
         alert("Please fill out all fields")
     } else if (isNaN(price)) { // if price is not a number
@@ -118,7 +97,8 @@ function submitForm() {
                 price: price,
                 city: city,
                 province: province,
-                time: time
+                time: time,
+                image: picURL
             },
             success: (r) => {
                 console.log(r)
@@ -127,6 +107,7 @@ function submitForm() {
             }
         })
     }
+}
 
 // Setup function
 function setup() {
