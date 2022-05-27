@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMP2800 DTC-06 Community Post Form</title>
+    <title>COMP2800 DTC-06 Template Page</title>
 
     <!-- Bootstrap Library CSS JS CDN -->
     <!-- https://github.com/twbs/bootstrap/blob/v5.0.2/LICENSE
@@ -42,9 +42,7 @@
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../scripts/skeleton.js"></script>
-    <!-- Styles are from newHouseListings, will create separate css/js elements. -->
-    <link rel="stylesheet" href="../styles/newJobForm.css">
-    <script src="../scripts/newJobForm.js"></script>
+    <link rel="stylesheet" href="/styles/individualHousePost.css">
 </head>
 
 <body>
@@ -54,27 +52,51 @@
     <div id="topNavPlaceHolder"></div>
 
     <!-- body of the page -->
+    <!-- Create listing page with houseing details -->
     <main>
-        <div id="form">
-            <input type="text" name="text" placeholder="Name of your job post" id="jobTitle">
-            <!-- <input type="text" name="text" placeholder="Organizer Name" id="jobDescription"> -->
-            <input type="text" name="text" placeholder="Enter city" id="city">
-            <input type="text" name="text" placeholder="Enter province" id="province">
-            <textarea rows="5" cols="5" type="text" name="text" placeholder="Enter details of your job:"
-                id="jobDescription"> </textarea>
-            <input type="submit" value="Submit" id="submit">
-        </div>
-
-        <div id="ownJobPost">
-
-        </div>
-
-        <!-- footer -->
-        <div class="footer"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><%= title %> </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2><strong>Title:</strong> <%= title %></h2>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 style="text-align: center; font-size: 2em;">Details</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Location:</strong>in <%= city %> <%= province %>
+                        </p>
+                        <p>
+                            <strong>Description:</strong> <%= description %>
+                        </p>
+                        <hr>
+                        <p style="text-align: center; font-size: 2rem;">
+                            Contact details
+                        </p>
+                        <p><strong>Name:</strong> <%= firstName %> <%= lastName %> </p>
+                        <p><strong>Email:</strong> <%= email %></p>
+                        <!-- <p><strong>Phone:</strong></p> -->
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="../chat/<%= userId %>"><button type="button" class="btn btn-warning">Chat</button></a>
+                    </div>
+                </div>
+                <!-- footer -->
+                <div class="footer"></div>
     </main>
 
-    <!-- bottom navbar -->
-    <div id="bottomNavPlaceHolder"></div>
+            <!-- bottom navbar -->
+            <div id="bottomNavPlaceHolder"></div>
 
 </body>
 

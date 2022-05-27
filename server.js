@@ -33,8 +33,8 @@ const communityPostSchema = new mongoose.Schema({
 
 // Job Post Database Schema
 const jobPostSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    jobTitle: String,
+    jobDescription: String,
     userId: String,
     firstName: String,
     lastName: String,
@@ -42,7 +42,7 @@ const jobPostSchema = new mongoose.Schema({
     username: String,
     city: String,
     province: String,
-    time: String
+    time: String,
 });
 
 // Housing Post Database Schema
@@ -77,6 +77,7 @@ const userSchema = new mongoose.Schema({
 })
 
 const communityPostModel = mongoose.model("communityposts", communityPostSchema)
+const jobPostModel = mongoose.model("jobposts", jobPostSchema)
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
 const userModel = mongoose.model("users", userSchema)
 
@@ -398,6 +399,111 @@ app.get('/housePosts/:postId', function (req, res) {
 })
 
 // --------------
+// -- JOBS POSTS -
+// --------------
+
+// Create new job posts
+app.put('/newJobPost/create', function (req, res) {
+    console.log(req.body)
+    jobPostModel.create({
+        jobTitle: req.body.jobTitle,
+        jobDescription: req.body.jobDescription,
+        city: req.body.city,
+        province: req.body.province,
+        userId: req.session.userId,
+        username: req.session.userobj.username,
+        firstName: req.session.userobj.firstName,
+        lastName: req.session.userobj.lastName,
+        email: req.session.userobj.email,
+        time: req.body.time
+    }, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500).send()
+        } else {
+            console.log('Data' + data)
+            res.status(200).send('Data inserted!')
+        }
+    })
+})
+
+// Read own job posts
+app.get('/ownJobPost/read', function (req, res) {
+    
+        jobPostModel.find({
+            userId: req.session.userId // Find all posts by userId of the currently logged in user
+        }, {}, {
+            sort: {
+                _id: -1 // Sort posts by descending order (latest first)
+            }
+        }, function (err, data) {
+    
+            if (err) {
+                console.log("Error" + err)
+            } else {
+                console.log("Data" + data)
+            }
+            res.send(data)
+        })
+})
+
+// Read all job posts
+app.get('/jobPosts/read', function (req, res) {
+
+    jobPostModel.find({}, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
+
+// direct to specific post
+app.get('/jobPosts/:postId', function (req, res) {
+    jobPostModel.findById(req.params.postId, function (err, post) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + post)
+        }
+        res.render('job', {
+            title: post.jobTitle,
+            description: post.jobDescription,
+            firstName: post.firstName,
+            lastName: post.lastName,
+            email: post.email,
+            userId: post.userId,
+            city: post.city,
+            province: post.province
+        })
+    })
+})
+
+
+// delete specific job post
+app.get('/jobPost/delete/:postId', function (req, res) {
+    jobPostModel.findByIdAndDelete(req.params.postId, function (err, data) {
+        if (err) {
+            console.log('Error' + err)
+        } else {
+            console.log('Data' + data)
+        }
+        res.send('Data deleted!')
+    })
+})
+
+
+
+
+
+
+// --------------
 // ---- CHAT ----
 // --------------
 
@@ -448,7 +554,7 @@ app.get('/chat', function (req, res) {
 // --------------
 
 
-// LOGIN USER
+// // LOGIN USER
 app.post('/login/authentication', function (req, res, next) {
     userModel.find({}, function (err, users) { // find all users
         if (err) {
@@ -461,12 +567,15 @@ app.post('/login/authentication', function (req, res, next) {
             return userobj.email == req.body.email // find user with email matching the one entered
         })
 
-        if (user.length == 0 || user == null || user == undefined) {
+        if (user.length == 0 || user == null || user == undefined || user == '') { // if no user found
             res.send('No user found')
         }
 
         console.log(user)
-        if (user[0].password != req.body.password || user[0].password == undefined || user[0].password == null || user[0].password == '') {
+        if (!user) { // if password is incorrect
+            res.send('Incorrect password')
+        }
+        if (user[0].password != req.body.password ) {
             res.send('Invalid email or password')
         } else if (user[0].password == req.body.password) {
             req.session.authenticated = true
