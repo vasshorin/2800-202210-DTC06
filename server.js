@@ -427,22 +427,22 @@ app.put('/newJobPost/create', function (req, res) {
 
 // Read own job posts
 app.get('/ownJobPost/read', function (req, res) {
-    
-        jobPostModel.find({
-            userId: req.session.userId // Find all posts by userId of the currently logged in user
-        }, {}, {
-            sort: {
-                _id: -1 // Sort posts by descending order (latest first)
-            }
-        }, function (err, data) {
-    
-            if (err) {
-                console.log("Error" + err)
-            } else {
-                console.log("Data" + data)
-            }
-            res.send(data)
-        })
+
+    jobPostModel.find({
+        userId: req.session.userId // Find all posts by userId of the currently logged in user
+    }, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
 })
 
 // Read all job posts
@@ -567,14 +567,8 @@ app.post('/login/authentication', function (req, res, next) {
 
         if (user.length == 0 || user == null || user == undefined || user == '') { // if no user found
             res.send('No user found')
-        }
-
-        console.log(user)
-        if (!user) { // if password is incorrect
-            res.send('Incorrect password')
-        }
-        if (user[0].password != req.body.password ) {
-            res.send('Invalid email or password')
+        }else if (user[0].password != req.body.password) {
+            res.send('Invalid password')
         } else if (user[0].password == req.body.password) {
             req.session.authenticated = true
             req.session.email = req.body.email

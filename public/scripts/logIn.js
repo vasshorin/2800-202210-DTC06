@@ -12,10 +12,14 @@ async function authenticateUser() {
   // if email or password empty, reload page
     if (email === "" || password === "") {
         alert("Please fill out all fields")
+        $('#email').val('')
+        $('#password').val('')
     } 
     // verfiy email field is a valid format 
     else if (!validateEmail(email)) {
         alert("Please enter a valid email")
+        $('#email').val('')
+        $('#password').val('')
     } else {
     await $.ajax({
             // url: 'https://warm-cove-79874.herokuapp.com/login/authentication',
@@ -25,10 +29,17 @@ async function authenticateUser() {
                 email: email,
                 password: password
             },
-            success: (x) => {
-                console.log("extra" + x)
-                // if user is admin, redirect to admin page
-                if (x.admin === true) {
+            success: (serverRes) => {
+                if (serverRes=='No user found'){
+                    alert('No user found, please retry or signup!')
+                    $('#email').val('')
+                    $('#password').val('')
+                }else if(serverRes=='Invalid password'){
+                    alert('Invalid password, please retry or signup!')
+                    $('#email').val('')
+                    $('#password').val('')
+                }else if(serverRes.admin === true) {
+                    // if user is admin, redirect to admin page
                     window.location.href = "/pages/admin.html"
                 } else {
                     window.location.href = "/index.html"
