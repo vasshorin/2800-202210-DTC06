@@ -70,12 +70,13 @@ const userSchema = new mongoose.Schema({
     city: String,
     password: String,
     admin: Boolean,
-    time: String
+    time: String,
+    admin: Boolean
 })
 
 const communityPostModel = mongoose.model("communityposts", communityPostSchema)    
 const housingPostModel = mongoose.model("housingPosts", housingPostSchema)
-const userModel = mongoose.model("users", userSchema)       
+const userModel = mongoose.model("users", userSchema)
 
 
 app.use(bodyparser.urlencoded({
@@ -134,6 +135,36 @@ app.get('/pages/newHouseListing', isAuth, function (req, res) {
     res.send(`Welcome ${req.session.user}`)
 })
 
+// -------------------
+// ---- ALL POSTS ----
+// -------------------
+
+app.get('/getPosts/:userId/:type', function (req, res) {
+    if (req.params.type == 'housing') {
+        model = housingPostModel
+    } else if (req.params.type == 'job') {
+        model = jobPostModel
+    } else if (req.params.type == 'donation') {
+        model = donationPostModel
+    } else if (req.params.type == 'community') {
+        model = communityPostModel
+    }
+    console.log(req.params.userId)
+    model.find({
+        userId: req.params.userId
+    }, {}, {
+        sort: {
+            _id: -1 // Sort posts by descending order (latest first)
+        }
+    }, function (err, data) {
+        if (err) {
+            console.log("Error" + err)
+        } else {
+            console.log("Data" + data)
+        }
+        res.send(data)
+    })
+})
 
 // -------------------
 // - COMMUNITY POSTS -
@@ -202,6 +233,7 @@ app.get('/communityPost/read', function (req, res) {
         res.send(data)
     })
 })
+
 
 // direct to specific post
 app.get('/communityPost/:postId', function (req, res) {
@@ -380,7 +412,48 @@ app.post('/login/authentication', function (req, res, next) {
     })
 })
 
+// SEND USER INFO TO CLIENT
+app.get('/user', function (req, res) {
+    res.send(req.session.userobj)
+})
 
+// SEND USERS TO ADMIN DASHBOARD
+app.get('/getAllUsers', function (req, res) {
+    userModel.find({
+        admin: false
+    }, function (err, users) {
+        if (err) {
+            console.log('Err' + err)
+        } else {
+            console.log('Data' + users)
+        }
+        res.send(users)
+    })
+})
+
+// UPDATE USERS INFO
+app.put('/updateUserInfo', function (req, res) {
+    userModel.updateOne({
+        _id: req.body.userId
+    }, {
+        $set: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            age: req.body.age,
+            email: req.body.email,
+            city: req.body.city,
+            province: req.body.province
+        }
+    }, function (err, testData) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500)
+        } else {
+            console.log('Data' + testData)
+            res.status(200).send('User info updated!')
+        }
+    })
+})
 
 // ---------------
 // -- SIGNUP --
@@ -398,7 +471,8 @@ app.post('/signup/create', function (req, res) {
         province: req.body.province,
         city: req.body.city,
         password: req.body.password,
-        time: req.body.time
+        time: req.body.time,
+        admin: false
     }, function (err, data) {
         if (err) {
             console.log('Error' + err)
