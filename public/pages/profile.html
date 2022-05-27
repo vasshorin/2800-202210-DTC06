@@ -42,8 +42,12 @@
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="../scripts/skeleton.js"></script>
     <script src="../scripts/profile.js"></script>
+    <script src="../scripts/storageAPI.js"></script>
     <link rel="stylesheet" href="../styles/index.css">
 </head>
 
@@ -78,33 +82,13 @@
                         <input type="text" id="lastNameInput" class="form-control" placeholder="Enter your Last Name">
                     </div>
     
-                    <!-- gender -->
-                    <div class="form-group my-3">
-                        <label>Gender</label>
-                        <select id="genderInput" class="form-select">
-                            <option>Select your Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="transgender">Transgender</option>
-                            <option value="preferNotToSay">Prefer not to say</option>
-                        </select>
-                    </div>
-    
                     <!-- age -->
                     <div class="form-group my-3">
                         <label>Are you 16 years old or above?</label>
-                        <div class="form-check">
-                            <input type="radio" id="aboveAge" class="form-check-input" name="ageInput">
-                            <label for="aboveAge" class="form-check-label">16 or above</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" id="belowAge" class="form-check-input" name="ageInput">
-                            <label for="belowAge" class="form-check-label">Below 16</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" id="preferNotToSayAge" class="form-check-input" name="ageInput">
-                            <label for="preferNotToSayAge" class="form-check-label">Prefer not to say</label>
-                        </div>
+                        <select name="age" id="ageInput">
+                            <option value="yes"> Yes </option>
+                            <option value="no"> No </option>
+                        </select>
                     </div>
     
                     <!-- E-mail -->
@@ -120,21 +104,8 @@
                     </div>
                     <div class="form-group my-3">
                         <label>Province of Residence</label>
-                        <input type="text" id="cityInput" class="form-control"
+                        <input type="text" id="provinceInput" class="form-control"
                             placeholder="Enter your Province of Residence">
-                    </div>
-    
-                    <!-- language -->
-                    <div class="form-group my-3">
-                        <label>Language</label>
-                        <!-- Selection list used below is from https://www.html-code-generator.com/html/drop-down/languages-name -->
-                        <select id="languageInput" class="form-select">
-                            <option selected>Select the Language that you prefer</option>
-                            <option value="english">English</option>
-                            <option value="french">French - français</option>
-                            <option value="russian">Russian - русский</option>
-                            <option value="ukrainian">Ukrainian - українська</option>
-                        </select>
                     </div>
     
                     <!-- place for uploading profile picture -->
@@ -153,7 +124,11 @@
                 </div>
             </form>
             <form action="/logout" method="POST">
+<<<<<<< HEAD
                 <button type="submit" class="btn bg-dark text-light my-3 ms-5">Logout</button>
+=======
+                <button type="submit" class="btn-lg btn-danger" id="test">Logout</button>
+>>>>>>> Andy_Kai_image
             </form>
 
         </div>

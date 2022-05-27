@@ -73,7 +73,6 @@ const userSchema = new mongoose.Schema({
     password: String,
     admin: Boolean,
     time: String,
-    admin: Boolean,
     image: String
 })
 
@@ -533,6 +532,25 @@ app.put('/updateUserInfo', function (req, res) {
     })
 })
 
+// UPLOAD PROFILE PICTURE
+app.put('/uploadProfilePic', function (req, res) {
+    userModel.updateOne({
+        _id: req.body.userId
+    }, {
+        $set: {
+            image: req.body.pictureURL,
+        }
+    }, function (err, testData) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500)
+        } else {
+            console.log('Data' + testData)
+            res.status(200).send('Picture uploaded!')
+        }
+    })
+})
+
 // ---------------
 // -- SIGNUP --
 // ---------------
@@ -550,6 +568,7 @@ app.post('/signup/create', function (req, res) {
         city: req.body.city,
         password: req.body.password,
         time: req.body.time,
+        image: null,
         admin: false
     }, function (err, data) {
         if (err) {
