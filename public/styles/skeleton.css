@@ -29,14 +29,19 @@ a, button .btn-lg{
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
-    color: black
+    color: #FB8500
+    
 }
 
 .btn-group-lg>.btn, .btn-lg{
-    color: black;
+    color: #FB8500;
     text-decoration: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 16px;
+}
+
+.bg-dark{
+    color: #FB8500;
 }
 
 main {
