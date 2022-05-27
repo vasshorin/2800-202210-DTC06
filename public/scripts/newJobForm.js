@@ -53,7 +53,9 @@ function submitJobFormBtn() {
     var province = $("#province").val();
     var jobDescription = $("#jobDescription").val();
     var jobTimePost = new Date();
-
+    if (jobTitle === "" || city === "" || province === "" || jobDescription === "") {
+        alert("Please fill out all fields")
+    }
     console.log(jobTitle, jobDescription, city, province, jobTimePost)
     $.ajax({
         url: "http://localhost:5002/newJobPost/create",
