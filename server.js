@@ -132,12 +132,10 @@ function isAuth(req, res, next) {
 
 
 // --------------------------
-// -- DROP-DOWN ROUTES ------
+// -- DROP-DOWN CLICK ROUTES-
 // --------------------------
-// Nyan Cat. Running around gif
-// make specific routes for each click/redirect, so if they click a button in index.html Job Postings Page, they will have to log in. 
+
 app.get('/pages/newHouseListing', isAuth, function (req, res) {
-    // Get user to go to pages/newHouseListing.html
     console.log("/House posting route got accessed!")
     res.redirect('newHouseListing.html')
 })
@@ -159,6 +157,7 @@ app.get('/pages/profile', isAuth, function (req, res) {
     res.redirect('profile.html')
 })
 
+// ------ Chat Route --------- 
 
 app.get('/pages/chat', isAuth, function (req, res) {
     console.log("/Chat has been accessed! ")
@@ -183,7 +182,7 @@ app.get('/getPosts/:userId/:type', function (req, res) {
         userId: req.params.userId
     }, {}, {
         sort: {
-            _id: -1 // Sort posts by descending order (latest first)
+            _id: -1 
         }
     }, function (err, data) {
         if (err) {
@@ -232,7 +231,7 @@ app.get('/ownCommunityPost/read', function (req, res) {
         userId: req.session.userId // Find all posts by userId of the currently logged in user
     }, {}, {
         sort: {
-            _id: -1 // Sort Community Posts
+            _id: -1 
         }
     }, function (err, data) {
 
@@ -251,7 +250,7 @@ app.get('/communityPost/read', function (req, res) {
 
     communityPostModel.find({}, {}, {
         sort: {
-            _id: -1 // Sort posts by descending order (latest first)
+            _id: -1 
         }
     }, function (err, data) {
         if (err) {
@@ -342,7 +341,6 @@ app.get('/housingPost/delete/:postId', function (req, res) {
 })
 
 
-
 // Read user's own house posts
 app.get('/ownHousePost/read', function (req, res) {
 
@@ -368,7 +366,7 @@ app.get('/housePosts/read', function (req, res) {
 
     housingPostModel.find({}, {}, {
         sort: {
-            _id: -1 // Sort posts by descending order (latest first)
+            _id: -1 
         }
     }, function (err, data) {
         if (err) {
@@ -456,7 +454,7 @@ app.get('/jobPosts/read', function (req, res) {
 
     jobPostModel.find({}, {}, {
         sort: {
-            _id: -1 // Sort posts by descending order (latest first)
+            _id: -1 
         }
     }, function (err, data) {
         if (err) {
@@ -501,10 +499,6 @@ app.get('/jobPost/delete/:postId', function (req, res) {
         res.send('Data deleted!')
     })
 })
-
-
-
-
 
 
 // --------------
@@ -599,7 +593,6 @@ app.post('/login/authentication', function (req, res, next) {
                 time: user[0].time,
                 image: user[0].image
             }
-            // LoggedInUserID = req.session.userId
             res.send(req.session.userobj)
         }
     })
