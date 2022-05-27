@@ -3,6 +3,7 @@ userId = ''
 postType = ''
 postArray = ''
 
+// Populate users to the userCards with variables from the database
 function populateUsers(users) {
     console.log(users)
     for (i = 0; i < users.length; i++) {
@@ -67,7 +68,9 @@ function editInfo() {
     document.getElementById(`user${userId}`).disabled = false
 }
 
+// Update user info
 function updateInfo() {
+    // Get the following information
     userId = $(this).attr('value')
     firstName = $(`#firstName${userId}`).val()
     lastName = $(`#lastName${userId}`).val()
@@ -96,9 +99,11 @@ function updateInfo() {
     })
 }
 
+// Populate posts
 function populatePosts(posts) {
     console.log(posts)
     $(`#posts${userId}`).empty()
+    // Based on postType, populate the posts to the postArray
     if (postType == 'housing') {
         urlType = 'housePosts'
     } else if (postType == 'job') {
@@ -119,6 +124,7 @@ function populatePosts(posts) {
     $(`#posts${userId}`).html(postArray)
 }
 
+// Get all posts
 function getPosts() {
     postArray = ''
     userId = $(this).attr('value')
@@ -132,7 +138,7 @@ function getPosts() {
     })
 }
 
-
+// Get all users
 function getUsers() {
     $.ajax({
         // url: `https://warm-cove-79874.herokuapp.com/getAllUsers`,
@@ -141,7 +147,7 @@ function getUsers() {
         success: populateUsers
     })
 }
-
+// Run setup and populate functions
 function setup() {
     getUsers()
     $('body').on('click', '.edit', editInfo)
