@@ -120,7 +120,6 @@ If you would like to use our application but connect to your own database, in th
 |   |       
 |   +---scripts
 |   |       admin.js
-|   |       chat.js
 |   |       communityListings.js
 |   |       houseListings.js
 |   |       index.js
