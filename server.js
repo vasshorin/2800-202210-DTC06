@@ -155,8 +155,14 @@ app.get('/pages/newCommunityForm', isAuth, function (req, res) {
 // ------ Profile Route --------- 
 
 app.get('/pages/profile', isAuth, function (req, res) {
-    console.log(" /Profile page has been accessed ")
+    console.log("/Profile page has been accessed! ")
     res.redirect('profile.html')
+})
+
+
+app.get('/pages/chat', isAuth, function (req, res) {
+    console.log("/Chat has been accessed! ")
+    res.redirect('chat')
 })
 
 
@@ -533,18 +539,25 @@ app.get('/chat/:titleAndotherUserId', function (req, res) {
 })
 
 // direct to chat inbox
+
 app.get('/chat', function (req, res) {
-    if (req.session.userobj.image != null) {
-        image = req.session.userobj.image
-    } else {
-        image = 'https://firebasestorage.googleapis.com/v0/b/ucan-8aa2e.appspot.com/o/Images%2FUCAN_logo.png?alt=media&token=59c60c9d-b06a-47b7-86ef-f5cbb3b49bc3'
+    let image = ''
+    if (req.session.userobj == null){
+        return res.redirect('/pages/logIn.html')
+    }    
+    else if(req.session.userobj !== null){
+        if (req.session.userobj.image !== null) {
+            image = req.session.userobj.image
+        } else {
+            image = 'https://firebasestorage.googleapis.com/v0/b/ucan-8aa2e.appspot.com/o/Images%2FUCAN_logo.png?alt=media&token=59c60c9d-b06a-47b7-86ef-f5cbb3b49bc3'
+        }
+        res.render('chat', {
+            'senderId': req.session.userobj.userId,
+            'senderName': req.session.userobj.username,
+            'senderEmail': req.session.userobj.email,
+            'senderImage': image
+        })
     }
-    res.render('chat', {
-        'senderId': req.session.userobj.userId,
-        'senderName': req.session.userobj.username,
-        'senderEmail': req.session.userobj.email,
-        'senderImage': image
-    })
 })
 
 // --------------
