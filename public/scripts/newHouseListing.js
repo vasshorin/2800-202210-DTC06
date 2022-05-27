@@ -102,7 +102,6 @@ function submitForm() {
             },
             success: (r) => {
                 console.log(r)
-                // $("main").empty()
                 loadEventsToMainDiv()
             }
         })
