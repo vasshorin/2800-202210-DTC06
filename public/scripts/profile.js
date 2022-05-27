@@ -1,13 +1,16 @@
 user = ''
 pictureURL = ''
 
-function populateUserInfo(userobj){
+function populateUserInfo(userobj) {
     $('#firstNameInput').val(userobj.firstName)
     $('#lastNameInput').val(userobj.lastName)
     $('#ageInput').val(userobj.age)
     $('#emailInput').val(userobj.email)
     $('#cityInput').val(userobj.city)
     $('#provinceInput').val(userobj.province)
+    if (userobj.image != null) {
+        $('#profilePicture').html(`<img src="${userobj.image}">`)
+    }
 }
 
 function getUserobj() {
@@ -53,8 +56,8 @@ function uploadProfile() {
 function setup() {
     getUserobj()
     uploadProfile()
-    $('body').on('click', '.edit', editInfo)
-    $('body').on('click', '.confirm', updateInfo)
+    // $('body').on('click', '.edit', editInfo)
+    // $('body').on('click', '.confirm', updateInfo)
 }
 
 $(document).ready(setup)

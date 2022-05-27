@@ -72,8 +72,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     admin: Boolean,
     time: String,
-    admin: Boolean,
-    pictureURL: String
+    image: String
 })
 
 const communityPostModel = mongoose.model("communityposts", communityPostSchema)
@@ -457,7 +456,8 @@ app.post('/login/authentication', function (req, res, next) {
                 province: user[0].province,
                 city: user[0].city,
                 admin: user[0].admin,
-                time: user[0].time
+                time: user[0].time,
+                image: user[0].image
             }
             // LoggedInUserID = req.session.userId
             res.send(req.session.userobj)
@@ -518,7 +518,7 @@ app.put('/uploadProfilePic', function (req, res) {
         _id: req.body.userId
     }, {
         $set: {
-            pictureURL: req.body.pictureURL,
+            image: req.body.pictureURL,
         }
     }, function (err, testData) {
         if (err) {
@@ -548,6 +548,7 @@ app.post('/signup/create', function (req, res) {
         city: req.body.city,
         password: req.body.password,
         time: req.body.time,
+        image: null,
         admin: false
     }, function (err, data) {
         if (err) {

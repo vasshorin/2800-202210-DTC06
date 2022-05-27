@@ -1,4 +1,4 @@
-//  Web app's Firebase configuration
+//  Firebase configuration to connect Firebase Storage
 var firebaseConfig = {
     apiKey: "AIzaSyCfJC4RCihvWG7OWjQponwnuLafDeJkMuU",
     authDomain: "ucan-8aa2e.firebaseapp.com",
@@ -10,6 +10,4 @@ var firebaseConfig = {
 };
 
 // initialize the Firebase app
-// initialize Firestore database if using it
 const app = firebase.initializeApp(firebaseConfig);
-// const db = firebase.firestore();
