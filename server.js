@@ -143,7 +143,7 @@ app.get('/pages/newJobForm', isAuth, function (req, res) {
 
 app.get('/pages/newCommunityForm', isAuth, function (req, res) {
     // Get user to go to pages/newHouseListing.html
-    console.log("/ route got accessed!")
+    console.log("/ Community form posting got accessed!")
     res.redirect('newCommunityForm.html')
 })
 
