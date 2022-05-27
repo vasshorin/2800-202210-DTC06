@@ -449,8 +449,15 @@ app.post('/login/authentication', function (req, res, next) {
         user = users.filter((userobj) => {
             return userobj.email == req.body.email // find user with email matching the one entered
         })
+        
+        if (user.length == 0 || user == null || user == undefined){ 
+            res.send('No user found')
+        }
+
         console.log(user)
-        if (user[0].password == req.body.password) {
+        if (user[0].password != req.body.password || user[0].password == undefined || user[0].password == null || user[0].password == '') {
+            res.send('Invalid email or password')
+        } else if (user[0].password == req.body.password) {
             req.session.authenticated = true
             req.session.email = req.body.email
             req.session.userId = user[0]._id
@@ -469,7 +476,6 @@ app.post('/login/authentication', function (req, res, next) {
             // LoggedInUserID = req.session.userId
             res.send(req.session.userobj)
         }
-
     })
 })
 
