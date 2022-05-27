@@ -24,6 +24,26 @@
     font-size: 1.7rem;
 }
 
+/* overall button changes */
+a, button .btn-lg{
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: #FB8500
+    
+}
+
+.btn-group-lg>.btn, .btn-lg{
+    color: #FB8500;
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
+.bg-dark{
+    color: #FB8500;
+}
+
 main {
     padding-top: 85px;
 }
