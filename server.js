@@ -135,6 +135,18 @@ app.get('/pages/newHouseListing', isAuth, function (req, res) {
     res.send(`Welcome ${req.session.user}`)
 })
 
+app.get('/pages/newJobForm', isAuth, function (req, res) {
+    // Get user to go to pages/newHouseListing.html
+    console.log("/ route got accessed!")
+    res.send(`Welcome ${req.session.user}`)
+})
+
+app.get('/pages/newCommunityForm', isAuth, function (req, res) {
+    // Get user to go to pages/newHouseListing.html
+    console.log("/ route got accessed!")
+    res.send(`Welcome ${req.session.user}`)
+})
+
 // -------------------
 // ---- ALL POSTS ----
 // -------------------
