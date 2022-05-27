@@ -168,8 +168,6 @@ app.get('/getPosts/:userId/:type', function (req, res) {
         model = housingPostModel
     } else if (req.params.type == 'job') {
         model = jobPostModel
-    } else if (req.params.type == 'donation') {
-        model = donationPostModel
     } else if (req.params.type == 'community') {
         model = communityPostModel
     }
@@ -281,7 +279,7 @@ app.get('/communityPost/:postId', function (req, res) {
 })
 
 // Delete own Community Post
-app.delete('/ownCommunityPost/delete/:postId', function (req, res) {
+app.get('/ownCommunityPost/delete/:postId', function (req, res) {
     communityPostModel.findByIdAndDelete(req.params.postId, function (err, data) {
         if (err) {
             console.log("Error" + err)
@@ -598,51 +596,3 @@ app.post("/logout", (req, res) => {
         res.redirect("/index.html");
     });
 });
-
-
-// ---------------
-// -- ADMIN --
-// ---------------
-
-
-
-
-
-
-
-// --------------------------------------------------------------------
-// -- UNUSED FOR NOW --
-// --------------------------------------------------------------------
-// Update
-// app.put('/test/update/:id', function (req, res) {
-//     console.log(req.body)
-//     housingPostModel.updateOne({
-//         '_id': req.body.id
-//     }, {
-//         $set: {
-//             description: req.body.description
-//         }
-//     }, function (err, testData) {
-//         if (err) {
-//             console.log('Error' + err)
-//             res.status(500)
-//         } else {
-//             console.log('Data' + testData)
-//             res.status(200).send('Data updated!')
-//         }
-//     })
-// })
-
-// app.put('/test/delete/:id', function (req, res) {
-//     housingPostModel.deleteOne({
-//         id: req.params.id
-//     }, function (err, data) {
-//         if (err) {
-//             console.log('Error' + err)
-//             res.status(200).send()
-//         } else {
-//             console.log('Data' + data)
-//             res.status(500).send("Delete successful!")
-//         }
-//     });
-// })
