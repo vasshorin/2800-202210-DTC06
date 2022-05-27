@@ -42,8 +42,12 @@
 
     <!-- Other libraries and styles -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="../scripts/skeleton.js"></script>
     <script src="../scripts/profile.js"></script>
+    <script src="../scripts/storageAPI.js"></script>
     <link rel="stylesheet" href="../styles/index.css">
 </head>
 
@@ -93,18 +97,18 @@
                     <!-- age -->
                     <div class="form-group my-3">
                         <label>Are you 16 years old or above?</label>
-                        <div class="form-check">
-                            <input type="radio" id="aboveAge" class="form-check-input" name="ageInput">
+                        <select name="age" id="age">
+                            <option value="yes"> Yes </option>
+                            <option value="no"> No </option>
+                        </select>
+                        <!-- <div class="form-check">
+                            <input type="radio" id="aboveAge" value="yes" class="form-check-input" name="ageInput">
                             <label for="aboveAge" class="form-check-label">16 or above</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" id="belowAge" class="form-check-input" name="ageInput">
+                        </div> -->
+                        <!-- <div class="form-check">
+                            <input type="radio" id="belowAge" value="no" class="form-check-input" name="ageInput">
                             <label for="belowAge" class="form-check-label">Below 16</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" id="preferNotToSayAge" class="form-check-input" name="ageInput">
-                            <label for="preferNotToSayAge" class="form-check-label">Prefer not to say</label>
-                        </div>
+                        </div> -->
                     </div>
     
                     <!-- E-mail -->
@@ -124,19 +128,6 @@
                             placeholder="Enter your Province of Residence">
                     </div>
     
-                    <!-- language -->
-                    <div class="form-group my-3">
-                        <label>Language</label>
-                        <!-- Selection list used below is from https://www.html-code-generator.com/html/drop-down/languages-name -->
-                        <select id="languageInput" class="form-select">
-                            <option selected>Select the Language that you prefer</option>
-                            <option value="english">English</option>
-                            <option value="french">French - français</option>
-                            <option value="russian">Russian - русский</option>
-                            <option value="ukrainian">Ukrainian - українська</option>
-                        </select>
-                    </div>
-    
                     <!-- place for uploading profile picture -->
                     <div class="form-group my-3">
                         <label>Upload your profile picture:</label>
@@ -151,7 +142,7 @@
                     <button type="button" class="btn bg-dark text-light my-3 ms-5">Save</button>
             </form>
             <form action="/logout" method="POST">
-                <button type="submit" class="btn-lg btn-danger">Logout</button>
+                <button type="submit" class="btn-lg btn-danger" id="test">Logout</button>
             </form>
         </div>
         <!-- footer -->

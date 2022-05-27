@@ -72,7 +72,8 @@ const userSchema = new mongoose.Schema({
     password: String,
     admin: Boolean,
     time: String,
-    admin: Boolean
+    admin: Boolean,
+    pictureURL: String
 })
 
 const communityPostModel = mongoose.model("communityposts", communityPostSchema)
@@ -507,6 +508,25 @@ app.put('/updateUserInfo', function (req, res) {
         } else {
             console.log('Data' + testData)
             res.status(200).send('User info updated!')
+        }
+    })
+})
+
+// UPLOAD PROFILE PICTURE
+app.put('/uploadProfilePic', function (req, res) {
+    userModel.updateOne({
+        _id: req.body.userId
+    }, {
+        $set: {
+            pictureURL: req.body.pictureURL,
+        }
+    }, function (err, testData) {
+        if (err) {
+            console.log('Error' + err)
+            res.status(500)
+        } else {
+            console.log('Data' + testData)
+            res.status(200).send('Picture uploaded!')
         }
     })
 })
