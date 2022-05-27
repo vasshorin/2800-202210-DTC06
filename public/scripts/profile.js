@@ -60,7 +60,7 @@ function editInfo() {
     document.getElementById('personalInfoFields').disabled = false
 }
 
-// Upadte user's info to db
+// Update user's info to db
 function updateInfo() {
     document.getElementById('personalInfoFields').disabled = true
     firstName = $('#firstNameInput').val()

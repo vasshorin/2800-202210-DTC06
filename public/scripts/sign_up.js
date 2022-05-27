@@ -2,7 +2,7 @@
 function passwordTrigger(){
     // Populate on click.
     $("#messageToDisplay").show(); 
-    var userPasswordInput = document.getElementById("newPassword");
+    var userPasswordInput = document.getElementById("password");
     var letter = document.getElementById("letter");
     var capital = document.getElementById("capital");
     var number = document.getElementById("number");
@@ -97,7 +97,7 @@ async function storeNewUser() {
 }
 
 function setup() {
-    // $("#messageToDisplay").hide();
+    $("#messageToDisplay").hide();
     $('body').on('click', '#submit', storeNewUser);
 }
 
