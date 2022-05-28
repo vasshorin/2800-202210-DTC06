@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP2800 DTC-06 Template Page</title>
+
+    <!-- Bootstrap Library CSS JS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Other libraries and styles -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <link rel="stylesheet" href="/styles/individualHousePost.css">
+</head>
+
+<body>
+    <!-- HTML Layout -->
+
+    <!-- top navbar -->
+    <div id="topNavPlaceHolder"></div>
+
+    <!-- body of the page -->
+    <!-- Create listing page with houseing details -->
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><%= title %> </h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 style=""><strong>Title:</strong> <%= title %></h2>
+                    </div>
+                    <img src="https://picsum.photos/200/300" alt="house" class="img-fluid" width="200px" height="200px">
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 style="text-align: center; font-size: 2em;">Details</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <strong>Organizer:</strong> <%= organizer %>, located in <%= location %>
+                        </p>
+                        <p>
+                            <strong>Description:</strong> <%= description %>
+                        </p>
+                        <hr>
+                        <p style="text-align: center; font-size: 2rem;">
+                            Contact details
+                        </p>
+                        <p><strong>Name:</strong> <%= firstName %> <%= lastName %> </p>
+                        <p><strong>Email:</strong> <%= email %></p>
+                        <!-- <p><strong>Phone:</strong></p> -->
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="../chat/<%= userId %>"><button type="button" class="btn btn-warning">Chat</button></a>
+                    </div>
+                </div>
+                <!-- footer -->
+                <div class="footer"></div>
+    </main>
+
+            <!-- bottom navbar -->
+            <div id="bottomNavPlaceHolder"></div>
+
+</body>
+
+</html>

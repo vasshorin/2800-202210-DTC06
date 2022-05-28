@@ -11,7 +11,6 @@
     outline: none;
     border: none;
     text-decoration: none;
-    text-transform: capitalize;
 }
 
 .nav-btn {
@@ -19,11 +18,28 @@
     margin-top: 1rem;
     border-radius: 5rem;
     background: #333;
-    color: #fff;
+    color: var(--lightblue);
     padding: .9rem 2rem;
     cursor: pointer;
     font-size: 1.7rem;
 }
+
+/* overall button changes */
+a, button .btn-lg{
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: #FB8500
+    
+}
+
+.btn-group-lg>.btn, .btn-lg{
+    background-color: #FB8500;
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+}
+
 
 main {
     padding-top: 85px;
@@ -36,7 +52,7 @@ html {
     overflow-x: hidden;
 }
 
-header {
+.TopNavHeader {
     position: fixed;
     top: 0;
     left: 0;
@@ -50,41 +66,41 @@ header {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
 }
 
-header .logo {
+.TopNavHeader .logo {
     font-size: 3rem;
     color: #333;
     font-weight: bolder;
 }
 
-header .logo span {
+.TopNavHeader .logo span {
     color: var(--lightblue);
 }
 
-header .navbar a {
+.TopNavHeader .navbar a {
     font-size: 2rem;
     padding: 0 1.5rem;
     color: #666;
 }
 
-header .navbar a:hover {
+.TopNavHeader .navbar a:hover {
     color: var(--lightblue);
 }
 
-header .icons a {
+.TopNavHeader .icons a {
     font-size: 2.5rem;
     color: #333;
     margin-left: 1.5rem;
 }
 
-header .icons a:hover {
+.TopNavHeader .icons a:hover {
     color: var(--lightblue);
 }
 
-header #toggler {
+.TopNavHeader #toggler {
     display: none;
 }
 
-header .fa-bars {
+.TopNavHeader .fa-bars {
     font-size: 3rem;
     color: #333;
     border-radius: .5rem;
@@ -100,14 +116,14 @@ header .fa-bars {
 
 .credit {
     color: #333;
-    font-size: 1rem;
+    font-size: 2.5rem;
     padding: 1rem 0;
 }
 
 .credit {
     display: block;
     color: #666;
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 1rem 0;
 }
 
@@ -125,7 +141,7 @@ header .fa-bars {
     padding: 1.5rem;
     margin-top: 1.5rem;
     padding-top: 2.5rem;
-    font-size: 1rem;
+    font-size: 2rem;
     color: #333;
     border-top: .1rem solid rgba(0, 0, 0, .1);
     padding-bottom: 9rem;
@@ -141,33 +157,42 @@ header .fa-bars {
         padding: 2rem;
     }
 
+    html {
+        font-size: 50%;
+    }
+
 }
 
 @media (max-width:768px) {
 
-    header .fa-bars {
+    html {
+        font-size: 50%;
+    }
+
+    .TopNavHeader .fa-bars {
         display: block;
     }
 
-    header .navbar {
+    .TopNavHeader .navbar {
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: rgb(189, 236, 246);
+        background: rgb(255, 255, 255);
         border-top: .1rem solid rgba(0, 0, 0, .1);
         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     }
 
-    header #toggler:checked~.navbar {
+    .TopNavHeader #toggler:checked~.navbar {
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
     }
 
-    header .navbar a {
-        margin: 1.5rem;
-        padding: 1.5rem;
-        background: #fff;
+    .TopNavHeader .navbar a {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        background: rgb(239, 239, 239);
         border: .1rem solid rgba(0, 0, 0, .1);
+        box-shadow: 1px 1px 1px 1px #888888;
         display: block;
     }
 

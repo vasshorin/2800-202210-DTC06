@@ -17,13 +17,13 @@ body {
     margin: 27% 2%;
 }
 
-#postPrice, #postTitle, #postCity, #postProvince {
+#jobTitle, #city, #province, #jobDescription {
     margin: 4% 2%   ;
     height: 50px;
     
 }
 
-#postBody {
+#jobDescription {
     margin: 4% 2%;
     /* width: 100%; */
     height: 40vw;

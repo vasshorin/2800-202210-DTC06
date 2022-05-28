@@ -1,3 +1,5 @@
+
+
 // load skeleton to pages
 function loadSkeleton() {
   console.log($("#topNavPlaceHolder").load("../skeletons/topNav.html"));

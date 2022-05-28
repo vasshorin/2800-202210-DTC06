@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UCAN Landing page</title>
+
+    <!-- Bootstrap Library CSS JS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+
+
+    <!-- Other libraries and styles -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/f0012ee379.js" crossorigin="anonymous"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <script src="../scripts/index.js"></script>
+
+    <style>
+    .home {
+          display: flex;
+          align-items: center;
+          min-height: 20vh;
+          background: url(../images/background_learmmore.jpeg) no-repeat;
+          background-size: auto;
+
+          /* this will blur the background*/
+          background-color: rgb(131, 131, 131);
+          background-blend-mode: screen, overlay;
+          background-position: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HTML Layout -->
+
+    <!-- top navbar -->
+    <div id="topNavPlaceHolder"></div>
+
+    <main>
+      <section class="home" id="home"></section>
+      <section class="community" id="community">
+        <h1 class="heading">Team that created <span>UCAN</span></h1>
+
+        <div class="box-container">
+          <div class="box">
+            <p>
+              I was the lead of the project. <br>
+              I worked on mostly backend and structure of the database. <br>
+              <a href="https://github.com/vasshorin" target="_blank"><i class="fa-brands fa-github fa-2x"></i></a>
+              Github ID: vasshorin
+            </p>
+            <div class="user">
+              <img src="../images/vasily.png"/>
+              <div class="user-info">
+                <h3>Vasily Shorin</h3>
+                <span>happy happy guy</span>
+              </div>
+            </div>
+            <span class="fas fa-community-right"></span>
+          </div>
+
+          <div class="box">
+            <p>
+              I was responsilbe for the frontend of the project. <br>
+              I worked on mostly frontend. <br>
+              <a href="https://github.com/andyhplau" target="_blank"><i class="fa-brands fa-github fa-2x"></i></a>
+              Github ID: andyhplau
+            </p>
+            <div class="user">
+              <img src="../images/andy.png"/>
+              <div class="user-info">
+                <h3>Andy Lau</h3>
+                <span>happy guy</span>
+              </div>
+            </div>
+            <span class="fas fa-community-right"></span>
+          </div>
+
+          <div class="box">
+            <p>
+              I was responsilbe for the frontend of the project. <br>
+              I was making sure quality of the codes are up to BCIT level. <br>
+              <a href="https://github.com/kaioh08" target="_blank"><i class="fa-brands fa-github fa-2x"></i></a>
+              Github ID: kaioh08
+            </p>
+            <div class="user">
+              <img src="../images/kai.png"/>
+              <div class="user-info">
+                <h3>Kai Oh</h3>
+                <span>Sad guy</span>
+              </div>
+            </div>
+            <span class="fas fa-community-right"></span>
+          </div>
+
+          <div class="box">
+            <p>
+              I was responsilbe for the backend of the project. <br>
+              I worked on backend and database strucutre. <br>
+              <a href="https://github.com/mScrub" target="_blank"><i class="fa-brands fa-github fa-2x"></i></a>
+              Github ID: mScrub
+            </p>
+            <div class="user">
+              <img src="../images/felix.png"/>
+              <div class="user-info">
+                <h3>Felix Lieu</h3>
+                <span>Serious guy</span>
+              </div>
+            </div>
+            <span class="fas fa-community-right"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- review section ends -->
+    </main>
+    <!-- review section ends -->
+
+    <!-- footer section starts  -->
+    <div class="footer"></div>
+
+    <!-- bottom navbar -->
+    <div id="bottomNavPlaceHolder"></div>
+  </body>
+</html>
