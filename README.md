@@ -276,6 +276,3 @@ See the GNU General Public License for more details.
 Alternatively, you can license this software under a commercial
 license, as set out in <https://mongoose.ws/licensing/>.
 ```
-
-* TalkJS
-
