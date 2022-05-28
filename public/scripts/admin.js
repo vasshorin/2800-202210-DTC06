@@ -151,6 +151,8 @@ function deletePost(){
         deleteUrl=`https://warm-cove-79874.herokuapp.com/housingPost/delete/${postId}`
     }else if(postType=='communityPosts'){
         deleteUrl=`https://warm-cove-79874.herokuapp.com/ownCommunityPost/delete/${postId}`
+    }else if(postType=='jobPosts'){
+        deleteUrl=`https://warm-cove-79874.herokuapp.com/jobPost/delete/${postId}`
     }
     $.ajax({
         url: deleteUrl,
