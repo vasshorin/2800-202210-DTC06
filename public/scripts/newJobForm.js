@@ -35,7 +35,7 @@ function deleteEvent() {
     var postId = $(this).attr('id')
     console.log(postId)
     $.ajax({
-        url: `https://warm-cove-79874.herokuapp.com/jobPosts/delete/${postId}`,
+        url: `https://warm-cove-79874.herokuapp.com/jobPost/delete/${postId}`,
         // url: `http://localhost:5002/jobPost/delete/${postId}`,
         type: 'get',
         success: (x) => {
