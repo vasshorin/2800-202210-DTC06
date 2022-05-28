@@ -91,7 +91,7 @@ async function storeNewUser() {
         success: (x) => {
             console.log(x)
             // redirect to login page
-            window.location.href = "/pages/login.html" // redirect to login page
+            window.location.href = "/pages/logIn.html" // redirect to login page
         }
     })
 }
