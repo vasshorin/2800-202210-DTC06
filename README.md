@@ -11,15 +11,19 @@ connects people who are willing to offer help
 and Ukrainian refugees who would appreciate
 support from others.
 
-Here's why you want to check this out:
-* You should be able to find a housing!
-* You just should
-* You :smile:
+## Hosted URL
 
 
-Use the `BLANK_README.md` to get started.
+Click [here](https://warm-cove-79874.herokuapp.com/pages/index.html) to access our application.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Usage
+
+```
+TBD for proper Usage guide
+```
+
+## Our Team
 
 
 # To get started
@@ -196,5 +200,4 @@ If you would like to use our application but connect to your own database, in th
     THE SOFTWARE. 
 ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 
